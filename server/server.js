@@ -3,13 +3,20 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 
-// Attach middleware:
+var router = require('./resources/router.js');
 
+// ===============================================
+// Attach middleware:
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//
 
-app.use(express.static(__dirname + '/../client/dist'));
+// ===============================================
+// Serve static content
+app.use('/', express.static(__dirname + '/../client/dist'));
+
+// ===============================================
+// Setup routes to handle request
+app.use('/api', router);
 
 module.exports = app;
