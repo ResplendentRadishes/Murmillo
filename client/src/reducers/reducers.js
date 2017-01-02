@@ -19,7 +19,7 @@ function user(state = {}, action) {
     default:
       return state
   }
-}
+};
 
 // function murmilloApp(state = {}, action) {
 //   return  {
@@ -29,6 +29,6 @@ function user(state = {}, action) {
 
 const murmilloApp = combineReducers({
   user
-})
+});
 
 export default murmilloApp;
