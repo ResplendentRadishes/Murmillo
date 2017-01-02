@@ -6,7 +6,7 @@ var app = express();
 var router = require('./resources/router.js');
 
 // ===============================================
-// Attach middleware:
+// Middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
