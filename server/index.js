@@ -1,3 +1,6 @@
+// ===============================================
+// Setup up a server
+
 var app = require('./server.js');
 var port = 3000;
 
