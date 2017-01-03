@@ -21,11 +21,6 @@ function user(state = {}, action) {
   }
 };
 
-// function murmilloApp(state = {}, action) {
-//   return  {
-//     user: user(state.user, action)
-//   }
-// }
 
 const murmilloApp = combineReducers({
   user
