@@ -3,6 +3,14 @@ var router = require('express').Router();
 // import codeEvaluate function
 var codeEvaluate = require('../codeEvaluate');
 
+// var http = require('../index.js');
+// console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+// var io = require('socket.io')(http);
+var userController = require('./userController');
+// var codeEvaluate = require('.....');
+// const socket = require('../index.js');
+// console.log("######################################");
+// console.log(socket);
 // =========================================
 // import fakeData
 var fakeCompList = require('../../fakeData/fakeCompList.js');
@@ -18,29 +26,13 @@ router.get('/compList', function(req, res) {
 // GET compList
 router.get('/join/:roomID', function(req, res) {
   // send fakeCompList
-  var roomID = req.params.roomID;
+  console.log("Inside join room router");
+  userController.joinRoom(req, res);
 
-  // open socket for roomID (easy, 'medium', hard)
-  // assign user to the correct room
 
-  // Get problem based on easy, medium, hard
-
-  // emit 'start' event to the client (client should listent for 'start' and render home and start time clock)
-    // send problem to the user using socket (later)
-    // emit 'start' event to the client (client should render home page upon 'start' event)
-
-    // emit 'submitSoln' event from the client (server should evaluate code)
-      // 1) evalute code (create a function that reutns 'error', 'fail', 'pass')
-      // 2) notify users the results
-          // error - syntax error, only notify to a specific only
-          // fail - broard resutls to all users int the room
-          // pass - close sockets for all users with message
-
-    // listen for 'timeout' event from the client (server should close sockets for all users with message)
-
-  res.end('socket established');
 });
 
+ 
 // =========================================
 module.exports = router;
 
