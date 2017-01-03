@@ -8,5 +8,3 @@ export function setUser(user) {
 export function updateUser(user) {
   return { type: UPDATE_USER, user }
 };
-
-export const user;
