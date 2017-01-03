@@ -4,7 +4,7 @@
   "description": "",
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
-    "test": "mocha ./test",
+    "test": "mocha ./test/reduxSpec.js --compilers js:babel-core/register",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
@@ -20,8 +20,9 @@
   },
   "homepage": "https://github.com/ResplendentRadishes/Murmillo#readme",
   "dependencies": {
-    "express": "^4.14.0",
     "body-parser": "^1.15.2",
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
     "mocha": "^3.2.0",
     "morgan": "^1.7.0",
     "nodemon": "^1.11.0",
@@ -36,7 +37,6 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
-    "chai": "^3.5.0",
     "supertest": "^2.0.1",
     "webpack": "^1.14.0"
   }
