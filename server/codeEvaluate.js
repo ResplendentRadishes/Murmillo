@@ -3,14 +3,13 @@ var Mocha = require('mocha');
 
 // https://www.npmjs.com/package/sandbox
 // https://github.com/substack/node-syntax-error
-
+// https://www.hacksparrow.com/scripting-a-node-js-app.html
 
 // ==============================================================
 // Write a funciton that evaluates the user's submitted solution
-// the funciton should return one of the following results using callback:
-  // error - mocha test error
-  // fail - mocha test fails
-  // pass - mocha test passes
+// the funciton should ouput one of the following results using callback:
+  // 'fail' - mocha test fails
+  // 'pass' - mocha test passes
 // parameters:
   // userSolnStr = string (for example: 'var solution = function() {return true; }')
   // probID = number      (for example: 1, 2, or 3)
@@ -34,28 +33,29 @@ var codeEvaluate = function(userSolnStr, username, probID, callback) {
   mocha.run()
     .on('pass', function(test, err) {
       result = 'pass';
+      // use call back to display result
       callback(result);
     })
     .on('fail', function(test, err) {
       result = 'fail';
+      // use call back to display result
       callback(result);
     })
     .on('end', function() {
-      console.log('All done');
       // delete file after test is done
-      // fs.unlinkSync(solnAndTestURL);
+      fs.unlinkSync(solnAndTestURL);
     })
 
 };
 
 // ==============================================================
 // TEST with fakeData
-// var fakeUserSoln = 'var solution = function(){ \n return true \n}';
-// var fakeUserName = 'userA';
-// var fakeProbID = 1;
-// codeEvaluate(fakeUserSoln, fakeUserName, fakeProbID, function(result) {
-//   console.log(result);
-// });
+var fakeUserSoln = 'var solution = function(){ \n return true \n}';
+var fakeUserName = 'userA';
+var fakeProbID = 1;
+codeEvaluate(fakeUserSoln, fakeUserName, fakeProbID, function(result) {
+  console.log(result);
+});
 
 // ==============================================================
 
