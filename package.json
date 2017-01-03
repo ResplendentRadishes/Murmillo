@@ -4,7 +4,7 @@
   "description": "",
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha ./test",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
@@ -36,6 +36,8 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
+    "chai": "^3.5.0",
+    "supertest": "^2.0.1",
     "webpack": "^1.14.0"
   }
 }
