@@ -1,6 +1,7 @@
 var router = require('express').Router();
 
-// var codeEvaluate = require('.....');
+// import codeEvaluate function
+var codeEvaluate = require('../codeEvaluate');
 
 // =========================================
 // import fakeData
