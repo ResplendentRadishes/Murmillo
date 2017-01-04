@@ -17,7 +17,6 @@ describe('actions', function() {
       action = updateUser({score: 0});
       expect(action.type).to.equal('UPDATE_USER');
       expect(action.user.score).to.equal(0);
-      console.log(action);
     });
     // it('should not alter non-specified properties', function() {
     //   expect(action.user.name).to.equal('jeff bridges');
