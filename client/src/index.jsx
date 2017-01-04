@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { setUser, updateUser } from './actions/actions.js';
+import { Router, Route, browserHistory, IndexRoute} from 'react-router';
 import murmilloApp from './reducers/reducers.js';
 import App from './components/app.jsx';
+import Dashboard from './components/dashboard.jsx';
+import Arena from './components/arena.jsx';
 
 
 let store = createStore(murmilloApp);
@@ -20,7 +23,12 @@ let store = createStore(murmilloApp);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <IndexRoute component={Dashboard} />
+        <Route path='arena' component={Arena} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 );
