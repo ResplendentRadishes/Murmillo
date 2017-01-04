@@ -15,7 +15,6 @@ router.get('/compList', function(req, res) {
 
 // GET joinRoom
 router.get('/join/:roomID', roomController.joinRoom);
-router.post('/join/:roomID', roomController.joinRoom);
 
 // =========================================
 module.exports = router;

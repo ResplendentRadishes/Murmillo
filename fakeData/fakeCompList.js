@@ -1,16 +1,18 @@
 // =========================================
 // fakeCompList
-var comp1 = {
-  level: 'easy',
-}
-var comp2 = {
-  level: 'medium',
-};
-var comp3 = {
-  level: 'hard',
-};
+var fakeCompList = [{
+  name: 'hard',
+  desc: 'This is tough yo'
+},
+{
+  name: 'medium',
+  desc: 'Not that bad'
+},
+{
+  name: 'easy',
+  desc: 'Really?'
+}];
 
-var fakeCompList = [comp1, comp2, comp3];
 // =========================================
 
 module.exports = fakeCompList;
