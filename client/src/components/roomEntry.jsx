@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const RoomEntry = (props) => (
   <div>
@@ -11,7 +12,9 @@ const RoomEntry = (props) => (
           <p>{props.room.desc}</p>
         </div>
         <div className="col-md-4 text-right no-gutter">
-          <button type="button" className="btn btn-success btn-primary btn-lg">Join Room</button>
+          <Link to="/arena">
+            <button type="button" className="btn btn-success btn-primary btn-lg">Join Room</button>
+          </Link>
         </div>
       </div>
     </div>

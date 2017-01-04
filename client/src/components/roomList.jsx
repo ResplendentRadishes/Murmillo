@@ -1,5 +1,6 @@
 import React from 'react';
 import RoomEntry from './roomEntry.jsx';
+
 var rooms = [{
   name: 'hard',
   desc: 'This is tough yo'
