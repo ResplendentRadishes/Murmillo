@@ -11,25 +11,29 @@ exports.joinRoom = function(req, res){
   console.log('responding to joinRoom')
 
  switch(req.params.roomID){
-   case("Hard"):
+   case("hard"):
      if(hardRoomExists === false) {
        hardRoomExists = true;
        socketConnection('hard');
+      res.end('starting hard room');
      }
      break;
-   case("Medium"):
+   case("medium"):
      if(mediumRoomExists === false) {
        mediumRoomExists = true;
        socketConnection('medium');
+      res.end('starting medium room');
      }
      break;
-   case("Easy"):
+   case("easy"):
      if(easyRoomExists === false) {
        easyRoomExists = true;
        socketConnection('easy');
+      res.end('starting easy room');
      }
      break;
   }
+  res.end('room exists');
 }
 
 var socketConnection = function(testLevel) {
@@ -47,7 +51,8 @@ var socketConnection = function(testLevel) {
     console.log("inside "+testLevel+" room count is ", count);
 
     // call socketHandeler funcitons
-    socketHandler.handleMessage(socket, count);
+    socketHandler.handleJoin(socket);
+    socketHandler.handleGetProblem(socket);
     socketHandler.handleSubmitSolution(socket);
 
   });

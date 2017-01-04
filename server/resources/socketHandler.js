@@ -2,7 +2,7 @@
 var codeEvaluate = require('../codeEvaluate');
 
 // ================================================
-// handleMessage --- message from the user
+// handleMessage --- ?????
 exports.handleMessage = function(socket, count) {
   socket.on('message', function (message) {
     socket.emit("existingClientCount", count-1);
@@ -11,9 +11,24 @@ exports.handleMessage = function(socket, count) {
 };
 
 // ================================================
-// handle get problem
-exports.handleGetProblem = function(socket) {
+// handleJoin - broadcast users that a new users has joined to room
+exports.handleJoin = function(socket, count) {
+  socket.on('join', function (username) {
+    socket.emit("joinMessage", 'you have joined the room');                 // private message
+    socket.broadcast.emit('joinMessage', username+' has joined the room');  // all except user
+  });
+};
 
+// ================================================
+// handle getProblem - provide user a problem prompt
+var fakeProblem = {
+  1: 'write function that returns false',
+  2: 'write function that returns false'
+};
+exports.handleGetProblem = function(socket) {
+  socket.on('getProblem', function(problemID) {
+    socket.emit('sendProblem', fakeProblem[problemID]);
+  });
 };
 
 // ================================================
