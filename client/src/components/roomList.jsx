@@ -1,10 +1,10 @@
 import React from 'react';
-import RoomEntry from './roomEntry.jsx';
+import RoomContainer from '../containers/roomContainer.jsx';
 
 const roomList = (props) => (
   <div className="container-fluid">
-    {props.roomList.map(room => 
-      <RoomEntry room={room}/>
+    {props.roomList.map((room, index) => 
+      <RoomContainer key={index} room={room} />
     )}
   </div>
 );
