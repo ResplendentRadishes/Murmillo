@@ -52,7 +52,7 @@ class Chatroom extends React.Component {
   render() {
     return (
       <div className="col=md-8">
-        <div className="panel panel-info">
+        <div className="panel panel-default">
           <div className="panel-heading">
             {this.state.room.name}
           </div>

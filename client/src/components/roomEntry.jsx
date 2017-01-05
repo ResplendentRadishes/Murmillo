@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { setRoom } from '../actions/actions.js';
 import { joinRoom } from '../socketHandler.js';
 
-const RoomEntry = (props) => (
+var user = {
+  username: 'tester'
+};
+
+var RoomEntry = (props) => (
   <div>
     <div className="panel panel-default">
       <div className="panel-heading">
@@ -16,7 +22,9 @@ const RoomEntry = (props) => (
           <button 
             type="button" 
             className="btn btn-success btn-primary btn-lg" 
-            onClick={() => joinRoom(props.room.name)}
+            onClick={() => {
+              joinRoom(props.room.name, user.username);
+              props.dispatch(setRoom(props.room))}}
           >Join Room
           </button>
         </div>
@@ -24,5 +32,7 @@ const RoomEntry = (props) => (
     </div>
   </div>
 );
+
+RoomEntry = connect()(RoomEntry);
 
 export default RoomEntry;
