@@ -1,6 +1,6 @@
-// import codeEvaluate function
-var codeEvaluate = require('../codeEvaluate');
-var syntaxChecker = require('../JS/syntaxChecker.js');
+var mochaChecker = require('../mochaChecker.js');
+var syntaxChecker = require('../syntaxChecker.js');
+
 // ================================================
 // handleMessage --- ?????
 exports.handleMessage = function(socket, count) {
@@ -42,21 +42,31 @@ exports.handleSubmitSolution = function(socket) {
     var username = userSolnObj.username;
     var probID = userSolnObj.probID;
 
-    // check for syntax errors. if there is syntax error, sent it to the user, delete the file
-    syntaxChecker(function(success, error) {
-      if(error) {
-        // socket.emit("syntaxError", error)
-        socket.emit('solutionResult', error);
-      }
-      if(success) {
-        // evaluate user's solution against Mocha test
-        codeEvaluate(userSoln, username, probID, function(result){
-          // emit solutionResult event with the result
-          socket.emit('solutionResult', result);
-          socket.broadcast.emit('solutionResult', result);
-        });
-      }
+    // this works on Mac but not on window (*** commmented out for now ***)
+    // // 1) run syntaxChecker on userSoln file
+    // syntaxChecker(userSoln, username, probID, function(success, error) {
+    //   if(error) {
+    //     console.log(error);
+    //     // socket.emit('solutionResult', error);
+    //   }
+    //   if(success) {
+    //     // 2) check user's solution against mochaTests
+    //     console.log('running mocha checker now')
+    //     mochaChecker(userSoln, username, probID, function(result){
+    //       // emit solutionResult event with the result
+    //       socket.emit('solutionResult', result);
+    //       socket.broadcast.emit('solutionResult', result);
+    //     });
+    //   }
+    // });
+
+    // check user's solution against mochaTests
+    mochaChecker(userSoln, username, probID, function(result){
+      // emit solutionResult event with the result
+      socket.emit('solutionResult', result);
+      socket.broadcast.emit('solutionResult', result);
     });
+
   });
 
 };

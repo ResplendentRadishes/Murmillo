@@ -85,7 +85,7 @@ const submitSoln = function (roomID, probID, username, userSoln) {
   // 'var solution = function(){ ...........  }';
   // for now manually hardcoding the user's solution (**** fix later)
   var userSolnObj = {
-    userSoln:  'var solution = function(){ \n return true \n}',
+    userSoln:  'var solution = function(){ \n console.log(true); return true; \n}',
     username:  'userA',
     probID: 1,
   };

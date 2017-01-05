@@ -1,10 +1,10 @@
 var fs = require('fs');
 var path = require('path');
-  var Mocha = require('mocha');
+var Mocha = require('mocha');
 
 // ==============================================================
-var codeEvaluate = function(userSoln, username, probID, callback) {
-// codeEvaluate evaluates the user's submitted solution against Mocha tests
+var mochaChecker = function(userSoln, username, probID, callback) {
+// mochaChecker evaluates the user's submitted solution against Mocha tests
 // @ paratemers:
   // userSoln - string ('var myFunc = function(){.....}');
   // username - string ('userA')
@@ -15,25 +15,24 @@ var codeEvaluate = function(userSoln, username, probID, callback) {
   // 'pass' - mocha test passes
 
   var result = null;
-  console.log('insideCodeEvaluates')
 
   // 1) grab the test cases from the 'codeChcker' folder based on probID
   // var testFileUrl = './codeChecker/test' + probID + '.js';
   try {
-    var testFileUrl = path.join(__dirname, '/codeChecker/test' + probID + '.js');
+    var testFileUrl = path.join(__dirname, '../mochaTestFiles/test' + probID + '.js');
     var testFileContent = fs.readFileSync(testFileUrl, 'utf8');
   } catch (err) {
-    console.log('error in reading a file');
+    console.log('error in reading mocha test file');
     return null;
   }
 
   // 2) combine user's solution with the test cases and write it to file
   try {
-    var solnAndTestURL = path.join(__dirname, '/codeChecker/test' +'_'+ username +'_'+ probID + '.js');
+    var solnAndTestURL = path.join(__dirname, '../userSolnFile/ProbID'+probID+'_'+username+'Mocha.js');
     var solnAndTestContent = userSoln + '\n' + testFileContent;
     fs.writeFileSync(solnAndTestURL, solnAndTestContent, 'utf8');
   } catch (err) {
-    console.log('error in writing a file');
+    console.log('error in writing soln+mocha file');
     return null;
   }
 
@@ -57,7 +56,7 @@ var codeEvaluate = function(userSoln, username, probID, callback) {
 
 };
 
-module.exports = codeEvaluate;
+module.exports = mochaChecker;
 
 // ==============================================================
 // TEST with fakeData (To Be Deleted Later)
