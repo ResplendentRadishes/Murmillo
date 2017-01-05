@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { setUser, updateUser } from './actions/actions.js';
-import { Router, Route, browserHistory, IndexRoute} from 'react-router';
+import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
 import murmilloApp from './reducers/reducers.js';
 import App from './components/app.jsx';
 import Dashboard from './components/dashboard.jsx';
@@ -23,7 +23,7 @@ let store = createStore(murmilloApp);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={hashHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={Dashboard} />
         <Route path='arena' component={Arena} />
