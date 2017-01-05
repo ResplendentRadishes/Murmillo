@@ -1,6 +1,6 @@
 /*global describe, it*/
 
-import { setUser, updateUser } from '../client/src/actions/actions.js';
+import { setUser, updateUser, setCode } from '../client/src/actions/actions.js';
 import reducer from '../client/src/reducers/reducers.js';
 var expect = require('chai').expect;
 
@@ -20,12 +20,31 @@ describe('actions', function() {
       expect(action.user.score).to.equal(0);
     })
   })
+  describe('setCode', function() {
+    it('should create a SET_CODE action', function() {
+      var code = 'var tron = new Movie()';
+      var action = setCode(code);
+      expect(action.type).to.equal('SET_CODE');
+      expect(action.code).to.equal(code);
+    })
+  })
 })
 
 describe('reducer', function() {
+  var initialState;
+
+  before(function() {
+    initialState = {user: {}, code: ''};
+  })
   it('should record a new user in the state', function() {
     var action = {type: 'SET_USER', user: {name: 'jeff bridges'}};
-    var state = {user: {}};
-    expect(reducer(state, action).user.name).to.equal('jeff bridges');
+    var newState = reducer(initialState, action);
+    expect(newState.user.name).to.equal('jeff bridges');
+  })
+  it('should replace the stored code after a setCode action', function() {
+    var code = 'tron.cycle()';
+    var action = {type: 'SET_CODE', code};
+    var newState = reducer(initialState, action);
+    expect(newState.code).to.equal(code);
   })
 })

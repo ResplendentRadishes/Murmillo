@@ -29,9 +29,22 @@ function room(state = {}, action) {
   }
 }
 
+function code(state = '', action) {
+  switch (action.type) {
+
+    case 'SET_CODE':
+      return action.code;
+
+    default:
+      return state;
+  }
+}
+
 const murmilloApp = combineReducers({
   user,
-  room
+  room,
+  code
+
 });
 
 export default murmilloApp;
