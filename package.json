@@ -4,7 +4,7 @@
   "description": "",
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
-    "test": "mocha ./test/reduxSpec.js --compilers js:babel-core/register",
+    "test": "mocha ./test/ --compilers js:babel-core/register",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
