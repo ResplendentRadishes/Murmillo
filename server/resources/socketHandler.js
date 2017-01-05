@@ -33,7 +33,7 @@ exports.handleGetProblem = function(socket) {
 
 // ================================================
 // handle submit solution (Yoshi still working)
- var handleSubmitSolution = function(socket) {
+ exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
   socket.on('submitSoln', function (code) {
     console.log('handleSubmitSolution')

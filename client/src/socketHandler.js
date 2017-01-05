@@ -11,13 +11,13 @@ const clickTest = function() {
 };
 
 // =============================================================
-const joinRoom = function (roomID) {
+const joinRoom = function (roomID, username) {
 // joinRoom - makes a http request to server and creates a socket connection to roomID
 //            setup event emitters and listerners
 // @ paramters: roomID = 'hard', 'medium',  or 'easy'
 // example ussage in react: <button onClick={() => joinRoom('hard')}>Join Room</button>
 
-  var username = prompt("Enter name");
+  // var username = prompt("Enter name");
   var nameSpace = '/'+roomID;
 
   // HTTP Request to the server, server will create 'nameSapce' room if serverSocket does not exist
