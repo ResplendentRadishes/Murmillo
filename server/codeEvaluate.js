@@ -45,6 +45,8 @@ var codeEvaluate = function(userSolnStr, username, probID, callback) {
   mocha.run()
     .on('pass', function(test, err) {
       result = 'pass';
+      console.log("Error is ");
+      console.log(err);
       // use call back to display result
       callback(result);
     })
@@ -60,7 +62,8 @@ var codeEvaluate = function(userSolnStr, username, probID, callback) {
 };
 
 // ==============================================================
-// TEST with fakeData
+//TEST with fakeData  // user solution as a string. How to compile it? mocha test wont run without compiling. SAve it in a javascript 
+//file and execute it for compilation errors.
 // var fakeUserSoln = 'var solution = function(){ \n return true \n}';
 // var fakeUserName = 'userA';
 // var fakeProbID = 1;

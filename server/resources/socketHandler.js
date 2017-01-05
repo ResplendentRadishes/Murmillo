@@ -1,6 +1,6 @@
 // import codeEvaluate function
 var codeEvaluate = require('../codeEvaluate');
-
+var syntaxChecker = require('../JS/syntaxChecker.js');
 // ================================================
 // handleMessage --- ?????
 exports.handleMessage = function(socket, count) {
@@ -33,12 +33,24 @@ exports.handleGetProblem = function(socket) {
 
 // ================================================
 // handle submit solution (Yoshi still working)
-exports.handleSubmitSolution = function(socket) {
+ var handleSubmitSolution = function(socket) {
   // handle user's submitted solution
   socket.on('submitSoln', function (code) {
     console.log('handleSubmitSolution')
     console.log(code)
     console.log(socket.id)
+    // save the code in a test.js file
+    // check for syntax errors. if there is syntax error, sent it to the user, delete the file
+    syntaxChecker(function(success,error){
+      if(error) {
+        // socket.emit("syntaxError", error)
+      }
+      if(success) {
+        //socket.emit("codeExecutionResult", success);
+        // mocha tests
+      }
+  });
+    
 
     // emit solutionResult event with the result
     var result = 'pass';
