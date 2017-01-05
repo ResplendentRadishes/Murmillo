@@ -37,6 +37,7 @@ exports.joinRoom = function(req, res){
 }
 
 var socketConnection = function(testLevel) {
+
   var room = io_socket.io.of('/'+testLevel);
 
   room.on('connection', function(socket) {
