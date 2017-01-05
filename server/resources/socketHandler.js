@@ -1,6 +1,6 @@
-// import codeEvaluate function
-var codeEvaluate = require('../codeEvaluate');
-var syntaxChecker = require('../JS/syntaxChecker.js');
+var mochaChecker = require('../mochaChecker.js');
+var syntaxChecker = require('../syntaxChecker.js');
+
 // ================================================
 // handleMessage --- ?????
 exports.handleMessage = function(socket, count) {
@@ -32,32 +32,33 @@ exports.handleGetProblem = function(socket) {
 };
 
 // ================================================
-// handle submit solution (Yoshi still working)
- exports.handleSubmitSolution = function(socket) {
+// handle submit solution
+exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
-  socket.on('submitSoln', function (code) {
-    console.log('handleSubmitSolution')
-    console.log(code)
-    console.log(socket.id)
-    // save the code in a test.js file
-    // check for syntax errors. if there is syntax error, sent it to the user, delete the file
-    syntaxChecker(function(success,error){
+  socket.on('submitSoln', function (userSolnObj) {
+    console.log('handlingSubmitSoln');
+
+    var userSoln = userSolnObj.userSoln;
+    var username = userSolnObj.username;
+    var probID = userSolnObj.probID;
+
+    // 1) run syntaxChecker on userSoln file
+    syntaxChecker(userSoln, username, probID, function(success, error) {
       if(error) {
-        // socket.emit("syntaxError", error)
+        console.log(error);
+        // socket.emit('solutionResult', error);
       }
       if(success) {
-        //socket.emit("codeExecutionResult", success);
-        // mocha tests
+        // 2) check user's solution against mochaTests
+        console.log('running mocha checker now')
+        mochaChecker(userSoln, username, probID, function(result){
+          // emit solutionResult event with the result
+          socket.emit('solutionResult', result);
+          socket.broadcast.emit('solutionResult', result);
+        });
       }
-  });
-    
+    });
 
-    // emit solutionResult event with the result
-    var result = 'pass';
-    socket.emit('solutionResult', result);
-    socket.broadcast.emit('solutionResult', result);
-    // socket.to(socket.id).emit('solutionResult', 'for your eyes only');
-    // socket.to(socket.id).emit('solutionResult', result);
   });
 
 };

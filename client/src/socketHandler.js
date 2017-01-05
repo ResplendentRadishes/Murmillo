@@ -14,8 +14,9 @@ const clickTest = function() {
 const joinRoom = function (roomID, username) {
 // joinRoom - makes a http request to server and creates a socket connection to roomID
 //            setup event emitters and listerners
-// @ paramters: roomID = 'hard', 'medium',  or 'easy'
-// example ussage in react: <button onClick={() => joinRoom('hard')}>Join Room</button>
+// @ paramters:
+  // roomID = 'hard', 'medium',  or 'easy'
+// example usage in react: <button onClick={() => joinRoom('hard')}>Join Room</button>
 
   // var username = prompt("Enter name");
   var nameSpace = '/'+roomID;
@@ -45,15 +46,15 @@ const joinRoom = function (roomID, username) {
   }
 };
 
-
 // =============================================================
 const readyToStart = function (roomID, probID) {
 // readyToStart - get problem over socket connection
-// @ paramters: roomID = 'hard', 'medium',  or 'easy'
-//              probID = 1, 2, or 3
-// example ussage in react: <button onClick={() => readyToStart('hard', 1)}>Join Room</button>
+// @ paramters:
+  // roomID = 'hard', 'medium',  or 'easy'
+  // probID = 1, 2, or 3
+// example usage in react: <button onClick={() => readyToStart('hard', 1)}>Join Room</button>
 
-  // grab the socketHard instance sotred in an object
+  // grab the socketHard instance stored in an object
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
@@ -69,6 +70,42 @@ const readyToStart = function (roomID, probID) {
 
 };
 
-export {clickTest, joinRoom, readyToStart};
+// =============================================================
+const submitSoln = function (roomID, probID, username, userSoln) {
+// submitSoln - submit user's solution over socket connection
+// @ paramters: roomID = 'hard', 'medium',  or 'easy'
+//              probID = 1, 2, or 3
+// example usage in react: <button onClick={() =>
+//  submitSoln('hard', 1, 'userA', 'var solution=....'}>SubmitSoln</button>
+
+  console.log('submitSoln')
+  // ---------------------------------------------------------------
+  // assume that the problem prompt is as follows:
+  // 'write a funciton 'solution' that return true';
+  // 'var solution = function(){ ...........  }';
+  // for now manually hardcoding the user's solution (**** fix later)
+  var userSolnObj = {
+    userSoln:  'var solution = function(){ \n console.log(true); return true; \n}',
+    username:  'userA',
+    probID: 1,
+  };
+  // ---------------------------------------------------------------
+
+  // grab the socketHard instance stored in an object
+  var nameSpace = '/'+roomID;
+  var clientSocket =  socketInSession[nameSpace];
+
+  // Event Emitter (emit event to server) ------------------------------------
+  // emit 'submitSoln' with user's solution
+  clientSocket.emit('submitSoln', userSolnObj);
+
+  // Event Listener (listen to event from server) -----------------------------
+  // listen for 'solutionResult' event
+  clientSocket.on('solutionResult', function(result) {
+    console.log(result);
+  });
+};
+
+export {clickTest, joinRoom, readyToStart, submitSoln};
 
 

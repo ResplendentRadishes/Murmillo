@@ -3,4 +3,4 @@ var solution = function(a,b) {
   return 2;
 }
 console.log(solution(1,2));
-module.exports = solution;
+// module.exports = solution;
