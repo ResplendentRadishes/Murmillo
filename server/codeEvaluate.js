@@ -1,23 +1,21 @@
 var fs = require('fs');
-var Mocha = require('mocha');
 var path = require('path');
-
-// https://www.npmjs.com/package/sandbox
-// https://github.com/substack/node-syntax-error
-// https://www.hacksparrow.com/scripting-a-node-js-app.html
+  var Mocha = require('mocha');
 
 // ==============================================================
-// Write a funciton that evaluates the user's submitted solution
-// the funciton should ouput one of the following results using callback:
+var codeEvaluate = function(userSoln, username, probID, callback) {
+// codeEvaluate evaluates the user's submitted solution against Mocha tests
+// @ paratemers:
+  // userSoln - string ('var myFunc = function(){.....}');
+  // username - string ('userA')
+  // probID - number (1, 2, or 3)
+  // callback - cabll back to transmit the result
+// @ output:
   // 'fail' - mocha test fails
   // 'pass' - mocha test passes
-// parameters:
-  // userSolnStr = string (for example: 'var solution = function() {return true; }')
-  // probID = number      (for example: 1, 2, or 3)
-  // username = string    (for example: 'userA')
 
-var codeEvaluate = function(userSolnStr, username, probID, callback) {
   var result = null;
+  console.log('insideCodeEvaluates')
 
   // 1) grab the test cases from the 'codeChcker' folder based on probID
   // var testFileUrl = './codeChecker/test' + probID + '.js';
@@ -32,7 +30,7 @@ var codeEvaluate = function(userSolnStr, username, probID, callback) {
   // 2) combine user's solution with the test cases and write it to file
   try {
     var solnAndTestURL = path.join(__dirname, '/codeChecker/test' +'_'+ username +'_'+ probID + '.js');
-    var solnAndTestContent = userSolnStr + '\n' + testFileContent;
+    var solnAndTestContent = userSoln + '\n' + testFileContent;
     fs.writeFileSync(solnAndTestURL, solnAndTestContent, 'utf8');
   } catch (err) {
     console.log('error in writing a file');
@@ -40,37 +38,32 @@ var codeEvaluate = function(userSolnStr, username, probID, callback) {
   }
 
   // 3) Run Mocha tests by providing the url (user's soln and test cases)
+  var result = '';
+  delete require.cache[solnAndTestURL] // need this to run more than once
   var mocha = new Mocha();
   mocha.addFile(solnAndTestURL)
   mocha.run()
     .on('pass', function(test, err) {
       result = 'pass';
-      console.log("Error is ");
-      console.log(err);
-      // use call back to display result
-      callback(result);
     })
     .on('fail', function(test, err) {
       result = 'fail';
-      // use call back to display result
-      callback(result);
     })
     .on('end', function() {
       // delete file after test is done
       fs.unlinkSync(solnAndTestURL);
+      callback(result);
     })
+
 };
 
+module.exports = codeEvaluate;
+
 // ==============================================================
-//TEST with fakeData  // user solution as a string. How to compile it? mocha test wont run without compiling. SAve it in a javascript 
-//file and execute it for compilation errors.
+// TEST with fakeData (To Be Deleted Later)
 // var fakeUserSoln = 'var solution = function(){ \n return true \n}';
 // var fakeUserName = 'userA';
 // var fakeProbID = 1;
 // codeEvaluate(fakeUserSoln, fakeUserName, fakeProbID, function(result) {
 //   console.log(result);
 // });
-
-// ==============================================================
-
-module.exports = codeEvaluate;

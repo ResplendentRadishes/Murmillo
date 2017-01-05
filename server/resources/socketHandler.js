@@ -32,32 +32,31 @@ exports.handleGetProblem = function(socket) {
 };
 
 // ================================================
-// handle submit solution (Yoshi still working)
- exports.handleSubmitSolution = function(socket) {
+// handle submit solution
+exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
-  socket.on('submitSoln', function (code) {
-    console.log('handleSubmitSolution')
-    console.log(code)
-    console.log(socket.id)
-    // save the code in a test.js file
+  socket.on('submitSoln', function (userSolnObj) {
+    console.log('handlingSubmitSoln');
+
+    var userSoln = userSolnObj.userSoln;
+    var username = userSolnObj.username;
+    var probID = userSolnObj.probID;
+
     // check for syntax errors. if there is syntax error, sent it to the user, delete the file
-    syntaxChecker(function(success,error){
+    syntaxChecker(function(success, error) {
       if(error) {
         // socket.emit("syntaxError", error)
+        socket.emit('solutionResult', error);
       }
       if(success) {
-        //socket.emit("codeExecutionResult", success);
-        // mocha tests
+        // evaluate user's solution against Mocha test
+        codeEvaluate(userSoln, username, probID, function(result){
+          // emit solutionResult event with the result
+          socket.emit('solutionResult', result);
+          socket.broadcast.emit('solutionResult', result);
+        });
       }
-  });
-    
-
-    // emit solutionResult event with the result
-    var result = 'pass';
-    socket.emit('solutionResult', result);
-    socket.broadcast.emit('solutionResult', result);
-    // socket.to(socket.id).emit('solutionResult', 'for your eyes only');
-    // socket.to(socket.id).emit('solutionResult', result);
+    });
   });
 
 };
