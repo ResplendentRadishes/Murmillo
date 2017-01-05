@@ -42,29 +42,21 @@ exports.handleSubmitSolution = function(socket) {
     var username = userSolnObj.username;
     var probID = userSolnObj.probID;
 
-    // this works on Mac but not on window (*** commmented out for now ***)
-    // // 1) run syntaxChecker on userSoln file
-    // syntaxChecker(userSoln, username, probID, function(success, error) {
-    //   if(error) {
-    //     console.log(error);
-    //     // socket.emit('solutionResult', error);
-    //   }
-    //   if(success) {
-    //     // 2) check user's solution against mochaTests
-    //     console.log('running mocha checker now')
-    //     mochaChecker(userSoln, username, probID, function(result){
-    //       // emit solutionResult event with the result
-    //       socket.emit('solutionResult', result);
-    //       socket.broadcast.emit('solutionResult', result);
-    //     });
-    //   }
-    // });
-
-    // check user's solution against mochaTests
-    mochaChecker(userSoln, username, probID, function(result){
-      // emit solutionResult event with the result
-      socket.emit('solutionResult', result);
-      socket.broadcast.emit('solutionResult', result);
+    // 1) run syntaxChecker on userSoln file
+    syntaxChecker(userSoln, username, probID, function(success, error) {
+      if(error) {
+        console.log(error);
+        // socket.emit('solutionResult', error);
+      }
+      if(success) {
+        // 2) check user's solution against mochaTests
+        console.log('running mocha checker now')
+        mochaChecker(userSoln, username, probID, function(result){
+          // emit solutionResult event with the result
+          socket.emit('solutionResult', result);
+          socket.broadcast.emit('solutionResult', result);
+        });
+      }
     });
 
   });

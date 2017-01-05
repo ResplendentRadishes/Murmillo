@@ -12,7 +12,8 @@ module.exports = function(userSoln, username, probID, callback) {
 
     // 2) execute user's solution stored in a file
     console.log('running syntax checker now')
-    child_process.execFile('/usr/local/bin/node', [userSolnUrl], function(error, success) {
+
+    child_process.execFile('node', [userSolnUrl], function(error, success) {
       callback(success, error);
     });
 
