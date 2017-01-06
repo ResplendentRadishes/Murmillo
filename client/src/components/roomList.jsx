@@ -1,12 +1,39 @@
 import React from 'react';
-import RoomEntry from './roomEntry.jsx';
+import RoomContainer from '../containers/roomContainer.jsx';
+import Axios from 'axios';
 
-const roomList = (props) => (
-  <div className="container-fluid">
-    {props.roomList.map(room => 
-      <RoomEntry room={room}/>
-    )}
-  </div>
-);
+class RoomList extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default roomList;
+    this.state = {
+      roomList: []
+    };
+  }
+
+  componentDidMount() {
+    let context = this;
+    Axios.get('/api/compList')
+    .then(res => {
+      context.setState({
+        roomList: res.data
+      });
+      context.props.setRoomList(res.data);
+      return res.data;
+    }).then(roomList => {
+      console.log(context.props.roomList, context.state.roomList);
+    });
+  }
+
+  render() {
+    return (
+      <div className="container-fluid">
+        {this.state.roomList.map((room, index) => 
+          <RoomContainer key={index} room={room} />
+        )}
+      </div>
+    );
+  }
+}
+
+export default RoomList;
