@@ -85,9 +85,9 @@ const submitSoln = function (roomID, probID, username, userSoln) {
   // 'var solution = function(){ ...........  }';
   // for now manually hardcoding the user's solution (**** fix later)
   var userSolnObj = {
-    userSoln:  'var solution = function(){ \n console.log(true); return true; \n}',
-    username:  'userA',
-    probID: 1,
+    userSoln,
+    username,
+    probID,
   };
   // ---------------------------------------------------------------
 
@@ -107,5 +107,3 @@ const submitSoln = function (roomID, probID, username, userSoln) {
 };
 
 export {clickTest, joinRoom, readyToStart, submitSoln};
-
-

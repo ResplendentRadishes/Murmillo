@@ -34,7 +34,7 @@ return (
     <button
       className="btn btn-info"
       type="button"
-      onClick={this.props.submitCode}
+      onClick={() => {this.props.submitCode(this.props.code)}}
     >
       Submit
     </button>
