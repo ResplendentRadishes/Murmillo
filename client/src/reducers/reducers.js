@@ -29,6 +29,17 @@ function room(state = {}, action) {
   }
 }
 
+function roomList(state = {}, action) {
+  switch (action.type) {
+
+    case 'SET_ROOMLIST':
+      return action.roomList;
+
+    default:
+      return state;
+  }
+}
+
 function code(state = '', action) {
   switch (action.type) {
 
@@ -53,6 +64,7 @@ function competition(state = {isFetching: false, solved: false}, action) {
 
 const murmilloApp = combineReducers({
   user,
+  roomList,
   room,
   code,
   competition
