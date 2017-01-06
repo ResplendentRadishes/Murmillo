@@ -8,7 +8,7 @@ import createLogger from 'redux-logger';
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
 import App from './components/app.jsx';
-import Dashboard from './components/dashboard.jsx';
+import DashboardContainer from './containers/dashboardContainer.jsx';
 import Arena from './components/arena.jsx';
 
 const logger = createLogger()
@@ -19,7 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hashHistory}>
       <Route path='/' component={App}>
-        <IndexRoute component={Dashboard} />
+        <IndexRoute component={DashboardContainer} />
         <Route path='arena' component={Arena} />
       </Route>
     </Router>

@@ -19,9 +19,6 @@ class RoomList extends React.Component {
         roomList: res.data
       });
       context.props.setRoomList(res.data);
-      return res.data;
-    }).then(roomList => {
-      console.log(context.props.roomList, context.state.roomList);
     });
   }
 

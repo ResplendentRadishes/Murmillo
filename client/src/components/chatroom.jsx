@@ -46,7 +46,7 @@ class Chatroom extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log('chatroom props', this.props)
   }
 
   render() {
@@ -54,10 +54,10 @@ class Chatroom extends React.Component {
       <div className="col=md-8">
         <div className="panel panel-default">
           <div className="panel-heading">
-            {this.state.room.name}
+            {this.props.room.name}
           </div>
           <div className="panel-body" style={{maxHeight: 600, minHeight:600}}>
-            {this.state.messages.map((message, index) => 
+            {this.props.messages.map((message, index) => 
               <p key={index}>{message}</p>
             )}
           </div>

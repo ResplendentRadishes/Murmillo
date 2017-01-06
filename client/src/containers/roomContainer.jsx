@@ -17,8 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const RoomContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(RoomEntry);
 
 export default RoomContainer;

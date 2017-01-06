@@ -40,6 +40,17 @@ function roomList(state = {}, action) {
   }
 }
 
+function messages(state = [], action) {
+  switch (action.type) {
+
+    case 'RESET_MESSAGES':
+      return state;
+      
+    default:
+      return state;
+  }
+}
+
 function code(state = '', action) {
   switch (action.type) {
 
@@ -66,6 +77,7 @@ const murmilloApp = combineReducers({
   user,
   roomList,
   room,
+  messages,
   code,
   competition
 });

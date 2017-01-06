@@ -5,6 +5,7 @@ export const SET_ROOMLIST = 'SET_ROOMLIST';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
+export const RESET_MESSAGES = 'RESET_MESSAGES';
 
 //user actions
 export function setUser(user) {
@@ -23,6 +24,10 @@ export function setRoomList(roomList) {
 //room actions
 export function setRoom(room) {
   return { type: SET_ROOM, room };
+}
+
+export function resetMessages() {
+  return { type: RESET_MESSAGES };
 }
 
 //code actions
