@@ -37,6 +37,25 @@ describe("Server Socket Response", function () {
     });
   });
   // ===================================================================
+  it('serverSocket should respond with problemSet upon requesting problem', function(done) {
+    var nameSpace = '/hard';
+
+    // establish a connection to nameSpace (/hard)
+    var clientSocket = io('http://localhost:3000'+nameSpace);
+
+    // getProblem with problemID=1
+    clientSocket.emit('getProblem', 1);
+
+    clientSocket.on('sendProblem', function(problem){
+      console.log('---logging result from server:  ', problem);
+      expect(problem.title).to.be.a('string');
+      expect(problem.prompt).to.be.a('string');
+      expect(problem.template).to.be.a('string');
+      clientSocket.disconnect();
+      done();
+    });
+  });
+  // ===================================================================
   it('serverSocket should respond with a message (string) upon submitting solution: results should be pass', function(done) {
     var nameSpace = '/hard';
 
@@ -105,5 +124,6 @@ describe("Server Socket Response", function () {
       done();
     });
   });
+  // ===================================================================
 
 });

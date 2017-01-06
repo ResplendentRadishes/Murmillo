@@ -1,5 +1,6 @@
 var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
+var dbProblem = require('../db/db.js').Problem;
 
 // ================================================
 // handleMessage --- ?????
@@ -20,14 +21,30 @@ exports.handleJoin = function(socket, count) {
 };
 
 // ================================================
-// handle getProblem - provide user a problem prompt
+// handleGetProblem configures 'getPrblem' listener and 'sendProblem' emitter
 var fakeProblem = {
   1: 'write function that returns false',
   2: 'write function that returns false'
 };
+
 exports.handleGetProblem = function(socket) {
+  // use errorProblem when problem cannto be found
+  var errorProblem = {title: 'error', prompt: 'error', template: 'error'};
+
+  // listening on 'getProblem' from client
   socket.on('getProblem', function(problemID) {
-    socket.emit('sendProblem', fakeProblem[problemID]);
+    // grab the probelm from database
+    dbProblem.findById(problemID)
+      .then(function(problem) {
+        // emit 'sendProblem' to client with problem(type: object)
+        socket.emit('sendProblem', problem.dataValues);
+      })
+      .catch(function(err) {
+        console.error(err);
+        // emit 'sendProblem' to client with problem(type: object)
+        socket.emit('sendProblem', errorProblem);
+      });
+
   });
 };
 
