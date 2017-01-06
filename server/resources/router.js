@@ -4,7 +4,6 @@ var roomController = require('./roomController');
 // =========================================
 // import fakeData (Delete Later)
 var fakeCompList = require('../../fakeData/fakeCompList.js');
-//[ { level: 'easy' }, { level: 'medium' }, { level: 'hard' } ]
 // =========================================
 
 

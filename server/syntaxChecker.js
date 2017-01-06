@@ -14,7 +14,12 @@ module.exports = function(userSoln, username, probID, callback) {
     console.log('running syntax checker now')
 
     child_process.execFile('node', [userSolnUrl], function(error, success) {
+      // make result available via callback
       callback(success, error);
+
+      // delete file after checker is done
+      fs.unlinkSync(userSolnUrl);
+
     });
 
   } catch (err) {

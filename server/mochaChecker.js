@@ -3,7 +3,7 @@ var path = require('path');
 var Mocha = require('mocha');
 
 // ==============================================================
-var mochaChecker = function(userSoln, username, probID, callback) {
+module.exports= function(userSoln, username, probID, callback) {
 // mochaChecker evaluates the user's submitted solution against Mocha tests
 // @ paratemers:
   // userSoln - string ('var myFunc = function(){.....}');
@@ -13,8 +13,6 @@ var mochaChecker = function(userSoln, username, probID, callback) {
 // @ output:
   // 'fail' - mocha test fails
   // 'pass' - mocha test passes
-
-  var result = null;
 
   // 1) grab the test cases from the 'codeChcker' folder based on probID
   // var testFileUrl = './codeChecker/test' + probID + '.js';
@@ -51,18 +49,9 @@ var mochaChecker = function(userSoln, username, probID, callback) {
     .on('end', function() {
       // delete file after test is done
       fs.unlinkSync(solnAndTestURL);
+      // make result available via callback
       callback(result);
     })
 
 };
 
-module.exports = mochaChecker;
-
-// ==============================================================
-// TEST with fakeData (To Be Deleted Later)
-// var fakeUserSoln = 'var solution = function(){ \n return true \n}';
-// var fakeUserName = 'userA';
-// var fakeProbID = 1;
-// codeEvaluate(fakeUserSoln, fakeUserName, fakeProbID, function(result) {
-//   console.log(result);
-// });

@@ -45,8 +45,8 @@ exports.handleSubmitSolution = function(socket) {
     // 1) run syntaxChecker on userSoln file
     syntaxChecker(userSoln, username, probID, function(success, error) {
       if(error) {
-        console.log(error);
-        // socket.emit('solutionResult', error);
+        // console.log(error);
+        socket.emit('solutionResult', 'you have syntax error');
       }
       if(success) {
         // 2) check user's solution against mochaTests
@@ -57,6 +57,7 @@ exports.handleSubmitSolution = function(socket) {
           socket.broadcast.emit('solutionResult', result);
         });
       }
+
     });
 
   });
