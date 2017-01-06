@@ -1,6 +1,6 @@
 /*global describe, it*/
 
-import { setUser, updateUser, setCode } from '../client/src/actions/actions.js';
+import { setUser, updateUser, setCode, requestCodeCheck } from '../client/src/actions/actions.js';
 import reducer from '../client/src/reducers/reducers.js';
 var expect = require('chai').expect;
 
@@ -26,6 +26,12 @@ describe('actions', function() {
       var action = setCode(code);
       expect(action.type).to.equal('SET_CODE');
       expect(action.code).to.equal(code);
+    })
+  })
+  describe('requestCodeCheck', function() {
+    it('should create a REQUEST_CODE_CHECK', function() {
+      var action = requestCodeCheck();
+      expect(action.type).to.equal('REQUEST_CODE_CHECK');
     })
   })
 })
