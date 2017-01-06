@@ -6,7 +6,12 @@ var hardRoomExists = false;
 var mediumRoomExists = false;
 var easyRoomExists = false;
 
-exports.joinRoom = function(req, res){
+// ===============================================================
+exports.joinRoom = function(req, res) {
+// joinRoom responds to GET request to 'api/join/:roomID'
+// currenlty the available rooms (namespace) are 'hard, medium', 'easy'
+// note: there should only be one instance of serverSocket for each namespace
+
   console.log('---------------------')
   console.log('responding to joinRoom')
 
@@ -32,12 +37,21 @@ exports.joinRoom = function(req, res){
       res.end('starting easy room');
      }
      break;
+    default:
+      res.end('room you tried to reach does not exist');
   }
   res.end('room exists');
 }
 
+// ===============================================================
 var socketConnection = function(testLevel) {
+// socketConnection function opens serverSocket for provided 'testLevel'
+// and configures event emitters and listeners
+// @ paratemers:
+  // testLevel - string ('hard, medium', 'easy');
 
+  // 1) grab the test cases from the 'codeChcker' folder based on probID
+  // var testFileUrl = './codeChecker/test' + probID + '.js';
   var room = io_socket.io.of('/'+testLevel);
 
   room.on('connection', function(socket) {
@@ -47,13 +61,14 @@ var socketConnection = function(testLevel) {
 
     // count clientCount
     for(var i in clientCount){
+      console.log(i);
       count++;
     }
     console.log("inside "+testLevel+" room count is ", count);
 
     socket.on('disconnect', function() { console.log('a user has left the room'); });
 
-    // call socketHandeler funcitons
+    // set other socketHandeler
     socketHandler.handleJoin(socket);
     socketHandler.handleGetProblem(socket);
     socketHandler.handleSubmitSolution(socket);

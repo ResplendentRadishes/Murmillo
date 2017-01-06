@@ -14,8 +14,6 @@ module.exports= function(userSoln, username, probID, callback) {
   // 'fail' - mocha test fails
   // 'pass' - mocha test passes
 
-  var result = null;
-
   // 1) grab the test cases from the 'codeChcker' folder based on probID
   // var testFileUrl = './codeChecker/test' + probID + '.js';
   try {
@@ -51,6 +49,7 @@ module.exports= function(userSoln, username, probID, callback) {
     .on('end', function() {
       // delete file after test is done
       fs.unlinkSync(solnAndTestURL);
+      // make result available via callback
       callback(result);
     })
 
