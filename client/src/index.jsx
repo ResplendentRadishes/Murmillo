@@ -1,25 +1,22 @@
+import 'babel-polyfill' //Promise polyfill
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore } from 'redux';
-import { setUser, updateUser } from './actions/actions.js';
-import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
+
+import { createStore, applyMiddleware } from 'redux';
 import murmilloApp from './reducers/reducers.js';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
+
+import { Provider } from 'react-redux'
+import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
 import App from './components/app.jsx';
 import Dashboard from './components/dashboard.jsx';
 import Arena from './components/arena.jsx';
 
+const logger = createLogger()
 
-let store = createStore(murmilloApp);
-// console.log(store.getState());
-// store.dispatch(setUser({username: 'Murm'}));
-// console.log(store.getState());
-// store.dispatch(updateUser({score: 0}));
-// console.log(store.getState());
-// store.dispatch(updateUser({score: 20}));
-// console.log(store.getState());
-// store.dispatch(setUser({username: 'Murmillo'}));
-// console.log(store.getState());
+let store = createStore(murmilloApp, undefined, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>

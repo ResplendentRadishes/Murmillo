@@ -40,11 +40,22 @@ function code(state = '', action) {
   }
 }
 
+function competition(state = {isFetching: false, solved: false}, action) {
+  switch (action.type) {
+    case 'REQUEST_CODE_CHECK':
+      return {...state, isFetching: true};
+    case 'RECEIVE_CODE_CHECK':
+      return {...state, isFetching: true, solved: action.result};
+    default:
+      return state;
+  }
+}
+
 const murmilloApp = combineReducers({
   user,
   room,
-  code
-
+  code,
+  competition
 });
 
 export default murmilloApp;

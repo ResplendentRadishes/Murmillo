@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setCode } from '../actions/actions.js';
+import { setCode, sendCode } from '../actions/actions.js';
 import Editor from '../components/editor.jsx';
 
 const mapStateToProps = (state) => {
@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setCode(text));
     },
     submitCode: function() {
-      dispatch(submitCode());
+      dispatch(sendCode());
     }
   }
 }
