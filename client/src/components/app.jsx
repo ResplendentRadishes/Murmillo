@@ -1,9 +1,9 @@
 import React from 'react';
-import NavBar from './navBar.jsx';
+import NavBarContainer from '../containers/navBarContainer.jsx';
 
 const App = (props) => (
   <div>
-    <NavBar />
+    <NavBarContainer />
     {props.children}
   </div>
 );

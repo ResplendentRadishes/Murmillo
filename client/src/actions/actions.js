@@ -2,10 +2,10 @@ export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_ROOMLIST = 'SET_ROOMLIST';
+export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
-export const RESET_MESSAGES = 'RESET_MESSAGES';
 
 //user actions
 export function setUser(user) {
@@ -26,8 +26,8 @@ export function setRoom(room) {
   return { type: SET_ROOM, room };
 }
 
-export function resetMessages() {
-  return { type: RESET_MESSAGES };
+export function updateMessages(message) {
+  return { type: UPDATE_MESSAGES, message };
 }
 
 //code actions

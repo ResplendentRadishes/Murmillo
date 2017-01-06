@@ -1,24 +1,17 @@
 import { connect } from 'react-redux';
-import { resetMessages } from '../actions/actions.js';
+import { updateMessages } from '../actions/actions.js';
 import Chatroom from '../components/chatroom.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    room: state.room,
-    messages: ['You have entered ' + state.room.name]
+    room: state.room
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // updateCode: function(text) {
-    //   dispatch(setCode(text));
-    // },
-    // submitCode: function() {
-    //   dispatch(sendCode());
-    // }
-    resetMessages: function() {
-      dispatch(resetMessages());
+    updateMessages: function(message) {
+      dispatch(updateMessages(message));
     }
   }
 }

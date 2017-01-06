@@ -18,34 +18,29 @@ function user(state = {}, action) {
   }
 };
 
-function room(state = {}, action) {
+function room(room = {}, action) {
   switch (action.type) {
 
     case 'SET_ROOM':
       return action.room;
 
+    case 'UPDATE_MESSAGES':
+      return {
+        ...room,
+        messages: [...room.messages, action.message]
+      };
+
     default:
-      return state;
+      return room;
   }
 }
 
-function roomList(state = {}, action) {
+function roomList(state = [], action) {
   switch (action.type) {
 
     case 'SET_ROOMLIST':
       return action.roomList;
 
-    default:
-      return state;
-  }
-}
-
-function messages(state = [], action) {
-  switch (action.type) {
-
-    case 'RESET_MESSAGES':
-      return [];
-      
     default:
       return state;
   }

@@ -12,7 +12,10 @@ const NavBar = (props) => (
         <h5 className="navbar-text">Super Secret Dev Link</h5>
       </Link>
     </div>
-    <button type="button" className="btn btn-default navbar-btn navbar-right">Sign in</button>
+    {props.user.username ? 
+      'Logged in as ' + props.user.username : 
+      <button type="button" className="btn btn-default navbar-btn navbar-right">Sign in</button>
+    }
   </div>
 </nav>
 );
