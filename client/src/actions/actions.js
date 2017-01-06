@@ -1,7 +1,11 @@
+import fetch from 'isomorphic-fetch';
+
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_CODE = 'SET_CODE';
+export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
+export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
 
 //user actions
 export function setUser(user) {
@@ -14,10 +18,24 @@ export function updateUser(user) {
 
 //room actions
 export function setRoom(room) {
-  return { type: SET_ROOM, room }
+  return { type: SET_ROOM, room };
 }
 
 //code actions
 export function setCode(code) {
   return { type: SET_CODE, code };
+}
+
+export function requestCodeCheck() {
+  return {type: REQUEST_CODE_CHECK};
+}
+
+export function receiveCodeCheck(result) {
+  return {type: RECEIVE_CODE_CHECK, result} //result is true or false
+}
+
+export function sendCode() {
+  return function(dispatch) {
+    dispatch(requestCodeCheck());
+  }
 }
