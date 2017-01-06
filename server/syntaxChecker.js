@@ -15,6 +15,10 @@ module.exports = function(userSoln, username, probID, callback) {
 
     child_process.execFile('node', [userSolnUrl], function(error, success) {
       callback(success, error);
+
+      // delete file after checker is done
+      fs.unlinkSync(userSolnUrl);
+
     });
 
   } catch (err) {

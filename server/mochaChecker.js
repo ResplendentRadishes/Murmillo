@@ -3,7 +3,7 @@ var path = require('path');
 var Mocha = require('mocha');
 
 // ==============================================================
-var mochaChecker = function(userSoln, username, probID, callback) {
+module.exports= function(userSoln, username, probID, callback) {
 // mochaChecker evaluates the user's submitted solution against Mocha tests
 // @ paratemers:
   // userSoln - string ('var myFunc = function(){.....}');
@@ -56,13 +56,3 @@ var mochaChecker = function(userSoln, username, probID, callback) {
 
 };
 
-module.exports = mochaChecker;
-
-// ==============================================================
-// TEST with fakeData (To Be Deleted Later)
-// var fakeUserSoln = 'var solution = function(){ \n return true \n}';
-// var fakeUserName = 'userA';
-// var fakeProbID = 1;
-// codeEvaluate(fakeUserSoln, fakeUserName, fakeProbID, function(result) {
-//   console.log(result);
-// });

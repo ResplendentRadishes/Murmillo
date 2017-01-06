@@ -51,6 +51,8 @@ var socketConnection = function(testLevel) {
     }
     console.log("inside "+testLevel+" room count is ", count);
 
+    socket.on('disconnect', function() { console.log('a user has left the room'); });
+
     // call socketHandeler funcitons
     socketHandler.handleJoin(socket);
     socketHandler.handleGetProblem(socket);
