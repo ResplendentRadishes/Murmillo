@@ -5,6 +5,7 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
+export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
 
 //user actions
 export function setUser(user) {
