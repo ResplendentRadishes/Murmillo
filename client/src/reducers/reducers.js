@@ -44,7 +44,7 @@ function messages(state = [], action) {
   switch (action.type) {
 
     case 'RESET_MESSAGES':
-      return state;
+      return [];
       
     default:
       return state;
