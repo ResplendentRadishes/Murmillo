@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const SET_ROOM = 'SET_ROOM';
@@ -38,10 +36,4 @@ export function requestCodeCheck() {
 
 export function receiveCodeCheck(result) {
   return {type: RECEIVE_CODE_CHECK, result} //result is true or false
-}
-
-export function sendCode() {
-  return function(dispatch) {
-    dispatch(requestCodeCheck());
-  }
 }

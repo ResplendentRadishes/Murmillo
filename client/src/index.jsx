@@ -1,11 +1,8 @@
-import 'babel-polyfill' //Promise polyfill
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { createStore, applyMiddleware } from 'redux';
 import murmilloApp from './reducers/reducers.js';
-import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 
 import { Provider } from 'react-redux'
@@ -16,7 +13,7 @@ import Arena from './components/arena.jsx';
 
 const logger = createLogger()
 
-let store = createStore(murmilloApp, undefined, applyMiddleware(thunk, logger));
+let store = createStore(murmilloApp, undefined, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store}>
