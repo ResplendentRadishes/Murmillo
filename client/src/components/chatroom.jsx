@@ -39,7 +39,6 @@ class Chatroom extends React.Component {
     const context = this;
     const room = this.props.room;
     readyToStart(room.name, room.problemId, (problem) => {
-      console.log('problem', problem);
       context.props.setProblem(problem);
     });
   }
