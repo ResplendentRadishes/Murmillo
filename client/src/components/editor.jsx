@@ -39,13 +39,13 @@ class Editor extends React.Component {
           <button
             className="btn btn-info"
             type="button"
-            onClick={() => {this.props.submitCode(this.props.code)}}
           >
             Run
           </button>
           <button
             className="btn btn-success"
             type="button"
+            onClick={() => {this.props.submitCode(this.props.code)}}
           >
             Submit
           </button>

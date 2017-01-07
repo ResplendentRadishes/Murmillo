@@ -16,8 +16,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     submitCode: function(code) {
       dispatch(requestCodeCheck());
-      submitSoln('hard', 1, 'Vernon', code, this.recieveResult);
+      console.log('code container');
+      submitSoln('hard', 1, 'Vernon', code, function(result) {
+        dispatch(recieveCodeCheck(result));
+      });
     }
+
   }
 }
 

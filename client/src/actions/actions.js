@@ -45,5 +45,5 @@ export function requestCodeCheck() {
 }
 
 export function receiveCodeCheck(result) {
-  return {type: RECEIVE_CODE_CHECK, result} //result is true or false
+  return {type: RECEIVE_CODE_CHECK, result}
 }
