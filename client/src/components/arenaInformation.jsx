@@ -12,10 +12,10 @@ const ArenaInformation = (props) => (
     </div>
     <div className="panel panel-default">
       <div className="panel-heading">
-        Output Code:
+        Submission Result
       </div>
       <div className="panel-body" style={{minHeight: 358, maxHeight: 358}}>
-        Code shows here
+        {props.status}
       </div>
     </div>
   </div>
