@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setCode, requestCodeCheck} from '../actions/actions.js';
+import { setCode, requestCodeCheck, receiveCodeCheck} from '../actions/actions.js';
 import {submitSoln} from '../socketHandler.js';
 import Editor from '../components/editor.jsx';
 
@@ -16,8 +16,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     submitCode: function(code) {
       dispatch(requestCodeCheck());
-      submitSoln('hard', 1, 'Vernon', code);
+      submitSoln('hard', 1, 'Vernon', code, function(result) {
+        dispatch(receiveCodeCheck(result));
+      });
     }
+
   }
 }
 

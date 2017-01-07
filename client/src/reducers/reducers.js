@@ -23,13 +23,13 @@ function room(state = {}, action) {
 
     case 'SET_ROOM':
       return { ...action.room };
-      
+
     case 'UPDATE_MESSAGES':
       return {
         ...state,
         messages: [...state.messages, action.message]
       };
-      
+
     default:
       return state;
   }
@@ -78,12 +78,12 @@ function code(state = '', action) {
   }
 }
 
-function competition(state = {isFetching: false, solved: false}, action) {
+function competition(state = {isFetching: false, status: 'In Progress'}, action) {
   switch (action.type) {
     case 'REQUEST_CODE_CHECK':
       return {...state, isFetching: true};
     case 'RECEIVE_CODE_CHECK':
-      return {...state, isFetching: false, solved: action.result};
+      return {...state, isFetching: false, status: action.result};
     default:
       return state;
   }
