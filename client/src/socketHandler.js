@@ -93,7 +93,7 @@ const readyToStart = function (roomID, probID, callback) {
 };
 
 // =============================================================
-const submitSoln = function (roomID, probID, username, userSoln) {
+const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
 // submitSoln - submit user's solution over socket connection
 // @ paramters: roomID = 'hard', 'medium',  or 'easy'
 //              probID = 1, 2, or 3
@@ -125,6 +125,7 @@ const submitSoln = function (roomID, probID, username, userSoln) {
   // listen for 'solutionResult' event
   clientSocket.on('solutionResult', function(result) {
     console.log(result);
+    handleResult(result);
   });
 };
 

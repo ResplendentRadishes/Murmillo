@@ -10,6 +10,7 @@ import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-rou
 import App from './components/app.jsx';
 import DashboardContainer from './containers/dashboardContainer.jsx';
 import Arena from './components/arena.jsx';
+import SignUp from './components/signUp.jsx';
 
 const logger = createLogger()
 
@@ -21,6 +22,7 @@ ReactDOM.render(
       <Route path='/' component={App}>
         <IndexRoute component={DashboardContainer} />
         <Route path='arena' component={Arena} />
+        <Route path='signup' component={SignUp} />
       </Route>
     </Router>
   </Provider>,
