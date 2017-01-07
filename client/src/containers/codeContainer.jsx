@@ -3,9 +3,9 @@ import { setCode, requestCodeCheck} from '../actions/actions.js';
 import {submitSoln} from '../socketHandler.js';
 import Editor from '../components/editor.jsx';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    code: state.code
+    code: state.code || ownProps.code
   }
 }
 

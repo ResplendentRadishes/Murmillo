@@ -11,36 +11,48 @@ class Editor extends React.Component {
     super(props);
   };
 
-render() {
-return (
-  <div>
-    <AceEditor
-      mode="javascript"
-      theme="chrome"
-      name="code"
-      width="100%"
-      minLines={3}
-      maxLines={50}
-      ref="ace"
-      fontSize={18}
-      value={this.props.code}
-      editorProps={{$blockScrolling: Infinity}}
-      onChange={this.props.updateCode}
-      onLoad={(editor) => {
-        editor.focus();
-        editor.getSession().setUseWrapMode(true);
-      }}/>
-
-    <button
-      className="btn btn-info"
-      type="button"
-      onClick={() => {this.props.submitCode(this.props.code)}}
-    >
-      Submit
-    </button>
-  </div>
-);
-};
+  render() {
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          Your Solution:
+        </div>
+        <AceEditor
+          mode="javascript"
+          theme="chrome"
+          name="code"
+          width="100%"
+          minLines={40}
+          maxLines={40}
+          tabSize={2}
+          useSoftTabs={true}
+          ref="ace"
+          fontSize={12}
+          value={this.props.code}
+          editorProps={{$blockScrolling: Infinity}}
+          onChange={this.props.updateCode}
+          onLoad={(editor) => {
+            editor.focus();
+            editor.getSession().setUseWrapMode(true);
+          }}/>
+        <div className="panel-footer text-right clearfix">
+          <button
+            className="btn btn-info"
+            type="button"
+            onClick={() => {this.props.submitCode(this.props.code)}}
+          >
+            Run
+          </button>
+          <button
+            className="btn btn-success"
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    );
+  };
 };
 
 
