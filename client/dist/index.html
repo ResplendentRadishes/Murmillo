@@ -4,41 +4,14 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Murmillo</title>
 
-  <!--Style is for testing purposes only-->
-   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font: 13px Helvetica, Arial; }
-    *form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-   *form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-    *form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-    #messages { list-style-type: none; margin: 0; padding: 0; }
-    #messages li { padding: 5px 10px; }
-    #messages li:nth-child(odd) { background: #eee; }
-   </style>
-  <!--Style is for testing purposes only-->
-
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   </head>
 
   <body>
     <div id="app"></div>
 
-    <!-- Testing (To be removed later) -->
-    <ul id="messages"></ul>
-      <input id="m" autocomplete="off" />
-      <button id="test1">test1</button>
-      <button id="test2">test2</button>
-      <button id="test3">test3</button>
-      <button id="submitSoln">submitSoln</button>
-    <!-- Testing (To be removed later) -->
-
-
     <script src="./bundle.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-
-    <!-- Testing (To be removed later) -->
-    <script src="./testSocket.js"></script>
-    <!-- Testing (To be removed later) -->
 
   </body>
 </html>

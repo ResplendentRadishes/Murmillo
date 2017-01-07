@@ -22,7 +22,7 @@ const joinRoom = function (roomID, username) {
   var nameSpace = '/'+roomID;
 
   // HTTP Request to the server, server will create 'nameSapce' room if serverSocket does not exist
-  $.get('http://localhost:3000/api/join'+nameSpace, function(res) {
+  $.get('/api/join'+nameSpace, function(res) {
     console.log('result of http request: ' + res);
   });
 
@@ -47,7 +47,7 @@ const joinRoom = function (roomID, username) {
 };
 
 // =============================================================
-const readyToStart = function (roomID, probID) {
+const readyToStart = function (roomID, probID, callback) {
 // readyToStart - get problem over socket connection
 // @ paramters:
   // roomID = 'hard', 'medium',  or 'easy'
@@ -66,6 +66,7 @@ const readyToStart = function (roomID, probID) {
   // listen for 'sendProblem' event and display the problemPromt
   clientSocket.on('sendProblem', function(problem) {
     console.log(problem);
+    callback(problem);
   });
 
 };

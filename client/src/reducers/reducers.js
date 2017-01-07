@@ -57,6 +57,16 @@ function messages(state = [], action) {
   }
 }
 
+function problem(state = {}, action) {
+  switch (action.type) {
+
+    case 'SET_PROBLEM':
+      return { ...state, ...action.problem };
+
+    default:
+      return state;
+  }
+}
 function code(state = '', action) {
   switch (action.type) {
 
@@ -84,6 +94,7 @@ const murmilloApp = combineReducers({
   roomList,
   room,
   messages,
+  problem,
   code,
   competition
 });
