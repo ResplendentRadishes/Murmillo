@@ -35,21 +35,28 @@ module.exports= function(userSoln, username, probID, callback) {
   }
 
   // 3) Run Mocha tests by providing the url (user's soln and test cases)
-  var result = '';
+  var resultObj = {
+    failCount: 0,
+    passCount: 0,
+    totalCount: 0
+  }
+
   delete require.cache[solnAndTestURL] // need this to run more than once
   var mocha = new Mocha();
   mocha.addFile(solnAndTestURL)
   mocha.run()
     .on('pass', function(test, err) {
-      result = 'pass';
+      resultObj.passCount = resultObj.passCount + 1;
+      resultObj.totalCount = resultObj.totalCount + 1;
     })
     .on('fail', function(test, err) {
+      resultObj.failCount = resultObj.failCount + 1;
+      resultObj.totalCount = resultObj.totalCount + 1;
       result = 'fail';
     })
     .on('end', function() {
-      // delete file after test is done
       fs.unlinkSync(solnAndTestURL);
-      // make result available via callback
+      var result = resultObj.passCount +" out of " + resultObj.totalCount + " passing. "
       callback(result);
     })
 

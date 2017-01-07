@@ -26,6 +26,7 @@
     "body-parser": "^1.15.2",
     "brace": "^0.9.1",
     "chai": "^3.5.0",
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "mocha": "^3.2.0",
     "morgan": "^1.7.0",
@@ -39,7 +40,9 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "sequelize": "^3.28.0",
-    "socket.io": "^1.7.2"
+    "socket.io": "^1.7.2",
+    "supertest": "^2.0.1",
+    "webpack": "^1.14.0"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",

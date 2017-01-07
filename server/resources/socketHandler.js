@@ -1,7 +1,10 @@
 var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/db.js').Problem;
-
+var path = require('path');
+//console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",path.join(__dirname,'../fakeData/fakeCompList.js'))
+//var test = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/fakeData/fakeCompList.js');
+//var t = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/mochaTestFiles/test.js');
 // ================================================
 // handleMessage --- ?????
 exports.handleMessage = function(socket, count) {
@@ -72,13 +75,12 @@ exports.handleSubmitSolution = function(socket) {
     syntaxChecker(userSoln, username, probID, function(success, error) {
       if(error) {
         // console.log(error);
-        socket.emit('solutionResult', 'you have syntax error');
+        socket.emit('solutionResult', error);
       }
       if(success) {
         // 2) check user's solution against mochaTests
         console.log('running mocha checker now')
         mochaChecker(userSoln, username, probID, function(result){
-          // emit solutionResult event with the result
           socket.emit('solutionResult', result);
           socket.broadcast.emit('solutionResult', result);
         });
