@@ -20,7 +20,9 @@ const RoomEntry = (props) => (
             type="button" 
             className="btn btn-success btn-primary btn-lg" 
             onClick={() => {
-              joinRoom(props.room.name, user.username);
+              joinRoom(props.room.name, user.username, (serverMessage) => {
+                props.updateMessages(serverMessage);
+              });
               props.updateCurrentRoom(props.room);}}
           >Join Room
           </button>

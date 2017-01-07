@@ -15,8 +15,17 @@ exports.handleMessage = function(socket, count) {
 // handleJoin - broadcast users that a new users has joined to room
 exports.handleJoin = function(socket, count) {
   socket.on('join', function (username) {
-    socket.emit("joinMessage", 'you have joined the room');                 // private message
+    socket.emit("joinMessage", 'You have joined the room');                 // private message
     socket.broadcast.emit('joinMessage', username+' has joined the room');  // all except user
+  });
+};
+
+// ================================================
+// handleChatMessage - broadcast messages to everyone within room
+exports.handleChatMessage = function(socket) {
+  socket.on('sendChatMessage', function (message) {
+    socket.emit("receiveChatMessage", message);                 // sends to user
+    socket.broadcast.emit('receiveChatMessage', message);  // sends to all other users
   });
 };
 

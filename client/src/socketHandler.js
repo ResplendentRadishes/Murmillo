@@ -11,7 +11,7 @@ const clickTest = function() {
 };
 
 // =============================================================
-const joinRoom = function (roomID, username) {
+const joinRoom = function (roomID, username, callback) {
 // joinRoom - makes a http request to server and creates a socket connection to roomID
 //            setup event emitters and listerners
 // @ paramters:
@@ -41,10 +41,31 @@ const joinRoom = function (roomID, username) {
     // Event Listener (listen to event from server) -----------------------------
     // listen for 'message' event and display the message
     clientSocket.on('joinMessage', function(message) {
-      console.log(message);
+      callback(message);
+    });
+
+    // Event Listener (listen to event from server) -----------------------------
+    // listen for 'message' event and display the message
+    clientSocket.on('receiveChatMessage', function(message) {
+      callback(message);
     });
   }
 };
+
+// =============================================================
+
+const sendChatMessage = function (roomID, message) {
+
+  var nameSpace = '/'+roomID;
+
+
+  // establish a connection to nameSpace
+  var clientSocket = socketInSession[nameSpace];
+
+  // Event Emitter (emit event to server) ------------------------------------
+  // emit 'join' with username
+  clientSocket.emit('sendChatMessage', message);
+}
 
 // =============================================================
 const readyToStart = function (roomID, probID, callback) {
@@ -107,4 +128,4 @@ const submitSoln = function (roomID, probID, username, userSoln) {
   });
 };
 
-export {clickTest, joinRoom, readyToStart, submitSoln};
+export {clickTest, joinRoom, sendChatMessage, readyToStart, submitSoln};

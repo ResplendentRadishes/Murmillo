@@ -70,6 +70,7 @@ var socketConnection = function(testLevel) {
 
     // set other socketHandeler
     socketHandler.handleJoin(socket);
+    socketHandler.handleChatMessage(socket);
     socketHandler.handleGetProblem(socket);
     socketHandler.handleSubmitSolution(socket);
 

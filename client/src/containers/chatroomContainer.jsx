@@ -4,6 +4,7 @@ import Chatroom from '../components/chatroom.jsx';
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     room: state.room,
     problem: state.problem
   }

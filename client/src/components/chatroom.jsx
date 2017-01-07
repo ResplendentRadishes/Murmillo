@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router';
-import { readyToStart } from '../socketHandler.js';
+import { readyToStart, sendChatMessage } from '../socketHandler.js';
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -17,13 +17,17 @@ class Chatroom extends React.Component {
   }
 
   handleMessageSend() {
-    this.props.updateMessages(this.state.message);
+    // sends message to redux
+    const context = this;
+    sendChatMessage(this.props.room.name, (this.props.user.username || 'Tester') + ': ' + this.state.message);
+    // updates current message to blank after message is sent
     this.setState({
       message: ''
     });
   }
 
   handleMessageChange(event) {
+    // sets the current message into the state
     this.setState({
       message: event.target.value
     });
