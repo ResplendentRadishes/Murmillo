@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    problem: state.problem
+    problem: state.problem,
+    status: state.competition.status
   }
 }
 
@@ -15,7 +16,7 @@ let Arena = (props) => {
       <h1>{props.problem.title}</h1>
       <div className="row">
         <div className="col-md-5">
-          <ArenaInformation desc={props.problem.prompt}/>
+          <ArenaInformation desc={props.problem.prompt} status={props.status}/>
         </div>
         <div className="col-md-7">
           <CodeContainer code={props.problem.template}/>
@@ -23,7 +24,7 @@ let Arena = (props) => {
       </div>
     </div>
   );
-} 
+}
 
 Arena = connect(
   mapStateToProps

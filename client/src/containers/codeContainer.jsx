@@ -5,7 +5,10 @@ import Editor from '../components/editor.jsx';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    code: state.code || ownProps.code
+    code: state.code || ownProps.code,
+    roomname: 'todo',
+    problemID: 'todo',
+    username: state.user.username
   }
 }
 
