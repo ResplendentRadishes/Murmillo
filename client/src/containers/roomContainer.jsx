@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { setRoom, updateMessages } from '../actions/actions.js';
-import { joinRoom } from '../socketHandler.js';
 import RoomEntry from '../components/roomEntry.jsx';
 
 const mapStateToProps = (state, ownProps) => {
