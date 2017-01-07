@@ -1,19 +1,22 @@
 // =========================================
 // fakeCompList
 var fakeCompList = [{
-  id: 0,
+  id: 1,
+  problemId: 1,
   name: 'hard',
   desc: 'This is tough yo',
   messages: []
 },
 {
-  id: 1,
+  id: 2,
+  problemId: 2,
   name: 'medium',
   desc: 'Not that bad',
   messages: []
 },
 {
-  id: 2,
+  id: 3,
+  problemId: 3,
   name: 'easy',
   desc: 'Really?',
   messages: []

@@ -3,6 +3,7 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_ROOMLIST = 'SET_ROOMLIST';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
+export const SET_PROBLEM = 'SET_PROBLEM';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
@@ -30,7 +31,11 @@ export function updateMessages(message) {
   return { type: UPDATE_MESSAGES, message };
 }
 
-//code actions
+//editor actions
+export function setProblem(problem) {
+  return {type: SET_PROBLEM, problem };
+}
+
 export function setCode(code) {
   return { type: SET_CODE, code };
 }

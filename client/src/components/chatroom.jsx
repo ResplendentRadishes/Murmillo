@@ -1,5 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router';
+import { readyToStart } from '../socketHandler.js';
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class Chatroom extends React.Component {
     this.handleMessageSend = this.handleMessageSend.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleReadyButton = this.handleReadyButton.bind(this);
   }
 
   handleMessageSend() {
@@ -32,6 +35,15 @@ class Chatroom extends React.Component {
     }
   }
 
+  handleReadyButton() {
+    const context = this;
+    const room = this.props.room;
+    readyToStart(room.name, room.problemId, (problem) => {
+      console.log('problem', problem);
+      context.props.setProblem(problem);
+    });
+  }
+
   componentDidMount() {
 
   }
@@ -49,6 +61,12 @@ class Chatroom extends React.Component {
             )}
           </div>
           <div className="panel-footer">
+            <Link to="/arena">
+              <button 
+                className="btn btn-success"
+                onClick={this.handleReadyButton}
+              > Ready </button>
+            </Link>
             <div className="input-group">
               <input 
                 type="text" 
