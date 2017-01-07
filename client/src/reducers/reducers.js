@@ -23,7 +23,13 @@ function room(state = {}, action) {
 
     case 'SET_ROOM':
       return { ...action.room };
-
+      
+    case 'UPDATE_MESSAGES':
+      return {
+        ...state,
+        messages: [...state.messages, action.message]
+      };
+      
     default:
       return state;
   }
