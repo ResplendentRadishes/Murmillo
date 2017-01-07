@@ -67,7 +67,7 @@ function problem(state = {}, action) {
       return state;
   }
 }
-function code(state = '', action) {
+function code(state = null, action) {
   switch (action.type) {
 
     case 'SET_CODE':

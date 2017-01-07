@@ -19,7 +19,7 @@ let Arena = (props) => {
           <ArenaInformation desc={props.problem.prompt} status={props.status}/>
         </div>
         <div className="col-md-7">
-          <CodeContainer code={props.problem.template}/>
+          <CodeContainer />
         </div>
       </div>
     </div>

@@ -3,11 +3,10 @@ import { setCode, requestCodeCheck, receiveCodeCheck} from '../actions/actions.j
 import {submitSoln} from '../socketHandler.js';
 import Editor from '../components/editor.jsx';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    code: state.code || ownProps.code,
-    roomname: 'todo',
-    problemID: 'todo',
+    code: state.code !== null ? state.code : state.problem.template,
+    room: state.room,
     username: state.user.username
   }
 }
@@ -17,9 +16,9 @@ const mapDispatchToProps = (dispatch) => {
     updateCode: function(text) {
       dispatch(setCode(text));
     },
-    submitCode: function(code) {
+    submitCode: function(params) {
       dispatch(requestCodeCheck());
-      submitSoln('hard', 1, 'Vernon', code, function(result) {
+      submitSoln(params.room, params.problemId, params.user, params.code, function(result) {
         dispatch(receiveCodeCheck(result));
       });
     }

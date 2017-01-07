@@ -45,7 +45,14 @@ class Editor extends React.Component {
           <button
             className="btn btn-success"
             type="button"
-            onClick={() => {this.props.submitCode(this.props.code)}}
+            onClick={() => {
+              var params = {
+                room: this.props.room.name,
+                problemId: this.props.room.problemId,
+                user: this.props.username,
+                code: this.props.code,
+              }
+              this.props.submitCode(params)}}
           >
             Submit
           </button>
