@@ -59,6 +59,12 @@ describe('reducer', function() {
     var newState = reducer(initialState, action);
     expect(newState.user.name).to.equal('jeff bridges');
   })
+  it('should create a new object for the state, not pass a reference', function() {
+    var action = {type: 'SET_USER', user: {name: 'jeff bridges'}};
+    var newState = reducer(initialState, action);
+    action.user.name = 'jeffrey lebowski';
+    expect(newState.user.name).to.equal('jeff bridges');
+  })
   it('should replace the stored code after a setCode action', function() {
     var code = 'tron.cycle()';
     var action = {type: 'SET_CODE', code};
