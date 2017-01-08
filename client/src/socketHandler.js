@@ -5,12 +5,6 @@
 var socketInSession = {}; //store socketInstance in an object for later use
 
 // =============================================================
-const clickTest = function() {
-// for testing button click
-  console.log('clicked');
-};
-
-// =============================================================
 const joinRoom = function (roomID, username, callback) {
 // joinRoom - makes a http request to server and creates a socket connection to roomID
 //            setup event emitters and listerners
@@ -39,27 +33,46 @@ const joinRoom = function (roomID, username, callback) {
     clientSocket.emit('join', username);
 
     // Event Listener (listen to event from server) -----------------------------
-    // listen for 'message' event and display the message
+    // listen for 'joinMessage' event and display the message
     clientSocket.on('joinMessage', function(message) {
       callback(message);
     });
 
-    // Event Listener (listen to event from server) -----------------------------
-    // listen for 'message' event and display the message
+    // listen for 'receiveChatMessage' event and display the message
     clientSocket.on('receiveChatMessage', function(message) {
       callback(message);
     });
   }
 };
+// =============================================================
+const closeSocketPrevRoom = function(prevRoom) {
+
+  // console.log('--------')
+  // console.log(prevRoom);
+  // console.log('--------')
+
+
+  var nameSpace = '/'+prevRoom.name;
+  if (socketInSession[nameSpace] !== undefined) {
+    console.log('closing socket for '+prevRoom.name)
+
+    // grab the socket instance stored in an object
+    var clientSocket = socketInSession[nameSpace];
+
+    // disconnect clientSocket
+    clientSocket.disconnect('userA');
+
+    // remove nameSpace from socketInSession object
+    delete socketInSession[nameSpace]
+  };
+
+};
 
 // =============================================================
-
 const sendChatMessage = function (roomID, message) {
 
+  // grab the socket instance stored in an object
   var nameSpace = '/'+roomID;
-
-
-  // establish a connection to nameSpace
   var clientSocket = socketInSession[nameSpace];
 
   // Event Emitter (emit event to server) ------------------------------------
@@ -75,7 +88,7 @@ const readyToStart = function (roomID, probID, callback) {
   // probID = 1, 2, or 3
 // example usage in react: <button onClick={() => readyToStart('hard', 1)}>Join Room</button>
 
-  // grab the socketHard instance stored in an object
+  // grab the socket instance stored in an object
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
@@ -129,4 +142,4 @@ const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
   });
 };
 
-export {clickTest, joinRoom, sendChatMessage, readyToStart, submitSoln};
+export {joinRoom, closeSocketPrevRoom, sendChatMessage, readyToStart, submitSoln};

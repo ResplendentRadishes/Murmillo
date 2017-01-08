@@ -6,7 +6,7 @@ var path = require('path');
 //var test = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/fakeData/fakeCompList.js');
 //var t = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/mochaTestFiles/test.js');
 // ================================================
-// handleMessage --- ?????
+// handleMessage --- ????? (is this used anywhere?)
 exports.handleMessage = function(socket, count) {
   socket.on('message', function (message) {
     socket.emit("existingClientCount", count-1);
@@ -16,9 +16,9 @@ exports.handleMessage = function(socket, count) {
 
 // ================================================
 // handleJoin - broadcast users that a new users has joined to room
-exports.handleJoin = function(socket, count) {
+exports.handleJoin = function(socket, roomID) {
   socket.on('join', function (username) {
-    socket.emit("joinMessage", 'You have joined the room');                 // private message
+    socket.emit("joinMessage", 'You have joined '+roomID+' room');                 // private message
     socket.broadcast.emit('joinMessage', username+' has joined the room');  // all except user
   });
 };
@@ -34,11 +34,6 @@ exports.handleChatMessage = function(socket) {
 
 // ================================================
 // handleGetProblem configures 'getPrblem' listener and 'sendProblem' emitter
-var fakeProblem = {
-  1: 'write function that returns false',
-  2: 'write function that returns false'
-};
-
 exports.handleGetProblem = function(socket) {
   // use errorProblem when problem cannto be found
   var errorProblem = {title: 'error', prompt: 'error', template: 'error'};

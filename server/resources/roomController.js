@@ -69,7 +69,7 @@ var socketConnection = function(testLevel) {
     socket.on('disconnect', function() { console.log('a user has left the room'); });
 
     // set other socketHandeler
-    socketHandler.handleJoin(socket);
+    socketHandler.handleJoin(socket, testLevel);
     socketHandler.handleChatMessage(socket);
     socketHandler.handleGetProblem(socket);
     socketHandler.handleSubmitSolution(socket);
