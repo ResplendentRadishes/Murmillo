@@ -64,13 +64,15 @@ class Chatroom extends React.Component {
             )}
           </div>
           <div className="panel-footer">
-            <Link to="/arena">
-              <button 
-                className="btn btn-success"
-                onClick={this.handleReadyButton}
-              > Ready </button>
-            </Link>
             <div className="input-group">
+              <span className="input-group-btn">
+                <Link to="/arena">
+                    <button 
+                      className="btn btn-success"
+                      onClick={this.handleReadyButton}
+                    > Ready </button>
+                </Link>
+                </span>
               <input 
                 type="text" 
                 id="chatMessage" 
