@@ -58,9 +58,9 @@ class Chatroom extends React.Component {
           <div className="panel-heading">
             {this.props.room.name}
           </div>
-          <div className="panel-body" style={{maxHeight: 600, minHeight:600}}>
+          <div className="panel-body conversation" style={{maxHeight: 600, minHeight:600}}>
             {this.props.room.messages.map((message, index) => 
-              <p key={index}>{message}</p>
+              <div key={index}>{message}</div>
             )}
           </div>
           <div className="panel-footer">

@@ -1,10 +1,6 @@
 import React from 'react';
 import { joinRoom } from '../socketHandler.js';
 
-var user = {
-  username: 'tester'
-};
-
 const RoomEntry = (props) => (
   <div>
     <div className="panel panel-default">
@@ -20,10 +16,15 @@ const RoomEntry = (props) => (
             type="button" 
             className="btn btn-success btn-primary btn-lg" 
             onClick={() => {
-              joinRoom(props.room.name, user.username, (serverMessage) => {
-                props.updateMessages(serverMessage);
-              });
-              props.updateCurrentRoom(props.room);}}
+              if (props.username) {
+                joinRoom(props.room.name, props.username || 'Tester', (serverMessage) => {
+                  props.updateMessages(serverMessage);
+                });
+                props.updateCurrentRoom(props.room);
+              } else {
+                alert('Please log in first');
+              }
+            }}
           >Join Room
           </button>
         </div>
