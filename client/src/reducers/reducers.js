@@ -73,6 +73,9 @@ function code(state = null, action) {
     case 'SET_CODE':
       return action.code;
 
+    case 'SET_ROOM':
+      return null;
+
     default:
       return state;
   }
