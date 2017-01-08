@@ -1,5 +1,6 @@
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const USER_LOGOUT = 'USER_LOGOUT';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_ROOMLIST = 'SET_ROOMLIST';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
@@ -15,6 +16,10 @@ export function setUser(user) {
 
 export function updateUser(user) {
   return { type: UPDATE_USER, user };
+}
+
+export function userLogout(user) {
+  return { type: USER_LOGOUT };
 }
 
 //roomList actions

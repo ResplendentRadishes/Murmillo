@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { hashHistory } from 'react-router';
+import { userLogout } from '../actions/actions.js';
 import NavBar from '../components/navBar.jsx';
 
 const mapStateToProps = (state) => {
@@ -7,8 +9,18 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signOut: function() {
+      hashHistory.push('/');
+      dispatch(userLogout());
+    }
+  }
+}
+
 const NavBarContainer = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(NavBar);
 
 export default NavBarContainer;

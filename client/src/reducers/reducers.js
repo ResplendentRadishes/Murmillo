@@ -92,7 +92,7 @@ function competition(state = {isFetching: false, status: 'In Progress'}, action)
   }
 }
 
-const murmilloApp = combineReducers({
+const rootReducer = combineReducers({
   user,
   roomList,
   room,
@@ -101,5 +101,12 @@ const murmilloApp = combineReducers({
   code,
   competition
 });
+
+const murmilloApp = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = undefined;
+  }
+  return rootReducer(state, action);
+}
 
 export default murmilloApp;
