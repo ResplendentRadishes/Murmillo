@@ -16,10 +16,13 @@ let signUp = ({dispatch}) => {
         input.value = '';
         hashHistory.push('/');
     }}>
-      <input ref={node => {
-        input = node;
-      }} />
-    <button type="sumbit">Save</button>
+      <h2 className='text-center'>Select Username</h2>
+      <div className='input-group col-md-4 col-md-offset-4'>
+        <input className='form-control' ref={node => {input = node}} />
+        <span className='input-group-btn'>
+          <button className='btn btn-default' type="sumbit">Save</button>
+        </span>
+      </div>
     </form>
   );
 }
