@@ -9,17 +9,17 @@ var Problem = require('./db.js').Problem;
 var data1 = {
   title: 'simple function 1',
   prompt: 'write function that returns true',
-  template: 'var myFunc = function(){....};'
+  template: 'var solution = function(){/* your code here */};'
 };
 var data2 = {
   title: 'simple function 2',
-  prompt: 'write function that returns true',
-  template: 'var myFunc = function(){....};'
+  prompt: 'write function that returns parameter a',
+  template: 'var solution = function(a){/* your code here */};'
 };
 var data3 = {
   title: 'simple function 3',
   prompt: 'write function that returns the sum of paramters a and b',
-  template: 'var myFunc = function(a,b){....};'
+  template: 'var solution = function(a,b){/* your code here */};'
 };
 var initialProblems = [data1, data2, data3];
 

@@ -4,6 +4,7 @@ import RoomEntry from '../components/roomEntry.jsx';
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    username: state.user.username,
     room: ownProps.room
   }
 }

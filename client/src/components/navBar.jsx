@@ -8,14 +8,13 @@ const NavBar = (props) => (
       <Link to="/">
         <h3 className="navbar-text">Murmillo</h3>
       </Link>
-      <Link to="/arena">
-        <h5 className="navbar-text">Super Secret Dev Link</h5>
-      </Link>
     </div>
+    <div className ="navbar-right">
     {props.user.username ?
-      'Logged in as ' + props.user.username :
-      <Link to='/signup' className="btn btn-default navbar-btn navbar-right">Sign in</Link>
+      <p className="navbar-text">{'Logged in as ' + props.user.username}</p> :
+      <Link to='/signup' className="btn btn-default navbar-btn">Sign in</Link>
     }
+    </div>
   </div>
 </nav>
 );
