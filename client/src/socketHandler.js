@@ -2,7 +2,12 @@
 // NOTES:
 // variable 'io' is defined in <script src="/socket.io/socket.io.js"></script> from HTML
 // =============================================================
-var socketInSession = {}; //store socketInstance in an object for later use
+//store socketInstance in an object for later use
+var socketInSession = {
+  '/hard': undefined,
+  '/medium': undefined,
+  '/easy': undefined
+};
 
 // =============================================================
 const joinRoom = function (roomID, username, callback) {
@@ -33,24 +38,15 @@ const joinRoom = function (roomID, username, callback) {
     clientSocket.emit('join', username);
 
     // Event Listener (listen to event from server) -----------------------------
-    // listen for 'joinMessage' event and display the message
-    clientSocket.on('joinMessage', function(message) {
+    // listen for 'message' event and display the message
+    clientSocket.on('message', function(message) {
       callback(message);
     });
 
-    // listen for 'receiveChatMessage' event and display the message
-    clientSocket.on('receiveChatMessage', function(message) {
-      callback(message);
-    });
   }
 };
 // =============================================================
 const closeSocketPrevRoom = function(prevRoom) {
-
-  // console.log('--------')
-  // console.log(prevRoom);
-  // console.log('--------')
-
 
   var nameSpace = '/'+prevRoom.name;
   if (socketInSession[nameSpace] !== undefined) {
@@ -77,7 +73,7 @@ const sendChatMessage = function (roomID, message) {
 
   // Event Emitter (emit event to server) ------------------------------------
   // emit 'join' with username
-  clientSocket.emit('sendChatMessage', message);
+  clientSocket.emit('message', message);
 }
 
 // =============================================================
@@ -114,17 +110,12 @@ const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
 //  submitSoln('hard', 1, 'userA', 'var solution=....'}>SubmitSoln</button>
 
   console.log('submitSoln')
-  // ---------------------------------------------------------------
-  // assume that the problem prompt is as follows:
-  // 'write a funciton 'solution' that return true';
-  // 'var solution = function(){ ...........  }';
-  // for now manually hardcoding the user's solution (**** fix later)
+
   var userSolnObj = {
     userSoln,
     username,
     probID,
   };
-  // ---------------------------------------------------------------
 
   // grab the socketHard instance stored in an object
   var nameSpace = '/'+roomID;
@@ -133,13 +124,13 @@ const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
   // Event Emitter (emit event to server) ------------------------------------
   // emit 'submitSoln' with user's solution
   clientSocket.emit('submitSoln', userSolnObj);
-
   // Event Listener (listen to event from server) -----------------------------
   // listen for 'solutionResult' event
   clientSocket.on('solutionResult', function(result) {
     console.log(result);
     handleResult(result);
   });
+
 };
 
 export {joinRoom, closeSocketPrevRoom, sendChatMessage, readyToStart, submitSoln};
