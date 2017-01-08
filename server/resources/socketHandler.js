@@ -72,10 +72,10 @@ exports.handleSubmitSolution = function(socket) {
     var probID = userSolnObj.probID;
 
     // 1) run syntaxChecker on userSoln file
-    syntaxChecker(userSoln, username, probID, function(success, error) {
+    syntaxChecker(userSoln, username, probID, function(success, error, errorMessage) {
       if(error) {
         // console.log(error);
-        socket.emit('solutionResult', error);
+        socket.emit('solutionResult', errorMessage);
       }
       if(success) {
         // 2) check user's solution against mochaTests
