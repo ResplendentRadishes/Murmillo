@@ -72,7 +72,7 @@ class Chatroom extends React.Component {
                       onClick={this.handleReadyButton}
                     > Ready </button>
                 </Link>
-                </span>
+              </span>
               <input 
                 type="text" 
                 id="chatMessage" 
