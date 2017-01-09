@@ -1,0 +1,37 @@
+body{
+  font-size: 16px;
+}
+.arenaInformation{
+  height:705px;
+}
+.arenaInformationPanel{
+  height: 100%;
+}
+.arenaRow{
+  height: 700px;
+ }
+
+.editor{
+ 
+}
+.descriptionPanel {
+  width:100%;
+  float: left;
+  height: 30%;
+  margin-bottom:0px;
+}
+.submissionResultsPanel {
+  height: 70%;
+  width: 100%;
+  float:left;
+}
+.runbtn {
+  float: left;
+  border-radius: 0px;
+  width: 50%;
+}
+.successbtn {
+  float: right;
+  width: 50%;
+  border-radius: 0px;
+}
