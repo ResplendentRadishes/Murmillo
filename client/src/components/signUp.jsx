@@ -14,7 +14,7 @@ let signUp = ({dispatch}) => {
         }
         dispatch(setUser({username: input.value}));
         input.value = '';
-        hashHistory.push('/');
+        hashHistory.push('/dashboard');
     }}>
       <h2 className='text-center'>Select Username</h2>
       <div className='input-group col-md-4 col-md-offset-4'>
