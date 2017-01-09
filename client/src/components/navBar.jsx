@@ -5,7 +5,7 @@ const NavBar = (props) => (
   <nav className="navbar navbar-default">
   <div className="container-fluid">
     <div className="navbar-header">
-      <Link to="/">
+      <Link to="/dashboard">
         <h3 className="navbar-text">Murmillo</h3>
       </Link>
     </div>
