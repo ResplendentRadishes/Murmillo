@@ -12,11 +12,11 @@ const NavBar = (props) => (
     <div className ="navbar-right">
     {props.user.username ?
       <div>
-        <p className="navbar-text">{'Logged in as ' + props.user.username}</p> 
-        <button className="btn btn-default navbar-btn" onClick={() => props.signOut()}>Sign out</button> 
+        <p className="navbar-text">{'Logged in as ' + props.user.username}</p>
+        <button className="btn btn-default navbar-btn" onClick={() => props.signOut()}>SIGN OUT</button>
       </div>
       :
-      <Link to='/signup' className="btn btn-default navbar-btn">Sign in</Link>
+      <Link to='/signup' className="btn btn-default navbar-btn btn-md">SIGN IN</Link>
     }
     </div>
   </div>

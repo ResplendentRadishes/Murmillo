@@ -19,7 +19,8 @@ coverage
 .grunt
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
-dist/
+client/dist/bundle.js
+client/dist/bundle.js.map
 
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
