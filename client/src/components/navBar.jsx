@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const NavBar = (props) => (
-  <nav className="navbar navbar-default">
-  <div className="container-fluid">
+  <nav className="navbar navbar-default navbar-fixed">
+  <div className="container">
     <div className="navbar-header">
       <Link to="/dashboard">
         <h3 className="navbar-text">Murmillo</h3>
