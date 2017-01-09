@@ -58,34 +58,34 @@ class Chatroom extends React.Component {
           <div className="panel-heading">
             {this.props.room.name}
           </div>
-          <div className="panel-body conversation" style={{maxHeight: 600, minHeight:600}}>
-            {this.props.room.messages.map((message, index) => 
-              <div key={index}>{message}</div>
+          <div className="panel-body conversation fixed-panel" style={{maxHeight: 400, minHeight:400}}>
+            {this.props.room.messages.map((message, index) =>
+              <div className="chatMessage" key={index}>{message}</div>
             )}
           </div>
           <div className="panel-footer">
             <div className="input-group">
               <span className="input-group-btn">
                 <Link to="/arena">
-                    <button 
-                      className="btn btn-success"
+                    <button
+                      className="btn btn-success btn-md"
                       onClick={this.handleReadyButton}
-                    > Ready </button>
+                    > READY </button>
                 </Link>
               </span>
-              <input 
-                type="text" 
-                id="chatMessage" 
-                className="form-control" 
-                placeholder="Enter Message" 
+              <input
+                type="text"
+                id="chatMessage"
+                className="form-control"
+                placeholder="Enter Message"
                 value={this.state.message}
                 onChange={this.handleMessageChange}
                 onKeyPress={this.handleKeyPress}
               />
               <span className="input-group-btn">
-                <button 
-                  className="btn btn-info" 
-                  type="button" 
+                <button
+                  className="btn btn-info btn-md"
+                  type="button"
                   onClick={() => this.handleMessageSend()}
                 >
                   SEND

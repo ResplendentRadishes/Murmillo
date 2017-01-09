@@ -25,18 +25,18 @@ const RoomEntry = (props) => {
     <div>
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">{props.room.name}</h3>
+          {props.room.name}
         </div>
         <div className="panel-body">
           <div className="col-md-8">
-            <p>{props.room.desc}</p>
+            <p className="roomDescript">{props.room.desc}</p>
           </div>
           <div className="col-md-4 text-right no-gutter">
             <button
               type="button"
-              className="btn btn-success btn-primary btn-lg"
+              className="btn btn-success btn-primary btn-md"
               onClick={joinClickHandler}
-            >Join Room
+            >JOIN ROOM
             </button>
           </div>
         </div>

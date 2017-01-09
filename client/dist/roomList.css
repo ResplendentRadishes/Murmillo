@@ -1,0 +1,21 @@
+.roomDescript {
+  font-size: 16px;
+}
+
+.chatMessage {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 16px;
+}
+.chatMessage:nth-child(even) {
+  background: #fff5e6;
+}
+
+.fixed-panel {
+  min-height: 10;
+  max-height: 10;
+  overflow-y: scroll;
+}
+.panel-heading {
+  font-size: 20px;
+}
