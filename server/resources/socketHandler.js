@@ -1,34 +1,43 @@
 var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/db.js').Problem;
-var path = require('path');
-//console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",path.join(__dirname,'../fakeData/fakeCompList.js'))
-//var test = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/fakeData/fakeCompList.js');
-//var t = require('/Users/nimmyissac/Desktop/Thesis/Murmillo/mochaTestFiles/test.js');
-// ================================================
-// handleMessage --- ????? (is this used anywhere?)
-exports.handleMessage = function(socket, count) {
-  socket.on('message', function (message) {
-    socket.emit("existingClientCount", count-1);
-    //socket.in('hardRoom').emit('messageReceived', message);
-  });
-};
 
 // ================================================
 // handleJoin - broadcast users that a new users has joined to room
-exports.handleJoin = function(socket, roomID) {
+exports.handleJoin = function(socket, roomID, playerInSession) {
   socket.on('join', function (username) {
-    socket.emit("joinMessage", 'You have joined '+roomID+' room');                 // private message
-    socket.broadcast.emit('joinMessage', username+' has joined the room');  // all except user
+    // store username in playerInSession
+    playerInSession['/'+roomID][socket.id] = username;
+
+    // sends to user
+    socket.emit("message", 'You have joined '+roomID+' room');
+    // sends to all other users
+    socket.broadcast.emit('message', username+' has joined the room');
+  });
+};
+// ================================================
+// handleLeave - broadcast users that someone has left the room
+exports.handleLeave = function(socket, roomID, playerInSession) {
+  socket.on('disconnect', function (message) {
+    // get name of user who is leaving the room
+    var userLeaving =  playerInSession['/'+roomID][socket.id];
+
+    // remove user who is leaving
+    delete playerInSession['/'+roomID][socket.id];
+
+    // sends to all other users
+    socket.broadcast.emit('message', userLeaving + ' has left the room');
   });
 };
 
 // ================================================
 // handleChatMessage - broadcast messages to everyone within room
-exports.handleChatMessage = function(socket) {
-  socket.on('sendChatMessage', function (message) {
-    socket.emit("receiveChatMessage", message);                 // sends to user
-    socket.broadcast.emit('receiveChatMessage', message);  // sends to all other users
+exports.handleMessage = function(socket) {
+  socket.on('message', function (message) {
+    // sends to user
+    socket.emit("message", message);
+    // sends to all other users
+    socket.broadcast.emit('message', message);
   });
 };
 
