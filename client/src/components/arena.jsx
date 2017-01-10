@@ -2,18 +2,20 @@ import React from 'react';
 import CodeContainer from '../containers/codeContainer.jsx';
 import ArenaInformation from './arenaInformation.jsx';
 import { connect } from 'react-redux';
-require ('../styles/arena.css'); 
-const mapStateToProps = (state) => {
-  return {
-    problem: state.problem,
-    status: state.competition.status
-  }
+require ('../styles/arena.css');
+
+// ===============================================
+// CSS Stylying
+const titleStyle = {
+  margin: '0px'
 }
+
+// ===============================================
 
 let Arena = (props) => {
   return (
     <div className="container">
-      <h1>{props.problem.title}</h1>
+      <h1 style={titleStyle}>{props.problem.title}</h1>
       <div className="row arenaRow">
         <div className="col-md-5 arenaInformation">
           <ArenaInformation desc={props.problem.prompt} status={props.status}/>
@@ -24,6 +26,13 @@ let Arena = (props) => {
       </div>
     </div>
   );
+}
+
+const mapStateToProps = (state) => {
+  return {
+    problem: state.problem,
+    status: state.competition.status
+  }
 }
 
 Arena = connect(
