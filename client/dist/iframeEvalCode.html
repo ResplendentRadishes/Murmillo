@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <head>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+   <style type="text/css">
+      p {
+        color: #b3b3b3;
+        font-size: 16px;
+      }
+   </style>
+  </head>
+  <body>
+    <p id='mylog'>
+    </p>
+
+    <script>
+      // ======================================================
+      // evalute javascript code in sanboxed i-frame
+      (function(){
+        // overwrite console.log function locally
+        // console.log will update DOM in this iframe
+        console.log = function(msg){
+            $("#mylog").html('');
+            $("#mylog").append("<div>" + 'console logging ...' + "</div>");
+            $("#mylog").append("<div>" + msg + "</div>");
+        }
+
+        // listen for message event from mainWindow
+        // then evalute the code
+        window.addEventListener('message', function (event) {
+
+          var mainWindow = event.source;
+          // for example, event.data = 'var solution = function() {return true}; console.log(solution());
+          try {
+            eval(event.data);
+          } catch (event) {
+            console.log('something went wrong');
+          }
+        });
+
+      }());
+      // ======================================================
+
+    </script>
+  </body>
+</html>

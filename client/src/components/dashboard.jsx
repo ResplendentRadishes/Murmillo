@@ -2,6 +2,12 @@ import React from 'react';
 import RoomListContainer from '../containers/roomListContainer.jsx';
 import ChatroomContainer from '../containers/chatroomContainer.jsx';
 
+// ===============================================
+// CSS Stylying
+
+
+// ===============================================
+
 const Dashboard = (props) => (
   <div className="container-fluid">
     <div className="row">
