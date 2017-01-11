@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { setRoomList } from '../actions/actions.js';
-import RoomList from '../components/roomList.jsx';
+import RoomList from './roomList.jsx';
 
 const mapStateToProps = (state) => {
   return {

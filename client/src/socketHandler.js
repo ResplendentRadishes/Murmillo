@@ -10,7 +10,7 @@ var socketInSession = {
 };
 
 // =============================================================
-const joinRoom = function (roomID, username, callback) {
+const socketJoinRoom = function (roomID, username, callback) {
 // joinRoom - makes a http request to server and creates a socket connection to roomID
 //            setup event emitters and listerners
 // @ paramters:
@@ -46,7 +46,7 @@ const joinRoom = function (roomID, username, callback) {
   }
 };
 // =============================================================
-const closeSocketPrevRoom = function(prevRoom) {
+const socketClosePrevRoom = function(prevRoom) {
 
   var nameSpace = '/'+prevRoom.name;
   if (socketInSession[nameSpace] !== undefined) {
@@ -65,7 +65,7 @@ const closeSocketPrevRoom = function(prevRoom) {
 };
 
 // =============================================================
-const sendChatMessage = function (roomID, message) {
+const socketSendChatMsg = function (roomID, message) {
 
   // grab the socket instance stored in an object
   var nameSpace = '/'+roomID;
@@ -77,7 +77,7 @@ const sendChatMessage = function (roomID, message) {
 }
 
 // =============================================================
-const readyToStart = function (roomID, probID, callback) {
+const socketGetProblem = function (roomID, probID, callback) {
 // readyToStart - get problem over socket connection
 // @ paramters:
   // roomID = 'hard', 'medium',  or 'easy'
@@ -95,14 +95,27 @@ const readyToStart = function (roomID, probID, callback) {
   // Event Listener (listen to event from server) -----------------------------
   // listen for 'sendProblem' event and display the problemPromt
   clientSocket.on('sendProblem', function(problem) {
-    console.log(problem);
     callback(problem);
   });
 
 };
-
 // =============================================================
-const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
+const socketCompUpdate = function (roomID, callback) {
+
+  // grab the socket instance stored in an object
+  var nameSpace = '/'+roomID;
+  var clientSocket =  socketInSession[nameSpace];
+
+  // Event Listener (listen to event from server) -----------------------------
+  // listen for 'compUpdate' event and display update
+  clientSocket.on('compUpdate', function(update) {
+    console.log(update);
+    callback(update);
+  });
+
+};
+// =============================================================
+const socketSubmitSoln = function (roomID, probID, username, userSoln, handleResult) {
 // submitSoln - submit user's solution over socket connection
 // @ paramters: roomID = 'hard', 'medium',  or 'easy'
 //              probID = 1, 2, or 3
@@ -127,10 +140,9 @@ const submitSoln = function (roomID, probID, username, userSoln, handleResult) {
   // Event Listener (listen to event from server) -----------------------------
   // listen for 'solutionResult' event
   clientSocket.on('solutionResult', function(result) {
-    console.log(result);
     handleResult(result);
   });
 
 };
 
-export {joinRoom, closeSocketPrevRoom, sendChatMessage, readyToStart, submitSoln};
+export {socketJoinRoom, socketClosePrevRoom, socketSendChatMsg, socketGetProblem, socketSubmitSoln, socketCompUpdate};

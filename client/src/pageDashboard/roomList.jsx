@@ -1,5 +1,5 @@
 import React from 'react';
-import RoomContainer from '../containers/roomContainer.jsx';
+import RoomContainer from './roomContainer.jsx';
 import Axios from 'axios';
 
 class RoomList extends React.Component {
@@ -25,7 +25,7 @@ class RoomList extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        {this.state.roomList.map((room, index) => 
+        {this.state.roomList.map((room, index) =>
           <RoomContainer key={index} room={room} />
         )}
       </div>

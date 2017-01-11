@@ -1,24 +1,19 @@
 import React from 'react';
-import { joinRoom, closeSocketPrevRoom } from '../socketHandler.js';
+import { socketJoinRoom, socketClosePrevRoom } from '../socketHandler.js';
 
 const RoomEntry = (props) => {
 
   const joinClickHandler = () => {
-    if (props.username) {
-
       // close clientSocket connection for previous room
-      closeSocketPrevRoom(props.currRoom);
+      socketClosePrevRoom(props.currRoom);
 
       // open clientSocket connection for selected room
-      joinRoom(props.room.name, props.username || 'Tester', (serverMessage) => {
+      socketJoinRoom(props.room.name, props.username || 'Tester', (serverMessage) => {
         props.updateMessages(serverMessage);
       });
 
       // update currtent room using redux
       props.updateCurrentRoom(props.room);
-    } else {
-      alert('Please log in first');
-    }
   };
 
   return (

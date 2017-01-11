@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBarContainer from '../containers/navBarContainer.jsx';
+import NavBarContainer from './navBarContainer.jsx';
 
 const App = (props) => (
   <div>

@@ -86,7 +86,7 @@ exports.handleSubmitSolution = function(socket) {
         console.log('running mocha checker now')
         mochaChecker(userSoln, username, probID, function(result){
           socket.emit('solutionResult', result);
-          socket.broadcast.emit('solutionResult', result);
+          socket.broadcast.emit('compUpdate', username+': '+result);
         });
       }
 

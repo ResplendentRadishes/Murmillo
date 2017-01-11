@@ -1,6 +1,6 @@
 import React from 'react';
-import RoomListContainer from '../containers/roomListContainer.jsx';
-import ChatroomContainer from '../containers/chatroomContainer.jsx';
+import RoomListContainer from './roomListContainer.jsx';
+import ChatroomContainer from './chatroomContainer.jsx';
 
 // ===============================================
 // CSS Stylying
