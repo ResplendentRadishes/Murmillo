@@ -3,9 +3,9 @@ import { Link } from 'react-router';
 
 const NavBar = (props) => (
   <nav className="navbar navbar-default navbar-fixed">
-  <div className="container">
+  <div className="container-fluid">
     <div className="navbar-header">
-      <Link to="/dashboard">
+      <Link to={props.user.username ? "/dashboard" : "/"}>
         <h3 className="navbar-text">Murmillo</h3>
       </Link>
     </div>
