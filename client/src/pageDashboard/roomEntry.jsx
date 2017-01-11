@@ -4,8 +4,6 @@ import { socketJoinRoom, socketClosePrevRoom } from '../socketHandler.js';
 const RoomEntry = (props) => {
 
   const joinClickHandler = () => {
-    // if (props.username) {
-
       // close clientSocket connection for previous room
       socketClosePrevRoom(props.currRoom);
 
@@ -16,9 +14,6 @@ const RoomEntry = (props) => {
 
       // update currtent room using redux
       props.updateCurrentRoom(props.room);
-    // } else {
-      // alert('Please log in first');
-    // }
   };
 
   return (

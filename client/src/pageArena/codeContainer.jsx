@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { setCode, requestCodeCheck, receiveCodeCheck, getCompUpdate} from '../actions/actions.js';
 import {socketSubmitSoln, socketCompUpdate} from '../socketHandler.js';
-import Editor from '../components/editor.jsx';
+import Editor from './editor.jsx';
 
 const mapStateToProps = (state) => {
   return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import CodeContainer from '../containers/codeContainer.jsx';
+import CodeContainer from './codeContainer.jsx';
 import ArenaInformation from './arenaInformation.jsx';
 import { connect } from 'react-redux';
 require ('../styles/arena.css');

@@ -7,11 +7,11 @@ import createLogger from 'redux-logger';
 
 import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
-import App from './components/app.jsx';
-import DashboardContainer from './containers/dashboardContainer.jsx';
-import Arena from './components/arena.jsx';
-import SignUp from './components/signUp.jsx';
-import Home from './components/home.jsx';
+import App from './pageShared/app.jsx';
+import DashboardContainer from './pageDashboard/dashboardContainer.jsx';
+import Arena from './pageArena/arena.jsx';
+import SignUp from './pageSignup/signUp.jsx';
+import Home from './pageHome/home.jsx';
 
 const logger = createLogger()
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { updateMessages, setProblem } from '../actions/actions.js';
-import Chatroom from '../components/chatroom.jsx';
+import Chatroom from './chatroom.jsx';
 
 const mapStateToProps = (state) => {
   return {
