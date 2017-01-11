@@ -10,139 +10,135 @@ var socketInSession = {
 };
 
 // =============================================================
-const socketJoinRoom = function (roomID, username, callback) {
-// joinRoom - makes a http request to server and creates a socket connection to roomID
-//            setup event emitters and listerners
-// @ paramters:
-  // roomID = 'hard', 'medium',  or 'easy'
-// example usage in react: <button onClick={() => joinRoom('hard')}>Join Room</button>
-
-  // var username = prompt("Enter name");
+const socketEmitJoin = function (roomID, username) {
   var nameSpace = '/'+roomID;
 
-  // HTTP Request to the server, server will create 'nameSapce' room if serverSocket does not exist
+  // HTTP Request to the server, server will create 'nameSapce' if it does not exist
   $.get('/api/join'+nameSpace, function(res) {
     console.log('result of http request: ' + res);
   });
 
   // open clientSocket connection if it does not exist yet
   if (socketInSession[nameSpace] === undefined) {
-
     // establish a connection to nameSpace
     var clientSocket = io(nameSpace);
-    // store clientSocket instance in an object so it can be accessed later
+    // store clientSocket instance in object so it can be accessed later
     socketInSession[nameSpace] = clientSocket;
-
-    // Event Emitter (emit event to server) ------------------------------------
     // emit 'join' with username
     clientSocket.emit('join', username);
-
-    // Event Listener (listen to event from server) -----------------------------
-    // listen for 'message' event and display the message
-    clientSocket.on('message', function(message) {
-      callback(message);
-    });
-
   }
 };
+
 // =============================================================
 const socketClosePrevRoom = function(prevRoom) {
-
   var nameSpace = '/'+prevRoom.name;
+
   if (socketInSession[nameSpace] !== undefined) {
     console.log('closing socket for '+prevRoom.name)
-
-    // grab the socket instance stored in an object
+    // grab the socket instance stored in object
     var clientSocket = socketInSession[nameSpace];
-
     // disconnect clientSocket
-    clientSocket.disconnect('userA');
-
+    clientSocket.disconnect();
     // remove nameSpace from socketInSession object
     delete socketInSession[nameSpace]
   };
-
 };
 
-// =============================================================
-const socketSendChatMsg = function (roomID, message) {
 
-  // grab the socket instance stored in an object
+// =============================================================
+const socketOnMsg = function (roomID, callback) {
+  // grab the socket instance stored in object
   var nameSpace = '/'+roomID;
   var clientSocket = socketInSession[nameSpace];
 
-  // Event Emitter (emit event to server) ------------------------------------
-  // emit 'join' with username
-  clientSocket.emit('message', message);
-}
+  // listen for 'message' event from server and get message via callback
+  clientSocket.on('message', function(message) {
+    callback(message);
+  });
+};
+const socketEmitMsg = function (roomID, username, message) {
+  // grab the socket instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket = socketInSession[nameSpace];
+
+  // format data to send to server
+  var userMsg = username+': '+message;
+
+  // emit 'message' event to server
+  clientSocket.emit('message', userMsg);
+};
 
 // =============================================================
-const socketGetProblem = function (roomID, probID, callback) {
-// readyToStart - get problem over socket connection
-// @ paramters:
-  // roomID = 'hard', 'medium',  or 'easy'
-  // probID = 1, 2, or 3
-// example usage in react: <button onClick={() => readyToStart('hard', 1)}>Join Room</button>
-
-  // grab the socket instance stored in an object
+const socketOnProblem = function (roomID, callback) {
+  // grab the socket instance stored in object
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // Event Emitter (emit event to server) ------------------------------------
-  // emit 'getProblem' with problemID
-  clientSocket.emit('getProblem', probID);
-
-  // Event Listener (listen to event from server) -----------------------------
-  // listen for 'sendProblem' event and display the problemPromt
-  clientSocket.on('sendProblem', function(problem) {
+  // listen for 'problem' event from server and get problem via callback
+  clientSocket.on('problem', function(problem) {
     callback(problem);
   });
-
 };
-// =============================================================
-const socketCompUpdate = function (roomID, callback) {
-
-  // grab the socket instance stored in an object
+const socketEmitProblem = function (roomID, probID) {
+  // grab the socket instance stored in object
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // Event Listener (listen to event from server) -----------------------------
-  // listen for 'compUpdate' event and display update
-  clientSocket.on('compUpdate', function(update) {
-    console.log(update);
-    callback(update);
+  // emit 'problem' to serer with problemID
+  clientSocket.emit('problem', probID);
+};
+
+// =============================================================
+const socketOnSubmission = function (roomID, callback) {
+  // grab the socketHard instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket =  socketInSession[nameSpace];
+
+  // listen for 'codeSubmission' event from server and get problem via callback
+  clientSocket.on('codeSubmission', function(result) {
+    callback(result);
   });
 
 };
-// =============================================================
-const socketSubmitSoln = function (roomID, probID, username, userSoln, handleResult) {
-// submitSoln - submit user's solution over socket connection
-// @ paramters: roomID = 'hard', 'medium',  or 'easy'
-//              probID = 1, 2, or 3
-// example usage in react: <button onClick={() =>
-//  submitSoln('hard', 1, 'userA', 'var solution=....'}>SubmitSoln</button>
+const socketEmitSubmission = function (roomID, probID, username, userSoln, handleResult) {
+  // grab the socketHard instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket =  socketInSession[nameSpace];
 
-  console.log('submitSoln')
-
+  // format data to send to server
   var userSolnObj = {
     userSoln,
     username,
     probID,
   };
 
-  // grab the socketHard instance stored in an object
+  // emit 'codeSubmission' with user's solution
+  clientSocket.emit('codeSubmission', userSolnObj);
+};
+
+// =============================================================
+const socketOnUpdate = function (roomID, callback) {
+  // grab the socket instance stored in object
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // Event Emitter (emit event to server) ------------------------------------
-  // emit 'submitSoln' with user's solution
-  clientSocket.emit('submitSoln', userSolnObj);
-  // Event Listener (listen to event from server) -----------------------------
-  // listen for 'solutionResult' event
-  clientSocket.on('solutionResult', function(result) {
-    handleResult(result);
+  // listen for 'compUpdate' event and get update via callback
+  clientSocket.on('compUpdate', function(update) {
+    callback(update);
   });
-
 };
 
-export {socketJoinRoom, socketClosePrevRoom, socketSendChatMsg, socketGetProblem, socketSubmitSoln, socketCompUpdate};
+// =============================================================
+export {
+  socketEmitJoin,
+  socketClosePrevRoom,
+  socketOnMsg,
+  socketEmitMsg,
+  socketOnProblem,
+  socketEmitProblem,
+  socketOnSubmission,
+  socketEmitSubmission,
+  socketOnUpdate
+};
+
+

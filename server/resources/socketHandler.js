@@ -47,18 +47,18 @@ exports.handleGetProblem = function(socket) {
   // use errorProblem when problem cannto be found
   var errorProblem = {title: 'error', prompt: 'error', template: 'error'};
 
-  // listening on 'getProblem' from client
-  socket.on('getProblem', function(problemID) {
+  // listening on 'problem' from client
+  socket.on('problem', function(problemID) {
     // grab the probelm from database
     dbProblem.findById(problemID)
       .then(function(problem) {
-        // emit 'sendProblem' to client with problem(type: object)
-        socket.emit('sendProblem', problem.dataValues);
+        // emit 'problem' to client with problem(type: object)
+        socket.emit('problem', problem.dataValues);
       })
       .catch(function(err) {
         console.error(err);
         // emit 'sendProblem' to client with problem(type: object)
-        socket.emit('sendProblem', errorProblem);
+        socket.emit('problem', errorProblem);
       });
 
   });
@@ -68,7 +68,7 @@ exports.handleGetProblem = function(socket) {
 // handle submit solution
 exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
-  socket.on('submitSoln', function (userSolnObj) {
+  socket.on('codeSubmission', function (userSolnObj) {
     console.log('handlingSubmitSoln');
 
     var userSoln = userSolnObj.userSoln;
@@ -79,13 +79,13 @@ exports.handleSubmitSolution = function(socket) {
     syntaxChecker(userSoln, username, probID, function(success, error, errorMessage) {
       if(error) {
         // console.log(error);
-        socket.emit('solutionResult', errorMessage);
+        socket.emit('codeSubmission', errorMessage);
       }
       if(success) {
         // 2) check user's solution against mochaTests
         console.log('running mocha checker now')
         mochaChecker(userSoln, username, probID, function(result){
-          socket.emit('solutionResult', result);
+          socket.emit('codeSubmission', result);
           socket.broadcast.emit('compUpdate', username+': '+result);
         });
       }
@@ -93,18 +93,6 @@ exports.handleSubmitSolution = function(socket) {
     });
 
   });
-
-};
-
-// ================================================
-// live feed
-exports.handleLiveFee = function(socket) {
-
-};
-
-// ================================================
-// close
-exports.closeSocket = function(socket) {
 
 };
 

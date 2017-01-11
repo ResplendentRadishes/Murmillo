@@ -1,7 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router';
-import { socketGetProblem, socketSendChatMsg } from '../socketHandler.js';
+import { socketEmitProblem, socketEmitMsg } from '../socketHandler.js';
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -17,9 +17,10 @@ class Chatroom extends React.Component {
   }
 
   handleMessageSend() {
-    // sends message to redux
     const context = this;
-    socketSendChatMsg(this.props.room.name, (this.props.user.username || 'Tester') + ': ' + this.state.message);
+    // emit 'message' event to server
+    socketEmitMsg(this.props.room.name, this.props.user.username, this.state.message);
+
     // updates current message to blank after message is sent
     this.setState({
       message: ''
@@ -42,9 +43,8 @@ class Chatroom extends React.Component {
   handleReadyButton() {
     const context = this;
     const room = this.props.room;
-    socketGetProblem(room.name, room.problemId, (problem) => {
-      context.props.setProblem(problem);
-    });
+    // emit 'problem' event to server
+    socketEmitProblem(room.name, room.problemId);
   }
 
   componentDidMount() {

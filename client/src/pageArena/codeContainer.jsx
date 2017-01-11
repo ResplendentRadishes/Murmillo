@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { setCode, requestCodeCheck, receiveCodeCheck, getCompUpdate} from '../actions/actions.js';
-import {socketSubmitSoln, socketCompUpdate} from '../socketHandler.js';
+import { setCode, requestCodeCheck } from '../actions/actions.js';
+import { socketEmitSubmission } from '../socketHandler.js';
 import Editor from './editor.jsx';
 
 const mapStateToProps = (state) => {
@@ -19,18 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     submitCode: function(params) {
       // dispatch requestCodeCheck to set state: isFetching to true
       dispatch(requestCodeCheck());
-
-      // dispatch receiveCodeCheck to set state: isFetching to false, status to result from socket conn
-      socketSubmitSoln(params.room, params.problemId, params.user, params.code, function(result) {
-        dispatch(receiveCodeCheck(result));
-      });
+      // emmit submission event to server
+      socketEmitSubmission(params.room, params.problemId, params.user, params.code);
     },
-    getLiveUpdate: function(params) {
-      // dispatch getCompUpdate to set state: compUpdate to update from socket conn
-      socketCompUpdate(params.room, function(update) {
-        dispatch(getCompUpdate(update));
-      });
-    }
 
   }
 }

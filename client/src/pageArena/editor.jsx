@@ -35,15 +35,6 @@ class Editor extends React.Component {
     super(props);
   };
 
-  // setup listener for 'compUpdate'
-  componentDidMount() {
-    var params = {
-      room: this.props.room.name,
-    }
-
-    this.props.getLiveUpdate(params);
-  };
-
   render() {
     return (
       <div>

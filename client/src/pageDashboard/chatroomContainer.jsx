@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateMessages, setProblem } from '../actions/actions.js';
+// import { updateMessages, setProblem } from '../actions/actions.js';
 import Chatroom from './chatroom.jsx';
 
 const mapStateToProps = (state) => {
@@ -10,20 +10,20 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateMessages: function(message) {
-      dispatch(updateMessages(message));
-    },
-    setProblem: function(problem) {
-      dispatch(setProblem(problem));
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     updateMessages: function(message) {
+//       dispatch(updateMessages(message));
+//     },
+//     setProblem: function(problem) {
+//       dispatch(setProblem(problem));
+//     }
+//   }
+// }
 
 const ChatroomContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  // mapDispatchToProps
 )(Chatroom);
 
 export default ChatroomContainer;

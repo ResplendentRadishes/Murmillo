@@ -49,7 +49,7 @@ exports.joinRoom = function(req, res) {
       }
       console.log("inside "+roomID+" room count is ", count);
 
-      // configure socketHandeler
+      // configure socketHandler
       socketHandler.handleJoin(socket, roomID, playerInSession);
       socketHandler.handleLeave(socket, roomID, playerInSession);
       socketHandler.handleMessage(socket);
