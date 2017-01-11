@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-const initialState = {
-  user: {}
-};
+// const initialState = {
+//   user: {}
+// };
 
 function user(state = {}, action) {
   switch (action.type) {
@@ -67,6 +67,7 @@ function problem(state = {}, action) {
       return state;
   }
 }
+
 function code(state = null, action) {
   switch (action.type) {
 
@@ -81,17 +82,22 @@ function code(state = null, action) {
   }
 }
 
-function competition(state = {isFetching: false, status: 'In Progress'}, action) {
+const defaultMsg = 'No other users have submmited code yet';
+function competition(state = {isFetching: false, status: 'In Progress', compUpdate: defaultMsg}, action) {
   switch (action.type) {
     case 'REQUEST_CODE_CHECK':
       return {...state, isFetching: true};
     case 'RECEIVE_CODE_CHECK':
       return {...state, isFetching: false, status: action.result};
+    case 'GET_COMP_UPDATE':
+      return {...state, compUpdate: action.compUpdate};
     default:
       return state;
   }
 }
 
+// ==============================================
+// combine reducers from above
 const rootReducer = combineReducers({
   user,
   roomList,
@@ -102,6 +108,8 @@ const rootReducer = combineReducers({
   competition
 });
 
+// ==============================================
+// reset all states to undefined upon logout
 const murmilloApp = (state, action) => {
   if (action.type === 'USER_LOGOUT') {
     state = undefined;

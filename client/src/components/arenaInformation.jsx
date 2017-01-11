@@ -4,7 +4,8 @@ require ('../styles/arena.css');
 // ===============================================
 // CSS Stylying
 const panelStyle = {
-  height: '275px'
+  height: '200px',
+  margin: '0px'
 };
 
 // ===============================================
@@ -31,6 +32,16 @@ const ArenaInformation = (props) => {
         </div>
         <div className="panel-body" >
           {props.status}
+        </div>
+      </div>
+
+      {/* ------ CompetitionUpdate ------ */}
+      <div className="panel panel-default CompetitionUpdate" style={panelStyle}>
+        <div className="panel-heading">
+          Competition Live Update
+        </div>
+        <div className="panel-body" >
+          {props.compUpdate}
         </div>
       </div>
 

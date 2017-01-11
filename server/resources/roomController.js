@@ -39,9 +39,6 @@ exports.joinRoom = function(req, res) {
 
     // configure serverSocket upon connection
     serverSocket.on('connection', function(socket) {
-      console.log('==========')
-      console.log(socket.id)
-      console.log('==========')
 
       // get clientCount
       var clientCount = io_socket.io.nsps[nameSpace].adapter.sids;

@@ -8,7 +8,9 @@ export const SET_PROBLEM = 'SET_PROBLEM';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
+export const GET_COMP_UPDATE = 'GET_COMP_UPDATE';
 
+// =========================================
 //user actions
 export function setUser(user) {
   return { type: SET_USER, user };
@@ -22,11 +24,13 @@ export function userLogout(user) {
   return { type: USER_LOGOUT };
 }
 
+// =========================================
 //roomList actions
 export function setRoomList(roomList) {
   return {type: SET_ROOMLIST, roomList }
 }
 
+// =========================================
 //room actions
 export function setRoom(room) {
   return { type: SET_ROOM, room };
@@ -41,6 +45,8 @@ export function setProblem(problem) {
   return {type: SET_PROBLEM, problem };
 }
 
+// =========================================
+//code actions
 export function setCode(code) {
   return { type: SET_CODE, code };
 }
@@ -52,3 +58,8 @@ export function requestCodeCheck() {
 export function receiveCodeCheck(result) {
   return {type: RECEIVE_CODE_CHECK, result}
 }
+
+export function getCompUpdate(compUpdate) {
+  return {type: GET_COMP_UPDATE, compUpdate}
+}
+
