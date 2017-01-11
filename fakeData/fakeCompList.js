@@ -2,7 +2,7 @@
 // fakeCompList
 var fakeCompList = [{
   id: 1,
-  problemId: 1,
+  problemId: 3,
   name: 'hard',
   desc: 'This is tough yo',
   messages: []
@@ -16,7 +16,7 @@ var fakeCompList = [{
 },
 {
   id: 3,
-  problemId: 3,
+  problemId: 1,
   name: 'easy',
   desc: 'Really?',
   messages: []

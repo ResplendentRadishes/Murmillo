@@ -3,17 +3,24 @@
 var assert = require('assert');
 
 describe('simple function', function() {
-  it('Should return the value passed into it', function() {
-    var test = 10;
-    var expected = test;
-    var actual = solution(test);
+  it('function should sum of a and b', function() {
+    var a = 10;
+    var b = 5;
+    var actual = solution(a, b);
+    assert.equal(actual, 15);
+  });
+  it('Should add randomized numbers', function() {
+    var a = Math.floor(Math.random() * 100000);
+    var b = Math.floor(Math.random() * 100000);
+    var actual = solution(a, b);
+    expected = a + b;
     assert.equal(actual, expected);
   });
-  it('Should pass for arrays', function() {
-    var test = [0, 1, 2];
-    var expected = test;
-    var actual = solution(test);
-    assert.equal(actual, expected);
-  });
+  it('Should concatenate strings', function() {
+    var a = 'foo';
+    var b = 'bar';
+    var actual = solution(a,b);
+    assert.equal(actual, 'foobar');
+  })
 });
 // ==============================================

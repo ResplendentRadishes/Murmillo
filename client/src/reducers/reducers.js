@@ -82,7 +82,7 @@ function code(state = null, action) {
   }
 }
 
-const defaultMsg = 'No other users have submmited code yet';
+const defaultMsg = 'No other users have submitted code yet';
 function competition(state = {isFetching: false, status: 'In Progress', compUpdate: defaultMsg}, action) {
   switch (action.type) {
     case 'REQUEST_CODE_CHECK':
