@@ -71,7 +71,6 @@ app.get('/auth/github/callback', passport.authenticate('github', { failureRedire
 app.get('/loginStatus', function(req, res) {
   if (req.user) {
     // TODO send a findOrCreate command to the server with this user
-    console.log(req.user);
     res.json(req.user);
   }
 })
