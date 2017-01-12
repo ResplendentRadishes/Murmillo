@@ -23,6 +23,9 @@ let signUp = ({dispatch}) => {
           <button className='btn btn-default' type="sumbit">Save</button>
         </span>
       </div>
+      <div>
+        <a href="/auth/github">GitHub</a>
+      </div>
     </form>
   );
 }

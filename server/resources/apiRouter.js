@@ -1,4 +1,4 @@
-var router = require('express').Router();
+var apiRouter = require('express').Router();
 var roomController = require('./roomController');
 
 // =========================================
@@ -8,14 +8,12 @@ var fakeCompList = require('../../fakeData/fakeCompList.js');
 
 
 // GET compList
-router.get('/compList', function(req, res) {
+apiRouter.get('/compList', function(req, res) {
   res.json(fakeCompList);   // send fakeCompList
 });
 
 // GET joinRoom
-router.get('/join/:roomID', roomController.joinRoom);
+apiRouter.get('/join/:roomID', roomController.joinRoom);
 
 // =========================================
-module.exports = router;
-
-
+module.exports = apiRouter;
