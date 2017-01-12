@@ -16,6 +16,7 @@ import Home from './pageHome/home.jsx';
 const logger = createLogger()
 
 let store = createStore(murmilloApp, undefined, applyMiddleware(logger));
+// let store = createStore(murmilloApp);
 
 ReactDOM.render(
   <Provider store={store}>
