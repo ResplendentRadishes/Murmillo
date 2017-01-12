@@ -1,7 +1,9 @@
 import React from 'react';
-import CodeContainer from './codeContainer.jsx';
-import ArenaInformation from './arenaInformation.jsx';
 import { connect } from 'react-redux';
+
+import ArenaInformation from './arenaInformation.jsx';
+import TimerContainer from './timerContainer.jsx';
+import CodeContainer from './codeContainer.jsx';
 require ('../styles/arena.css');
 
 // ===============================================
@@ -20,7 +22,6 @@ const mapStateToProps = (state) => {
 }
 
 let Arena = (props) => {
-  console.log()
   return (
     <div className="container">
       <h1 style={titleStyle}>{props.problem.title}</h1>
@@ -29,6 +30,7 @@ let Arena = (props) => {
           <ArenaInformation desc={props.problem.prompt} status={props.status} compUpdate={props.compUpdate}/>
         </div>
         <div className="col-md-7 codeContainer">
+          <TimerContainer />
           <CodeContainer />
         </div>
       </div>
