@@ -28,8 +28,5 @@ client/dist/bundle.js.map
 node_modules/
 bower_components/
 
-# Client IDs
-src/config/
-
 # OS X
 .DS_Store

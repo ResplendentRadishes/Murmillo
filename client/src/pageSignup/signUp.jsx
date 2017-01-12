@@ -25,7 +25,6 @@ let signUp = ({dispatch}) => {
       </div>
       <div>
         <a href="/auth/github">GitHub</a>
-        <a href="/logout">Logout</a>
       </div>
     </form>
   );
