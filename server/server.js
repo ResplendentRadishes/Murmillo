@@ -19,16 +19,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //================================================
 // Passport
 passport.use(new GithubStrategy({
-  clientID: GITHUB_CLIENT_ID
-  clientSecret: GITHUB_CLIENT_SECRET
+  clientID: 'd8bdf2c7dfe8d2f386df',
+  clientSecret: '453a911dc3499b393cfae15c5b6983887e653c2d',
   callbackURL: 'http://localhost:3000/auth/github/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
+    return done(null, {
+      accessToken: accessToken,
+      profile: profile
+    });
   }
 ));
 
-app.use(session({secret: 'MurmilloSecret'}));
+app.use(session({
+  secret: 'MurmilloSecret',
+  resave: true,
+  saveUninitialized: false
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -45,19 +53,29 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 })
 
-app.get('/auth/github', passport.authenticate('github'));
-
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), 
-  function(req, res) {
-    res.redirect('/');
-  }
-)
 // ===============================================
 // Serve static content
 app.use('/', express.static(__dirname + '/../client/dist'));
 
 // ===============================================
 // Setup routes to handle request
+app.get('/auth/github', passport.authenticate('github'));
+
+app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), 
+  function(req, res) {
+
+    res.redirect('/#/dashboard');
+  }
+)
+
+app.get('/loginStatus', function(req, res) {
+  if (req.user) {
+    // TODO send a findOrCreate command to the server with this user
+    console.log(req.user);
+    res.json(req.user);
+  }
+})
+
 app.use('/', loginRouter);
 app.use('/api', apiRouter);
 

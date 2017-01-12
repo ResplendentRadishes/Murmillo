@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
-import { userLogout } from '../actions/actions.js';
 import NavBar from './navBar.jsx';
+import { userLogout, setUser } from '../actions/actions.js';
+import Axios from 'axios';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +15,10 @@ const mapDispatchToProps = (dispatch) => {
     signOut: function() {
       hashHistory.push('/');
       dispatch(userLogout());
+      Axios.get('/logout');
+    },
+    setUser: function(user) {
+      dispatch(setUser(user));
     }
   }
 }
