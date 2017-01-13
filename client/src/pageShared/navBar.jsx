@@ -17,12 +17,11 @@ class NavBar extends React.Component {
             avatarUrl: res.data.profile.photos[0].value
           };
           this.props.setUser(newUser);
+          hashHistory.push('/dashboard');
         } else {
           hashHistory.push('/');
         }
       });
-    } else {
-      hashHistory.push('/dashboard');
     }
   }
 
