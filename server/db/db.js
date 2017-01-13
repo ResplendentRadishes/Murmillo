@@ -26,16 +26,12 @@ var Problem = db.define('Problem', {
 });
 
 var User = db.define('User', {
-  id: { 
-    type: Sequelize.BIGINT,
-    primaryKey: true,
-    autoIncrement: true
-  },
+  id: { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
   username: Sequelize.STRING,
-  avatarUrl: Sequelize.STRING,
-  score: { type: Sequelize.INT, defaultValue: 0 },
-  games: { type: Sequelize.INT, defaultValue: 0 },
-  wins: { type: Sequelize.INT, defaultValue: 0 }
+  avatarUrl: { type: Sequelize.STRING, unique: true },
+  score: { type: Sequelize.INTEGER, defaultValue: 0 },
+  games: { type: Sequelize.INTEGER, defaultValue: 0 },
+  wins: { type: Sequelize.INTEGER, defaultValue: 0 }
 });
 
 // ==================================================

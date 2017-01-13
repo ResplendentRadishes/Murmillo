@@ -11,12 +11,18 @@ class NavBar extends React.Component {
     if (!this.props.user.username) {
       Axios.get('/loginStatus')
       .then(res => {
-        let newUser = {
-          username: res.data.profile.displayName,
-          avatarUrl: res.data.profile.photos[0].value
-        };
-        this.props.setUser(newUser);
-      })
+        if (res.data) {
+          let newUser = {
+            username: res.data.profile.displayName,
+            avatarUrl: res.data.profile.photos[0].value
+          };
+          this.props.setUser(newUser);
+        } else {
+          hashHistory.push('/');
+        }
+      });
+    } else {
+      hashHistory.push('/dashboard');
     }
   }
 

@@ -71,6 +71,8 @@ app.get('/loginStatus', function(req, res) {
   if (req.user) {
     // TODO send a findOrCreate command to the server with this user
     res.json(req.user);
+  } else {
+    res.json(false);
   }
 })
 
