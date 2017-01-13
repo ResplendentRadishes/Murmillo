@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import Axios from 'axios';
 
 class NavBar extends React.Component {
@@ -33,10 +33,15 @@ class NavBar extends React.Component {
           {this.props.user.username ?
             <div>
               <p className="navbar-text">{'Logged in as ' + this.props.user.username}</p>
-              <button className="btn btn-default navbar-btn" onClick={() => this.props.signOut()}>SIGN OUT</button>
+              {this.props.user.avatarUrl ? 
+                <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
+                :
+                ''
+              }
+              <button className="btn btn-default navbar-btn" style={{marginLeft: 7, marginRight: 7}} onClick={() => this.props.signOut()}>SIGN OUT</button>
             </div>
             :
-            <Link to='/signup' className="btn btn-default navbar-btn btn-md">SIGN IN</Link>
+            <Link to='/signup' className="btn btn-default navbar-btn btn-md" style={{marginLeft: 7, marginRight: 7}}>SIGN IN</Link>
           }
           </div>
         </div>

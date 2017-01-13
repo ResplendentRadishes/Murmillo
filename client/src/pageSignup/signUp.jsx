@@ -20,11 +20,14 @@ let signUp = ({dispatch}) => {
       <div className='input-group col-md-4 col-md-offset-4'>
         <input className='form-control' ref={node => {input = node}} />
         <span className='input-group-btn'>
-          <button className='btn btn-default' type="sumbit">Save</button>
+          <button className='btn btn-default' type="sumbit">Sign in</button>
         </span>
       </div>
-      <div>
-        <a href="/auth/github">GitHub</a>
+      <div className="text-center">
+        <h3>OR</h3>
+        <a className="btn btn-lg btn-social btn-github" href="/auth/github">
+          <span className="fa fa-github"></span> Sign in with GitHub
+        </a>
       </div>
     </form>
   );
