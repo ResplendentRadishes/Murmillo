@@ -1,6 +1,7 @@
 var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/db.js').Problem;
+var Axios = require('axios');
 
 // create playerList (array) on the fly to avoid revealing socketID
 var _createPlayerList = function(playerListForRoom) {
@@ -118,33 +119,58 @@ exports.handleGetProblem = function(socket) {
 
 // ================================================
 // handle submit solution
+// exports.handleSubmitSolution = function(socket) {
+//   // handle user's submitted solution
+//   socket.on('codeSubmission', function (userSolnObj) {
+//     console.log('handlingSubmitSoln');
+//
+//     var userSoln = userSolnObj.userSoln;
+//     var username = userSolnObj.username;
+//     var probID = userSolnObj.probID;
+//
+//     // 1) run syntaxChecker on userSoln file
+//     syntaxChecker(userSoln, username, probID, function(success, error, errorMessage) {
+//       if(error) {
+//         // console.log(error);
+//         socket.emit('codeSubmission', errorMessage);
+//       }
+//       if(success) {
+//         // 2) check user's solution against mochaTests
+//         console.log('running mocha checker now')
+//         mochaChecker(userSoln, username, probID, function(result){
+//           socket.emit('codeSubmission', result);
+//           socket.broadcast.emit('compUpdate', username+': '+result);
+//         });
+//       }
+//
+//     });
+//
+//   });
+//
+// };
+
+//sends the code to a docker container to sandbox
 exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
-  socket.on('codeSubmission', function (userSolnObj) {
-    console.log('handlingSubmitSoln');
 
+  var codecheckAPI = 'http://localhost:8510';
+
+  socket.on('codeSubmission', function (userSolnObj) {
     var userSoln = userSolnObj.userSoln;
     var username = userSolnObj.username;
     var probID = userSolnObj.probID;
 
-    // 1) run syntaxChecker on userSoln file
-    syntaxChecker(userSoln, username, probID, function(success, error, errorMessage) {
-      if(error) {
-        // console.log(error);
-        socket.emit('codeSubmission', errorMessage);
-      }
-      if(success) {
-        // 2) check user's solution against mochaTests
-        console.log('running mocha checker now')
-        mochaChecker(userSoln, username, probID, function(result){
-          socket.emit('codeSubmission', result);
-          socket.broadcast.emit('compUpdate', username+': '+result);
-        });
-      }
+    var destination = codecheckAPI + '/test/' + probID;
 
-    });
-
+    //send a post request to the port used by our docker container
+    Axios.post(destination, {code: userSoln})
+      .then(function(response){
+        let result = response.data;
+        socket.emit('codeSubmission', result);
+        socket.broadcast.emit('compUpdate', username + ': ' + result);
+      })
+      .catch(function(error){
+        console.log('to err is ', error);
+      });
   });
-
 };
-
