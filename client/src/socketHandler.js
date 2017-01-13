@@ -44,14 +44,32 @@ const socketClosePrevRoom = function(prevRoom) {
   };
 };
 
+// =============================================================
+const socketOnPlayerList = function (roomID, callback) {
+  // grab the socket instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket = socketInSession[nameSpace];
 
+  // listen for 'playerList' event from server and get playerList(array) via callback
+  clientSocket.on('playerList', function(playerList) {
+    callback(playerList);
+  });
+};
+const socketEmitReady = function (roomID) {
+  // grab the socket instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket = socketInSession[nameSpace];
+
+  // emit emit 'ready' event to server
+  clientSocket.emit('ready', '');
+};
 // =============================================================
 const socketOnMsg = function (roomID, callback) {
   // grab the socket instance stored in object
   var nameSpace = '/'+roomID;
   var clientSocket = socketInSession[nameSpace];
 
-  // listen for 'message' event from server and get message via callback
+  // listen for 'message' event from server and get message(string) via callback
   clientSocket.on('message', function(message) {
     callback(message);
   });
@@ -74,7 +92,7 @@ const socketOnProblem = function (roomID, callback) {
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // listen for 'problem' event from server and get problem via callback
+  // listen for 'problem' event from server and get problem(object) via callback
   clientSocket.on('problem', function(problem) {
     callback(problem);
   });
@@ -94,7 +112,7 @@ const socketOnSubmission = function (roomID, callback) {
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // listen for 'codeSubmission' event from server and get problem via callback
+  // listen for 'codeSubmission' event from server and get result(string) via callback
   clientSocket.on('codeSubmission', function(result) {
     callback(result);
   });
@@ -122,7 +140,7 @@ const socketOnUpdate = function (roomID, callback) {
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // listen for 'compUpdate' event and get update via callback
+  // listen for 'compUpdate' event and get update(string) via callback
   clientSocket.on('compUpdate', function(update) {
     callback(update);
   });
@@ -132,6 +150,8 @@ const socketOnUpdate = function (roomID, callback) {
 export {
   socketEmitJoin,
   socketClosePrevRoom,
+  socketOnPlayerList,
+  socketEmitReady,
   socketOnMsg,
   socketEmitMsg,
   socketOnProblem,

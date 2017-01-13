@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import  {
           setRoom,
+          updatePlayerList,   // used with socketOnPlayerList
           updateMessages,     // used with socketOnMsg
           setProblem,         // used with socketOnProblem
           receiveCodeCheck,   // used with socketOnSubmission
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setRoom: function(room) {
       dispatch(setRoom(room));
+    },
+    updatePlayerList: function(playerList) {
+      dispatch(updatePlayerList(playerList));
     },
     updateMessages: function(serverMessage) {
       dispatch(updateMessages(serverMessage));

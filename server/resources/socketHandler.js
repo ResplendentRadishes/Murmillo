@@ -2,37 +2,89 @@ var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/db.js').Problem;
 
+// create playerList (array) on the fly to avoid revealing socketID
+var _createPlayerList = function(playerListForRoom) {
+  var playerIDs = Object.keys( playerListForRoom );
+  return playerIDs.map( function(id){
+    return playerListForRoom[id];
+  });
+}
+
 // ================================================
 // handleJoin - broadcast users that a new users has joined to room
-exports.handleJoin = function(socket, roomID, playerInSession) {
+exports.handleJoin = function(socket, playerListForRoom) {
+
   socket.on('join', function (username) {
-    // store username in playerInSession
-    playerInSession['/'+roomID][socket.id] = username;
+    // add user information to playerList
+    playerListForRoom[socket.id] = { username: username, ready: false };
+
+    // create playerList to send back to client (array format)
+    var playerList = _createPlayerList(playerListForRoom)
 
     // sends to user
-    socket.emit("message", 'You have joined '+roomID+' room');
+    socket.emit("message", 'You have joined the room');
+    socket.emit("playerList", playerList);
+
     // sends to all other users
     socket.broadcast.emit('message', username+' has joined the room');
+    socket.broadcast.emit("playerList", playerList);
   });
 };
 // ================================================
+// handleReady configures 'handleReady' listener and 'playerList' emitter
+// when user clicks on 'Ready', update user's ready status in player
+exports.handleReady = function(socket, playerListForRoom) {
+  // listening on 'Ready' from client
+  socket.on('ready', function() {
+
+    // get name of user who clicked 'ready'
+    var userReady =  playerListForRoom[socket.id].username;
+
+    // add user information to playerList
+    playerListForRoom[socket.id].ready = true;
+
+    // create playerList to send back to client (array format)
+    var playerList = _createPlayerList(playerListForRoom)
+    // inform the user regarding other's status
+    var notReadyPlayers = playerList.filter(function(userObj) { return userObj.ready === false });
+    var statusUpdateMsg = userReady+' is ready to start.';
+
+    // sends to user
+    socket.emit('playerList', playerList);
+    socket.emit('message', statusUpdateMsg);
+
+    // sends to all other users
+    socket.broadcast.emit('playerList', playerList);
+    socket.broadcast.emit('message', statusUpdateMsg);
+
+  });
+};
+
+// ================================================
 // handleLeave - broadcast users that someone has left the room
-exports.handleLeave = function(socket, roomID, playerInSession) {
+exports.handleLeave = function(socket, playerListForRoom) {
+
   socket.on('disconnect', function (message) {
     // get name of user who is leaving the room
-    var userLeaving =  playerInSession['/'+roomID][socket.id];
+    var userLeaving =  playerListForRoom[socket.id].username;
 
     // remove user who is leaving
-    delete playerInSession['/'+roomID][socket.id];
+    delete playerListForRoom[socket.id];
+
+    // create playerList to send back to client (array format)
+    var playerList = _createPlayerList(playerListForRoom)
 
     // sends to all other users
     socket.broadcast.emit('message', userLeaving + ' has left the room');
+    socket.broadcast.emit("playerList", playerList);
+
   });
 };
 
 // ================================================
 // handleChatMessage - broadcast messages to everyone within room
 exports.handleMessage = function(socket) {
+
   socket.on('message', function (message) {
     // sends to user
     socket.emit("message", message);

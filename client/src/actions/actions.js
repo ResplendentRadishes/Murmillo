@@ -4,6 +4,7 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_ROOMLIST = 'SET_ROOMLIST';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
+export const UPDATE_PLAYERLIST = 'UPDATE_PLAYERLIST';
 export const SET_PROBLEM = 'SET_PROBLEM';
 export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
@@ -38,6 +39,10 @@ export function setRoom(room) {
 
 export function updateMessages(message) {
   return { type: UPDATE_MESSAGES, message };
+}
+
+export function updatePlayerList(playerList) {
+  return { type: UPDATE_PLAYERLIST, playerList };
 }
 
 //editor actions

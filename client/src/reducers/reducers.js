@@ -30,6 +30,12 @@ function room(state = {}, action) {
         messages: [...state.messages, action.message]
       };
 
+    case 'UPDATE_PLAYERLIST':
+      return {
+        ...state,
+        playerList: action.playerList
+      };
+
     default:
       return state;
   }

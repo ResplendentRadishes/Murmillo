@@ -5,15 +5,14 @@ var socketHandler = require('./socketHandler');
 // ===============================================================
 // socketInSession keeps track of serverSockets in session
 var socketInSession = {
-  '/hard': undefined,
-  '/medium': undefined,
-  '/easy': undefined
+  // '/hard': undefined,
+  // '/medium': undefined,
+  // '/easy': undefined
 };
-// playerInSession keeps track of players in each namespace
-var playerInSession = {
-  '/hard': {},
-  '/medium': {},
-  '/easy': {}
+var playersInSession = {
+  // '/hard': undefined,
+  // '/medium': undefined,
+  // '/easy': undefined
 };
 
 // ===============================================================
@@ -32,10 +31,12 @@ exports.joinRoom = function(req, res) {
   if (socketInSession[nameSpace] === undefined) {
 
     // establish a connection to nameSpace
+    // and store serverSocket instance in an object so it can be accessed later
     var serverSocket = io_socket.io.of(nameSpace);
-
-    // store serverSocket instance in an object so it can be accessed later
     socketInSession[nameSpace] = serverSocket;
+
+    // keep track of players
+    playersInSession[nameSpace] = {};
 
     // configure serverSocket upon connection
     serverSocket.on('connection', function(socket) {
@@ -50,8 +51,9 @@ exports.joinRoom = function(req, res) {
       console.log("inside "+roomID+" room count is ", count);
 
       // configure socketHandler
-      socketHandler.handleJoin(socket, roomID, playerInSession);
-      socketHandler.handleLeave(socket, roomID, playerInSession);
+      socketHandler.handleJoin(socket, playersInSession[nameSpace]);
+      socketHandler.handleLeave(socket, playersInSession[nameSpace]);
+      socketHandler.handleReady(socket, playersInSession[nameSpace]);
       socketHandler.handleMessage(socket);
       socketHandler.handleGetProblem(socket);
       socketHandler.handleSubmitSolution(socket);
