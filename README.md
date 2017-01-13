@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Vernon
+  - __Scrum Master__: Robert L
+  - __Development Team Members__: Yoshi, Nimmy
 
 ## Table of Contents
 
@@ -32,15 +32,21 @@
 
 ## Development
 
+To set up the Docker container
+
+cd server/docker/codeCheck
+npm run build-image
+npm run container
+
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
+
+Docker must be installed as well
 
 ### Roadmap
 
