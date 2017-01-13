@@ -32,7 +32,7 @@ class NavBar extends React.Component {
           <div className ="navbar-right">
           {this.props.user.username ?
             <div>
-              <p className="navbar-text">{'Logged in as ' + this.props.user.username}</p>
+              <p className="navbar-text">{'Logged in as ' + this.props.user.username.split(' ')[0]}</p>
               {this.props.user.avatarUrl ? 
                 <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
                 :

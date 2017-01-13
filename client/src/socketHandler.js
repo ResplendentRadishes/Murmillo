@@ -62,7 +62,7 @@ const socketEmitMsg = function (roomID, username, message) {
   var clientSocket = socketInSession[nameSpace];
 
   // format data to send to server
-  var userMsg = username+': '+message;
+  var userMsg = username.split(' ')[0]+': '+message;
 
   // emit 'message' event to server
   clientSocket.emit('message', userMsg);
