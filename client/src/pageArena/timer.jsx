@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { hashHistory } from 'react-router';
-import { socketClosePrevRoom } from '../socketHandler.js';
+import { socketClosePrevRoom, socketEmitProblem } from '../socketHandler.js';
 
 // ===============================================
 // CSS Stylying
@@ -17,7 +17,8 @@ const messageStyle = {
 const displayTime = (time) => {
   var min = Math.floor( time / 60 );
   var sec = time % 60;
-  return 'Time Remaning: '+min+' mins '+sec+ ' sec';
+
+  return min ? 'Time Remaning: '+min+' mins '+sec+ ' sec' : 'Time Remaning: ';
 };
 // displayMessage when user runs out of time
 const displayMessage = (time) => {
@@ -25,19 +26,29 @@ const displayMessage = (time) => {
 };
 
 // ===============================================
+// Use React component to start timer using componentDidMount
 class Timer extends React.Component {
   constructor(props) {
     super(props);
 
-    // begin local state with 20 mins as default
-    // (update local state when fetching is done in componentWillReceiveProps)
+    // local state used for timer
     this.state = {
-      timeRemaining: 1200,
+      timeRemaining: undefined,
     };
   };
 
   // start counter when after component is mounted
   componentDidMount() {
+    // set timeRemaning state
+    const timelimit = this.props.problem.timelimit;
+    const dateStamp = new Date(this.props.problem.dateStamp);
+    const now = new Date();
+    const diff = now - dateStamp;
+    this.state = {
+      timeRemaining: timelimit - Math.floor(diff/1000),
+    };
+
+    // start timer
     this.timerID = setInterval(() => {
      this.tick();
     }, 1000);
@@ -46,14 +57,6 @@ class Timer extends React.Component {
   // clearTimer when component dismount
   componentWillUnmount() {
     clearInterval(this.timerID);
-  }
-
-  // update local state when fetching is complete (props will be updated)
-  componentWillReceiveProps(nextProps) {
-    // note nextProps = problem object
-    this.state = {
-      timeRemaining: nextProps.problem.timelimit,
-    };
   }
 
   // on every tick, update local state

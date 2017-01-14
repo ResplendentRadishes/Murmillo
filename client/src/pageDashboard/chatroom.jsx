@@ -3,7 +3,7 @@ import Axios from 'axios';
 // import { Link } from 'react-router';
 import { hashHistory } from 'react-router';
 
-import { socketEmitProblem, socketEmitMsg, socketEmitReady } from '../socketHandler.js';
+import { socketEmitMsg, socketEmitReady } from '../socketHandler.js';
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -45,8 +45,7 @@ class Chatroom extends React.Component {
   handleReadyButton() {
     const context = this;
     const room = this.props.room;
-    // emit 'problem' and 'ready' event to server
-    socketEmitProblem(room.name, room.problemId);
+    // emit 'ready' event to server
     socketEmitReady(room.name, room.problemId);
   }
 

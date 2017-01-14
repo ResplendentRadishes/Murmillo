@@ -45,6 +45,7 @@ export function updatePlayerList(playerList) {
   return { type: UPDATE_PLAYERLIST, playerList };
 }
 
+// =========================================
 //editor actions
 export function setProblem(problem) {
   return {type: SET_PROBLEM, problem };

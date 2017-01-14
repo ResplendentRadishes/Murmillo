@@ -33,7 +33,7 @@ exports.handleJoin = function(socket, playerListForRoom) {
 };
 // ================================================
 // handleReady configures 'handleReady' listener and 'playerList' emitter
-// when user clicks on 'Ready', update user's ready status in player
+// when user clicks on 'Ready', update user's ready status in playerListForRoom
 exports.handleReady = function(socket, playerListForRoom) {
   // listening on 'Ready' from client
   socket.on('ready', function() {
@@ -61,9 +61,10 @@ exports.handleReady = function(socket, playerListForRoom) {
   });
 };
 
+
 // ================================================
 // handleLeave - broadcast users that someone has left the room
-exports.handleLeave = function(socket, playerListForRoom) {
+exports.handleLeave = function(socket, playerListForRoom, nameSpace, resetNamespace) {
 
   socket.on('disconnect', function (message) {
     // get name of user who is leaving the room
@@ -78,6 +79,11 @@ exports.handleLeave = function(socket, playerListForRoom) {
     // sends to all other users
     socket.broadcast.emit('message', userLeaving + ' has left the room');
     socket.broadcast.emit("playerList", playerList);
+
+    // when all users have left, close socket and reset gameInSession
+    if (playerList.length === 0) {
+      resetNamespace(nameSpace);
+    }
 
   });
 };
@@ -95,26 +101,46 @@ exports.handleMessage = function(socket) {
 };
 
 // ================================================
-// handleGetProblem configures 'getPrblem' listener and 'sendProblem' emitter
-exports.handleGetProblem = function(socket) {
+// handleGetProblem configures 'problem' listener and 'problem' emitter
+exports.handleGetProblem = function(socket, gameInfoForRoom) {
   // use errorProblem when problem cannto be found
   var errorProblem = {title: 'error', prompt: 'error', template: 'error'};
 
   // listening on 'problem' from client
   socket.on('problem', function(problemID) {
-    // grab the probelm from database
-    dbProblem.findById(problemID)
-      .then(function(problem) {
-        // emit 'problem' to client with problem(type: object)
-        socket.emit('problem', problem.dataValues);
-      })
-      .catch(function(err) {
-        console.error(err);
-        // emit 'sendProblem' to client with problem(type: object)
-        socket.emit('problem', errorProblem);
-      });
+
+    if ( gameInfoForRoom.problem === undefined ) {
+      // if gameInfoForRoom is not available, grab the probelm from database
+      // this way, we dont need to query the DB for the same problem
+      dbProblem.findById(problemID)
+        .then(function(problemDB) {
+          // save problem from DB to gameInfoForRoom for later access
+          gameInfoForRoom.problem = problemDB.dataValues
+          // add a date stamp for the problem (used to start time on client side)
+          gameInfoForRoom.problem.dateStamp = new Date();
+          // emit 'sendProblem' to client with problem(type: object)
+          setTimeout(function(){
+            socket.emit('problem', gameInfoForRoom.problem);
+          }, 2000)
+
+        })
+        .catch(function(err) {
+          // assign errorProblem to gameInfoForRoom
+          gameInfoForRoom.problem = errorProblem;
+          // emit 'problem' to client with problem(type: object)
+          socket.emit('problem', gameInfoForRoom.problem);
+          console.error(err);
+        });
+
+    } else {
+      // if gameInfoForRoom exists, grab the probelm from memory
+          setTimeout(function(){
+            socket.emit('problem', gameInfoForRoom.problem);
+          }, 2000)
+    }
 
   });
+
 };
 
 // ================================================
