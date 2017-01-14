@@ -61,23 +61,6 @@ app.use('/', express.static(__dirname + '/../client/dist'));
 
 // ===============================================
 // Setup routes to handle request
-// app.get('/auth/github', passport.authenticate('github'));
-
-// app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), 
-//   function(req, res) {
-//     userController.githubLogin(req, res);
-//     res.redirect('/#/dashboard');
-//   }
-// )
-
-app.get('/loginStatus', function(req, res) {
-  if (req.user) {
-    // TODO send a findOrCreate command to the server with this user
-    res.json(req.user);
-  } else {
-    res.json(false);
-  }
-})
 
 app.use('/api', apiRouter);
 app.use('/auth/github', githubRouter);
