@@ -63,7 +63,7 @@ function messages(state = [], action) {
   }
 }
 
-function problem(state = {}, action) {
+function problem(state = {id: undefined}, action) {
   switch (action.type) {
 
     case 'SET_PROBLEM':
