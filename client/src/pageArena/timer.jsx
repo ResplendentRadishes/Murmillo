@@ -18,11 +18,11 @@ const displayTime = (time) => {
   var min = Math.floor( time / 60 );
   var sec = time % 60;
 
-  return min ? 'Time Remaning: '+min+' mins '+sec+ ' sec' : 'Time Remaning: ';
+  return sec ? 'Time Remaning: '+min+' mins '+sec+ ' sec' : 'Time Remaning: ';
 };
 // displayMessage when user runs out of time
 const displayMessage = (time) => {
-  return time === 0 ? 'You are out of time, you are being redirected' : '';
+  return time === 0 ? 'Competition has ended. You can still work on the problem, but you will not receive credit.' : '';
 };
 
 // ===============================================
@@ -69,13 +69,13 @@ class Timer extends React.Component {
     if (newTimeRemaing === 0 ) {
       clearInterval(this.timerID);
 
-      // take 3 seconds do the following
-      setTimeout(() => {
-        socketClosePrevRoom(this.props.room);
-        hashHistory.push('/dashboard');
+      // // take 3 seconds do the following
+      // setTimeout(() => {
+      //   socketClosePrevRoom(this.props.room);
+      //   // hashHistory.push('/dashboard');
 
-        this.props.setRoom( {room: {}} );
-      }, 3000);
+      //   this.props.setRoom( {room: {}} );
+      // }, 3000);
     }
   }
 
