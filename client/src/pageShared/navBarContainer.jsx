@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
     signOut: function() {
       hashHistory.push('/');
       dispatch(userLogout());
-      Axios.get('/logout');
+      Axios.get('/user/logout');
     },
     setUser: function(user) {
       dispatch(setUser(user));

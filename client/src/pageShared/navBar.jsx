@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import Axios from 'axios';
 
 class NavBar extends React.Component {
@@ -11,12 +11,17 @@ class NavBar extends React.Component {
     if (!this.props.user.username) {
       Axios.get('/loginStatus')
       .then(res => {
-        let newUser = {
-          username: res.data.profile.displayName,
-          avatarUrl: res.data.profile.photos[0].value
-        };
-        this.props.setUser(newUser);
-      })
+        if (res.data) {
+          let newUser = {
+            username: res.data.profile.displayName,
+            avatarUrl: res.data.profile.photos[0].value
+          };
+          this.props.setUser(newUser);
+          hashHistory.push('/dashboard');
+        } else {
+          hashHistory.push('/');
+        }
+      });
     }
   }
 
