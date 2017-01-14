@@ -15,7 +15,7 @@ RUN npm install
 COPY . /usr/src/app
 
 # Expose the port
-#EXPOSE 8510
+EXPOSE 8510
 
 # start the server
 CMD ["npm", "start"]

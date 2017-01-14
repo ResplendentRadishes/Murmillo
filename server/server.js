@@ -6,7 +6,9 @@ var passport = require('passport');
 var session = require('express-session');
 var GithubStrategy = require('passport-github').Strategy;
 var apiRouter = require('./resources/apiRouter.js');
-var loginRouter = require('./resources/loginRouter.js');
+var githubRouter = require('./resources/githubRouter.js');
+var userRouter = require('./resources/userRouter.js');
+var userController = require('./resources/userController.js');
 var app = express();
 
 app.use(cors());
@@ -59,13 +61,14 @@ app.use('/', express.static(__dirname + '/../client/dist'));
 
 // ===============================================
 // Setup routes to handle request
-app.get('/auth/github', passport.authenticate('github'));
+// app.get('/auth/github', passport.authenticate('github'));
 
-app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), 
-  function(req, res) {
-    res.redirect('/#/dashboard');
-  }
-)
+// app.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), 
+//   function(req, res) {
+//     userController.githubLogin(req, res);
+//     res.redirect('/#/dashboard');
+//   }
+// )
 
 app.get('/loginStatus', function(req, res) {
   if (req.user) {
@@ -76,7 +79,8 @@ app.get('/loginStatus', function(req, res) {
   }
 })
 
-app.use('/', loginRouter);
 app.use('/api', apiRouter);
+app.use('/auth/github', githubRouter);
+app.use('/user', userRouter);
 
 module.exports = app;

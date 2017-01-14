@@ -26,9 +26,9 @@ var Problem = db.define('Problem', {
 });
 
 var User = db.define('User', {
-  id: { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
+  githubId: { type: Sequelize.STRING, unique: true },
   username: Sequelize.STRING,
-  avatarUrl: { type: Sequelize.STRING, unique: true },
+  avatarUrl: Sequelize.STRING,
   score: { type: Sequelize.INTEGER, defaultValue: 0 },
   games: { type: Sequelize.INTEGER, defaultValue: 0 },
   wins: { type: Sequelize.INTEGER, defaultValue: 0 }
