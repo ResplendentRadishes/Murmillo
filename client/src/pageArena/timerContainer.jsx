@@ -6,7 +6,7 @@ import Timer from './timer.jsx'
 const mapStateToProps = (state) => {
   return {
     room: state.room,
-    problem: state.problem
+    problem: state.problem,
   }
 }
 

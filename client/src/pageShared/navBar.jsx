@@ -8,15 +8,20 @@ class NavBar extends React.Component {
   }
 
   componentDidMount() {
+    const context = this;
     if (!this.props.user.username) {
-      Axios.get('/loginStatus')
+      Axios.get('/user/loginStatus')
       .then(res => {
-        let newUser = {
-          username: res.data.profile.displayName,
-          avatarUrl: res.data.profile.photos[0].value
-        };
-        this.props.setUser(newUser);
-      })
+        if (res.data) {
+          Axios.get('/user/profile/' + res.data.profile.id)
+          .then(res => {
+            context.props.setUser(res.data);
+            hashHistory.push('/dashboard');
+          })
+        } else {
+          hashHistory.push('/');
+        }
+      });
     }
   }
 
@@ -34,7 +39,9 @@ class NavBar extends React.Component {
             <div>
               <p className="navbar-text">{'Logged in as ' + this.props.user.username.split(' ')[0]}</p>
               {this.props.user.avatarUrl ? 
-                <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
+                <Link to='/profile'>
+                  <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
+                </Link>
                 :
                 ''
               }

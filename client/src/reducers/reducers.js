@@ -30,6 +30,12 @@ function room(state = {}, action) {
         messages: [...state.messages, action.message]
       };
 
+    case 'UPDATE_PLAYERLIST':
+      return {
+        ...state,
+        playerList: action.playerList
+      };
+
     default:
       return state;
   }
@@ -57,7 +63,7 @@ function messages(state = [], action) {
   }
 }
 
-function problem(state = {}, action) {
+function problem(state = {id: undefined}, action) {
   switch (action.type) {
 
     case 'SET_PROBLEM':

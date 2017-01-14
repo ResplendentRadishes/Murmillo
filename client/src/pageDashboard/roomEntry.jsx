@@ -2,6 +2,7 @@ import React from 'react';
 import {
           socketClosePrevRoom,
           socketEmitJoin,
+          socketOnPlayerList,
           socketOnMsg,
           socketOnProblem,
           socketOnSubmission,
@@ -20,6 +21,9 @@ const RoomEntry = (props) => {
       // configure all clientSocketListeners to Redux through action function
       socketOnMsg(props.room.name, (serverMessage) => {
         props.updateMessages(serverMessage);  //action
+      });
+      socketOnPlayerList(props.room.name, (playerList) => {
+        props.updatePlayerList(playerList);  //action
       });
       socketOnProblem(props.room.name, (problem) => {
         props.setProblem(problem);            //action

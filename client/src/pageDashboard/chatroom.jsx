@@ -1,7 +1,9 @@
 import React from 'react';
 import Axios from 'axios';
-import { Link } from 'react-router';
-import { socketEmitProblem, socketEmitMsg } from '../socketHandler.js';
+// import { Link } from 'react-router';
+import { hashHistory } from 'react-router';
+
+import { socketEmitMsg, socketEmitReady } from '../socketHandler.js';
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -43,8 +45,8 @@ class Chatroom extends React.Component {
   handleReadyButton() {
     const context = this;
     const room = this.props.room;
-    // emit 'problem' event to server
-    socketEmitProblem(room.name, room.problemId);
+    // emit 'ready' event to server
+    socketEmitReady(room.name, room.problemId);
   }
 
   componentDidMount() {
@@ -52,11 +54,32 @@ class Chatroom extends React.Component {
   }
 
   render() {
+    let playerNames = [];
+    let allReady;
+    // playerList = [{username: 'username', ready: true}, {}, {} .....]
+    // display playerList to users
+    if (this.props.room.playerList !== undefined) {
+      playerNames = this.props.room.playerList.map((userObj) => {
+                          return userObj.username;
+                        });
+      allReady = this.props.room.playerList.reduce((acc, currUserObj) => {
+                          if (acc === true && currUserObj.ready === true) return true;
+                          else return false;
+                        }, true);
+
+      // redirect to arena page when all users are ready
+      if (allReady === true) {
+        hashHistory.push('/arena');
+      }
+    }
+
     return (
       <div className="col=md-8">
         <div className="panel panel-default">
           <div className="panel-heading">
-            {this.props.room.name}
+            <div> { 'RoomID: ' + this.props.room.name } </div>
+            <div> { 'Players: ' + playerNames.join(', ')} </div>
+
           </div>
           <div className="panel-body conversation fixed-panel" style={{maxHeight: 400, minHeight:400}}>
             {this.props.room.messages.map((message, index) =>
@@ -66,12 +89,10 @@ class Chatroom extends React.Component {
           <div className="panel-footer">
             <div className="input-group">
               <span className="input-group-btn">
-                <Link to="/arena">
-                    <button
-                      className="btn btn-success btn-md"
-                      onClick={this.handleReadyButton}
-                    > READY </button>
-                </Link>
+                <button
+                  className="btn btn-success btn-md"
+                  onClick={this.handleReadyButton}
+                > READY </button>
               </span>
               <input
                 type="text"

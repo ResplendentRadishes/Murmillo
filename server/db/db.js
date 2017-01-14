@@ -25,6 +25,18 @@ var Problem = db.define('Problem', {
   template: Sequelize.STRING
 });
 
+var User = db.define('User', {
+  githubId: { type: Sequelize.STRING, unique: true },
+  email: Sequelize.STRING,
+  githubUrl: Sequelize.STRING,
+  username: Sequelize.STRING,
+  avatarUrl: Sequelize.STRING,
+  score: { type: Sequelize.INTEGER, defaultValue: 0 },
+  games: { type: Sequelize.INTEGER, defaultValue: 0 },
+  wins: { type: Sequelize.INTEGER, defaultValue: 0 }
+});
+
 // ==================================================
 exports.db = db;
 exports.Problem = Problem;
+exports.User = User;
