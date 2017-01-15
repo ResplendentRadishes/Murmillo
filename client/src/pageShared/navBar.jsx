@@ -13,11 +13,19 @@ class NavBar extends React.Component {
       Axios.get('/user/loginStatus')
       .then(res => {
         if (res.data) {
+          // get user profile from DB
           Axios.get('/user/profile/' + res.data.profile.id)
           .then(res => {
             context.props.setUser(res.data);
-            hashHistory.push('/dashboard');
+            // hashHistory.push('/dashboard');
           })
+          // get user stat from DB (currenlty serving fake data)
+          Axios.get('/user/stats/' + res.data.profile.id)
+          .then(res2 => {
+            console.log(res2)
+            context.props.setUserStat(res2.data);
+          })
+
         } else {
           hashHistory.push('/');
         }
@@ -38,7 +46,7 @@ class NavBar extends React.Component {
           {this.props.user.username ?
             <div>
               <p className="navbar-text">{'Logged in as ' + this.props.user.username.split(' ')[0]}</p>
-              {this.props.user.avatarUrl ? 
+              {this.props.user.avatarUrl ?
                 <Link to='/stats'>
                   <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
                 </Link>

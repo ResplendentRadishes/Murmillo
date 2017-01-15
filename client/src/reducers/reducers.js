@@ -13,6 +13,12 @@ function user(state = {}, action) {
     case 'UPDATE_USER':
       return { ...state, ...action.user };
 
+    case 'SET_USER_STAT':
+      var newData = {
+        userStats : action.userStat
+      }
+      return { ...state, ...newData };
+
     default:
       return state;
   }

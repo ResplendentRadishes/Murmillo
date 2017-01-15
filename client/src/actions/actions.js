@@ -1,5 +1,6 @@
 export const SET_USER = 'SET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+export const SET_USER_STAT = 'SET_USER_STAT';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const SET_ROOM = 'SET_ROOM';
 export const SET_ROOMLIST = 'SET_ROOMLIST';
@@ -19,6 +20,10 @@ export function setUser(user) {
 
 export function updateUser(user) {
   return { type: UPDATE_USER, user };
+}
+
+export function setUserStat(userStat) {
+  return { type: SET_USER_STAT, userStat };
 }
 
 export function userLogout(user) {

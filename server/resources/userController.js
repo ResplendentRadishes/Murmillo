@@ -1,6 +1,9 @@
 var User = require('../db/db.js').User;
 var passport = require('passport');
 
+var UserStat = require('../db/db.js').UserStat;
+
+
 module.exports.logout = function (req, res) {
   req.logout();
   res.redirect('/');
@@ -24,6 +27,20 @@ module.exports.getUser = function (req, res) {
     console.log(err);
   });
 }
+
+
+// serving fake compData ----------------------------------
+module.exports.getUserStats = function (req, res) {
+  UserStat.findAll({raw: true})
+  .then(userStats => {
+    return res.json(userStats);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+// serving fake compData ----------------------------------
+
 
 module.exports.githubLogin = function (req, res) {
   userProfile = req.user.profile;

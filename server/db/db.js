@@ -36,7 +36,17 @@ var User = db.define('User', {
   wins: { type: Sequelize.INTEGER, defaultValue: 0 }
 });
 
+// --------------------------------
+// this is created for data templating
+var UserStat = db.define('UserStat', {
+  problemLevel:   Sequelize.STRING,
+  winner:         Sequelize.BOOLEAN,
+  compDate:        Sequelize.DATE
+});
+// --------------------------------
+
 // ==================================================
 exports.db = db;
 exports.Problem = Problem;
 exports.User = User;
+exports.UserStat = UserStat;

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import NavBar from './navBar.jsx';
-import { userLogout, setUser } from '../actions/actions.js';
+import { userLogout, setUser, setUserStat } from '../actions/actions.js';
 import Axios from 'axios';
 
 const mapStateToProps = (state) => {
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setUser: function(user) {
       dispatch(setUser(user));
+    },
+    setUserStat: function(userStat) {
+      dispatch(setUserStat(userStat));
     }
   }
 }
