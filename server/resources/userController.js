@@ -44,9 +44,10 @@ module.exports.getUserStats = function (req, res) {
 
 module.exports.githubLogin = function (req, res) {
   userProfile = req.user.profile;
+  console.log('up ', userProfile);
   let newUser = {
     githubId: userProfile.id,
-    email: userProfile.emails[0].value,
+    email: userProfile.emails? userProfile.emails[0].value : '',
     githubUrl: userProfile.profileUrl,
     username: userProfile.displayName,
     avatarUrl: userProfile.photos[0].value
