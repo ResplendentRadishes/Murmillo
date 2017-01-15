@@ -12,7 +12,7 @@ import DashboardContainer from './pageDashboard/dashboardContainer.jsx';
 import Arena from './pageArena/arena.jsx';
 import SignUp from './pageSignup/signUp.jsx';
 import Home from './pageHome/home.jsx';
-import UserContainer from './pageProfile/userCardContainer.jsx';
+import Statistics from './pageStatistics/statistics.jsx';
 
 const logger = createLogger()
 
@@ -27,7 +27,7 @@ ReactDOM.render(
         <Route path='dashboard' component={DashboardContainer} />
         <Route path='arena' component={Arena} />
         <Route path='signup' component={SignUp} />
-        <Route path='profile' component={UserContainer} />
+        <Route path='stats' component={Statistics} />
       </Route>
     </Router>
   </Provider>,

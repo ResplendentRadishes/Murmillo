@@ -18,8 +18,11 @@ module.exports.getSession = function (req, res) {
 module.exports.getUser = function (req, res) {
   User.find({ where: { githubId: req.params.id } })
   .then(user => {
-    res.json(user.dataValues);
+    return res.json(user.dataValues);
   })
+  .catch(err => {
+    console.log(err);
+  });
 }
 
 module.exports.githubLogin = function (req, res) {
@@ -33,14 +36,12 @@ module.exports.githubLogin = function (req, res) {
   };
   User.sync()
   .then(() => {
-    return User.find({ where: { githubId: userProfile.id }})
+    return User.find({ where: { githubId: userProfile.id } })
   })
   .then((user) => {
     if (!user) {
       console.log('user does not exist');
-      User.create(newUser);
-    } else {
-      console.log('user already exists');
+      return User.create(newUser);
     }
   })
   .catch((err) => {

@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import UserCard from './userCard.jsx'
 
 // ===============================================
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user
+    user: ownProps.user || state.user
   }
 }
 
