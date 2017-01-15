@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha ./test --compilers js:babel-core/register",
     "dbinit": "node server/db/db_problemGenerator.js",
+    "dbinit2": "node server/db/db_userStatsGenerator.js",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
