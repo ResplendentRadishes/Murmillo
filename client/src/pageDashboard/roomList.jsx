@@ -24,7 +24,7 @@ class RoomList extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         {this.state.roomList.map((room, index) =>
           <RoomContainer key={index} room={room} />
         )}

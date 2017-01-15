@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
 import Axios from 'axios';
+require('../styles/navbar.css');
+
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -38,18 +40,21 @@ class NavBar extends React.Component {
               <h3 className="navbar-text">Murmillo</h3>
             </Link>
           </div>
-          <div className ="navbar-right">
+          <div><button  className="statistics"><Link to='/showGraphs' >Statistics</Link></button></div>
+          <div className ="navbar-right" >
+          
           {this.props.user.username ?
             <div>
-              <p className="navbar-text">{'Logged in as ' + this.props.user.username.split(' ')[0]}</p>
-              {this.props.user.avatarUrl ?
+           <p className="navbar-text ">{'Logged in as ' + this.props.user.username.split(' ')[0]}</p>
+              {this.props.user.avatarUrl ? 
                 <Link to='/stats'>
                   <img style={{height: 36, width: 36}} src={this.props.user.avatarUrl} />
                 </Link>
                 :
                 ''
               }
-              <button className="btn btn-default navbar-btn" style={{marginLeft: 7, marginRight: 7}} onClick={() => this.props.signOut()}>SIGN OUT</button>
+             
+              <button className="btn btn-default navbar-btn"  onClick={() => this.props.signOut()}>SIGN OUT</button>
             </div>
             :
             <Link to='/signup' className="btn btn-default navbar-btn btn-md" style={{marginLeft: 7, marginRight: 7}}>SIGN IN</Link>
