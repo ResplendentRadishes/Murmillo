@@ -21,7 +21,8 @@ var drawGraph = function(dataSet, problemNames) {
   var svg = d3.select("body").append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
-    .append("g")
+      .attr("class", "graphContainer")
+      .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   dataSet.forEach(function(d) {
     d.problems = problemNames.map(function(name) { // [{name:totalpbls, value:101},
@@ -84,9 +85,15 @@ class Graph extends React.Component {
    shouldComponentUpdate(nextProps, nextState) {
      return false;
    }
+   componentWillUnmount() {
+     var el = document.getElementsByClassName('graphContainer')[0];
+     console.log(el);
+     el.parentNode.removeChild(el);
+   }
    render() {
+
     return (
-      <div className="container">
+      <div className="container ">
        {drawGraph(this.props.dataSet.slice(), this.props.problemNames.slice())}
      </div>
     );
