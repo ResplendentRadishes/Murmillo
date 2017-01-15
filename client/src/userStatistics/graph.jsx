@@ -85,6 +85,9 @@ class Graph extends React.Component {
    shouldComponentUpdate(nextProps, nextState) {
      return false;
    }
+   //--------------------------------------------------------------------------------------------//
+   // The graph will be shown in all the pages if i am not deleting it when the component gets unmounted
+   //--------------------------------------------------------------------------------------------//
    componentWillUnmount() {
      var el = document.getElementsByClassName('graphContainer')[0];
      console.log(el);
