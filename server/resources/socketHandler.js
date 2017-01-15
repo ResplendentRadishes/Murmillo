@@ -179,14 +179,14 @@ exports.handleGetProblem = function(socket, gameInfoForRoom) {
 exports.handleSubmitSolution = function(socket) {
   // handle user's submitted solution
 
-  var codecheckAPI = 'http://localhost:8510';
+  var codecheckAPI = '162.243.153.240:8510';
 
   socket.on('codeSubmission', function (userSolnObj) {
     var userSoln = userSolnObj.userSoln;
     var username = userSolnObj.username;
     var probID = userSolnObj.probID;
 
-    var destination = codecheckAPI + '/test/' + probID;
+    var destination = 'http://' + codecheckAPI + '/test/' + probID;
 
     //send a post request to the port used by our docker container
     Axios.post(destination, {code: userSoln})
@@ -196,7 +196,7 @@ exports.handleSubmitSolution = function(socket) {
         socket.broadcast.emit('compUpdate', username + ': ' + result);
       })
       .catch(function(error){
-        console.log('to err is ', error);
+        console.log('error is ', error);
       });
   });
 };
