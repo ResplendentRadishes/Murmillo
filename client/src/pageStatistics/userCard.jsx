@@ -16,7 +16,7 @@ const UserCard = (props) => {
             <div className="title">
               <p>{user.username}</p>
             </div>
-            <div className="desc"><a href={"mailto:" + user.email}>{user.email}</a></div>
+            {user.email ? <div className="desc"><a href={"mailto:" + user.email}>{user.email}</a></div> : ''}
             <div className="desc">{"Score: " + user.score}</div>
             <div className="desc">{"Games played: " + user.games}</div>
             <div className="bottom">

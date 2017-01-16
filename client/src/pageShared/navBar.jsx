@@ -14,15 +14,11 @@ class NavBar extends React.Component {
       .then(res => {
         if (res.data) {
           // get user profile from DB
-          Axios.get('/user/profile/' + res.data.profile.id)
-          .then(res => {
-            context.props.setUser(res.data);
+          context.props.setUser(res.data);
             // hashHistory.push('/dashboard');
-          })
           // get user stat from DB (currenlty serving fake data)
-          Axios.get('/user/stats/' + res.data.profile.id)
+          Axios.get('/user/stats/' + res.data.id)
           .then(res2 => {
-            console.log(res2)
             context.props.setUserStat(res2.data);
           })
 

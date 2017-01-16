@@ -44,9 +44,25 @@ var UserStat = db.define('UserStat', {
   compDate:        Sequelize.DATE
 });
 // --------------------------------
+var Competition = db.define('Competition', {
+
+});
+
+var UserCompetitions = db.define('UserCompetitions', {
+  winner: Sequelize.BOOLEAN
+});
+
+// ==================================================
+// defining relationships
+// Problem.hasMany(Competition, {as: 'Competitions'});
+// Competition.hasOne(Problem);
+// User.belongsToMany(Competition, { through: UserCompetitions });
+// Competition.belongsToMany(User, { through: UserCompetitions });
 
 // ==================================================
 exports.db = db;
 exports.Problem = Problem;
 exports.User = User;
 exports.UserStat = UserStat;
+exports.Competition = Competition;
+exports.UserCompetitions = UserCompetitions

@@ -3,6 +3,8 @@ var Promise = require('bluebird');
 var db = require('./db.js').db;
 var Problem = require('./db.js').Problem;
 var User = require('./db.js').User;
+var Competition = require('./db.js').Competition;
+var UserCompetitions = require('./db.js').UserCompetitions;
 // ========================================================
 // Use this file to initialize DB with predefined 'Problem' table
 // ========================================================
@@ -30,6 +32,8 @@ var initialProblems = [data1, data2, data3];
 // This block of codes will initailizes the database with the data above
 // force:true will drop table first before creating them
 User.sync({ force: true });
+Competition.sync({ force: true });
+UserCompetitions.sync({ force: true });
 Problem.sync({ force: true })
   // 1) create tables using initial problems above
   // (use Promise.all for an array of problems)

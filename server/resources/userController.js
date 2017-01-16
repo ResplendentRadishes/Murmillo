@@ -10,14 +10,55 @@ module.exports.logout = function (req, res) {
 }
 
 module.exports.getSession = function (req, res) {
+  // only works if there's a user in passport
   if (req.user) {
-    // TODO send a findOrCreate command to the server with this user
-    res.json(req.user);
+    let id = { githubId: req.user.profile.id };
+    User.find({ where: id })
+    .then(user => {
+      return res.json(user.dataValues);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   } else {
     res.json(false);
   }
 }
 
+module.exports.updateUser = function (req, res) {
+  User.find({ where: { id: req.params.id } })
+  .then(user => {
+    return user.updateAttributes(req.body)
+  })
+  .then(user => {
+    return res.json(user);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+}
+
+module.exports.updateScore = function (req, res) {
+  User.find({ where: { id: req.params.id } })
+  .then(user => {
+    wins = req.body.winner ? 1 : 0;
+    score = Number(req.body.score);
+    let stats = {
+      wins: user.dataValues.wins + wins,
+      games: user.dataValues.games + 1,
+      score: user.dataValues.score + score
+    };
+    return user.updateAttributes(stats)
+  })
+  .then(user => {
+    return res.json(user);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+// deprecated
 module.exports.getUser = function (req, res) {
   User.find({ where: { githubId: req.params.id } })
   .then(user => {
@@ -44,7 +85,6 @@ module.exports.getUserStats = function (req, res) {
 
 module.exports.githubLogin = function (req, res) {
   userProfile = req.user.profile;
-  console.log('up ', userProfile);
   let newUser = {
     githubId: userProfile.id,
     email: userProfile.emails? userProfile.emails[0].value : '',
@@ -58,7 +98,6 @@ module.exports.githubLogin = function (req, res) {
   })
   .then((user) => {
     if (!user) {
-      console.log('user does not exist');
       return User.create(newUser);
     }
   })
