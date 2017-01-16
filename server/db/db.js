@@ -55,10 +55,10 @@ var UserCompetitions = db.define('UserCompetitions', {
 
 // ==================================================
 // defining relationships
-Problem.hasMany(Competition, {as: 'Competitions'});
-Competition.hasOne(Problem);
-User.belongsToMany(Competition, { through: UserCompetitions });
-Competition.belongsToMany(User, { through: UserCompetitions });
+// Problem.hasMany(Competition, {as: 'Competitions'});
+// Competition.hasOne(Problem);
+// User.belongsToMany(Competition, { through: UserCompetitions });
+// Competition.belongsToMany(User, { through: UserCompetitions });
 
 // ==================================================
 exports.db = db;
