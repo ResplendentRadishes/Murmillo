@@ -9,18 +9,21 @@ var UserCompetitions = require('./db.js').UserCompetitions;
 // Use this file to initialize DB with predefined 'Problem' table
 // ========================================================
 var data1 = {
+  id: 1,
   timelimit: 30,
   title: 'simple function 1',
   prompt: 'write function that returns true',
   template: 'var solution = function(){/* your code here */};'
 };
 var data2 = {
+  id: 2,
   timelimit: 30,
   title: 'simple function 2',
   prompt: 'write function that returns parameter a',
   template: 'var solution = function(a){/* your code here */};'
 };
 var data3 = {
+  id: 3,
   timelimit: 30,
   title: 'simple function 3',
   prompt: 'write function that returns the sum of paramters a and b',
@@ -40,6 +43,7 @@ Problem.sync({ force: true })
   .then(function() {
     return Promise.all(initialProblems.map(function(problem){
       return Problem.create({
+        id:         problem.id,
         timelimit:  problem.timelimit,
         title:      problem.title,
         prompt:     problem.prompt,

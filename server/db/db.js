@@ -19,6 +19,7 @@ var db = new Sequelize('murmillo', 'root', '', {
 // ==================================================
 // define the models
 var Problem = db.define('Problem', {
+  id: { type: Sequelize.INTEGER, primaryKey: true},
   timelimit: Sequelize.INTEGER,
   title: Sequelize.STRING,
   prompt: Sequelize.STRING,
