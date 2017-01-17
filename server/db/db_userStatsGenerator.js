@@ -1,7 +1,7 @@
 var Promise = require('bluebird');
-var UserStat = require('./db.js').UserStat;
+var UserStat = require('./userStat.js');
 
-var db = require('./db.js').db;
+var db = require('./db.js');
 
 // User: {
 //   compData: [
