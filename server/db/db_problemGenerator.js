@@ -55,12 +55,6 @@ Problem.sync({ force: true })
   .then(function(problems) {
     return Problem.findAll({})
       .then(function(problems) {
-        console.log('--------------------------');
-        console.log('Logging Problems Saved on DB');
-        console.log(problems);
-        console.log('---------------------------');
-
-        // close db
         db.close();
       });
   })

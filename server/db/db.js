@@ -37,6 +37,29 @@ var User = db.define('User', {
   wins: { type: Sequelize.INTEGER, defaultValue: 0 }
 });
 
+
+var Competition = db.define('Competition', {
+  problem_id: {
+    type: Sequelize.INTEGER,
+    references: Problem,
+    referencesKey:'id'
+  }
+});
+
+var UserCompetitions = db.define('UserCompetitions', {
+  competition_id: {
+    type: Sequelize.INTEGER,
+    references: Competition,
+    referencesKey: 'id'
+  },
+  user_id: {
+    type: Sequelize.INTEGER,
+    references: User,
+    referencesKey: 'id'
+  },
+  winner: Sequelize.BOOLEAN
+});
+
 // --------------------------------
 // this is created for data templating
 var UserStat = db.define('UserStat', {
@@ -45,20 +68,24 @@ var UserStat = db.define('UserStat', {
   compDate:        Sequelize.DATE
 });
 // --------------------------------
-var Competition = db.define('Competition', {
-
-});
-
-var UserCompetitions = db.define('UserCompetitions', {
-  winner: Sequelize.BOOLEAN
-});
 
 // ==================================================
 // defining relationships
-// Problem.hasMany(Competition, {as: 'Competitions'});
-// Competition.hasOne(Problem);
-// User.belongsToMany(Competition, { through: UserCompetitions });
-// Competition.belongsToMany(User, { through: UserCompetitions });
+Problem.hasMany(Competition, {
+  onDelete: 'cascade',
+  hooks: true
+});
+Competition.belongsTo(Problem);
+User.hasMany(UserCompetitions, {
+  onDelete: 'cascade',
+  hooks: true
+});
+UserCompetitions.belongsTo(User);
+Competition.hasMany(UserCompetitions, {
+  onDelete: 'cascade',
+  hooks: true
+});
+UserCompetitions.belongsTo(Competition);
 
 // ==================================================
 exports.db = db;
