@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var passport = require('passport');
 var User = require('../db/user.js');
 var UserCompetitions = require('../db/UserCompetitions.js');
@@ -33,7 +34,10 @@ module.exports.getSession = function (req, res) {
       return compArrayIds;
     })
     .then(idArray => {
-      res.json(newUser);
+      problemIds = [];
+      idArray.forEach((id) => {
+        
+      });
     })
     .catch(err => {
       console.log(err);
