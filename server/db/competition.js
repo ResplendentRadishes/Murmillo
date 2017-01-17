@@ -11,6 +11,4 @@ Problem.hasMany(Competition, {
 
 Competition.belongsTo(Problem);
 
-Competition.sync();
-
 module.exports = Competition;

@@ -12,6 +12,4 @@ var User = db.define('user', {
   wins: { type: Sequelize.INTEGER, defaultValue: 0 }
 });
 
-User.sync();
-
 module.exports = User;
