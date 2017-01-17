@@ -11,18 +11,21 @@ const timerStyle = {
 const messageStyle = {
   fontSize: '20px'
 };
-
+const panelStyle = {
+  // height: '200px',
+  margin: '0px'
+};
 // ===============================================
 // displayTime in '1 min 10 sec' format
 const displayTime = (time) => {
   var min = Math.floor( time / 60 );
   var sec = time % 60;
 
-  return sec ? 'Time Remaning: '+min+' mins '+sec+ ' sec' : 'Time Remaning: ';
+  return time <= 0 ? 'Time Remaning: ' : 'Time Remaning: '+min+' mins '+sec+ ' sec' ;
 };
 // displayMessage when user runs out of time
 const displayMessage = (time) => {
-  return time === 0 ? 'Competition has ended. You can still work on the problem, but you will not receive credit.' : '';
+  return time <= 0 ? 'Competition has ended. You can still work on the problem, but you will not receive credit.' : '';
 };
 
 // ===============================================
@@ -66,7 +69,7 @@ class Timer extends React.Component {
 
     // when user is out of time,
     // remove interval, close socket, redirect, and update room in redux
-    if (newTimeRemaing === 0 ) {
+    if (newTimeRemaing <= 0 ) {
       clearInterval(this.timerID);
 
       // // take 3 seconds do the following
@@ -82,11 +85,13 @@ class Timer extends React.Component {
   render() {
     return (
       <div>
-        <div style={timerStyle}>
-          { displayTime(this.state.timeRemaining) }
-        </div>
-        <div style={messageStyle}>
-          { displayMessage(this.state.timeRemaining) }
+        <div className="panel panel-default descriptionPanel" style={panelStyle}>
+          <div className="panel-heading">
+            { displayTime(this.state.timeRemaining) }
+          </div>
+          <div className="panel-body" >
+            { displayMessage(this.state.timeRemaining) }
+          </div>
         </div>
       </div>
     );

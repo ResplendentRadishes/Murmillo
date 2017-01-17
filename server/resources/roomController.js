@@ -82,7 +82,7 @@ exports.joinRoom = function(req, res) {
       socketHandler.handleReady(socket, playersInSession[nameSpace]);
       socketHandler.handleMessage(socket);
       socketHandler.handleGetProblem(socket, gameInSession[nameSpace]);
-      socketHandler.handleSubmitSolution(socket);
+      socketHandler.handleSubmitSolution(socket, gameInSession[nameSpace]);
     });
 
     res.end('starting '+roomID+' room');

@@ -112,9 +112,9 @@ const socketOnSubmission = function (roomID, callback) {
   var nameSpace = '/'+roomID;
   var clientSocket =  socketInSession[nameSpace];
 
-  // listen for 'codeSubmission' event from server and get result(string) via callback
-  clientSocket.on('codeSubmission', function(result) {
-    callback(result);
+  // listen for 'codeSubmission' event from server and get resultObj via callback
+  clientSocket.on('codeSubmission', function(resultObj) {
+    callback(resultObj);
   });
 
 };

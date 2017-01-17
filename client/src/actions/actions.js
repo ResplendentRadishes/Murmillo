@@ -66,8 +66,8 @@ export function requestCodeCheck() {
   return {type: REQUEST_CODE_CHECK};
 }
 
-export function receiveCodeCheck(result) {
-  return {type: RECEIVE_CODE_CHECK, result}
+export function receiveCodeCheck(resultObj) {
+  return {type: RECEIVE_CODE_CHECK, resultObj}
 }
 
 export function getCompUpdate(compUpdate) {

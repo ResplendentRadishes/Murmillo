@@ -7,10 +7,13 @@ const panelStyle = {
   height: '200px',
   margin: '0px'
 };
-
 // ===============================================
 
 const ArenaInformation = (props) => {
+  const title = props.problem.title;
+  const description = props.problem.prompt;
+  const resultMsg = props.competition.resultMsg;
+  const compUpdate = props.competition.compUpdate;
 
   return (
     <div className= "arenaInformationPanel">
@@ -18,10 +21,10 @@ const ArenaInformation = (props) => {
       {/* ------ Description ------ */}
       <div className="panel panel-default descriptionPanel" style={panelStyle}>
         <div className="panel-heading">
-          Description:
+          {title}
         </div>
         <div className="panel-body" >
-          {props.desc}
+          {description}
         </div>
       </div>
 
@@ -31,7 +34,7 @@ const ArenaInformation = (props) => {
           Submission Result
         </div>
         <div className="panel-body" >
-          {props.status}
+          {resultMsg}
         </div>
       </div>
 
@@ -41,7 +44,7 @@ const ArenaInformation = (props) => {
           Competition Live Update
         </div>
         <div className="panel-body" >
-          {props.compUpdate}
+          {compUpdate}
         </div>
       </div>
 

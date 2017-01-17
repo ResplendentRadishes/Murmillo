@@ -2,8 +2,18 @@ import React from 'react';
 import Axios from 'axios';
 // import { Link } from 'react-router';
 import { hashHistory } from 'react-router';
+import { Link } from 'react-router';
 
 import { socketEmitMsg, socketEmitReady } from '../socketHandler.js';
+
+// ===============================================
+// CSS Stylying
+const startBtnStyle = {
+  position: 'absolute',
+  right: 30
+}
+// ===============================================
+
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -66,26 +76,31 @@ class Chatroom extends React.Component {
                           if (acc === true && currUserObj.ready === true) return true;
                           else return false;
                         }, true);
-
-      // redirect to arena page when all users are ready
-      if (allReady === true) {
-        hashHistory.push('/arena');
-      }
     }
 
     return (
       <div className="col=md-8">
         <div className="panel panel-default">
+
+          {/* ------ ChatRoomHeading ------ */}
           <div className="panel-heading">
+            { allReady ?
+              <Link to='/arena' className='btn btn-info btn-primary btn-md text-right'
+                    style={startBtnStyle}>Start
+              </Link>
+              : <div></div>}
             <div> { 'RoomID: ' + this.props.room.name } </div>
             <div> { 'Players: ' + playerNames.join(', ')} </div>
-
           </div>
+
+          {/* ------ ChatRoomBody ------ */}
           <div className="panel-body conversation fixed-panel" style={{maxHeight: 400, minHeight:400}}>
             {this.props.room.messages.map((message, index) =>
               <div className="chatMessage" key={index}>{message}</div>
             )}
           </div>
+
+          {/* ------ ChatRoomFooter ------ */}
           <div className="panel-footer">
             <div className="input-group">
               <span className="input-group-btn">
@@ -114,6 +129,7 @@ class Chatroom extends React.Component {
               </span>
             </div>
           </div>
+
         </div>
       </div>
     )

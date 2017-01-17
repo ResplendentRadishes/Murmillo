@@ -28,8 +28,8 @@ const RoomEntry = (props) => {
       socketOnProblem(props.room.name, (problem) => {
         props.setProblem(problem);            //action
       });
-      socketOnSubmission(props.room.name, (result) => {
-        props.receiveCodeCheck(result);       //action
+      socketOnSubmission(props.room.name, (resultObj) => {
+        props.receiveCodeCheck(resultObj);       //action
       });
       socketOnUpdate(props.room.name, (update) => {
         props.getCompUpdate(update);          //action

@@ -5,7 +5,7 @@
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
     "test": "mocha ./test --compilers js:babel-core/register",
-    "dbinit": "npm run drop & npm run competition & npm run user-competitions",
+    "dbinit": "mysql -u root < server/schema.sql && npm run drop && npm run competition && npm run user-competitions",
     "drop": "node server/db/dbinit.js",
     "user": "node server/db/user.js",
     "problem": "node server/db/db_problemGenerator.js",

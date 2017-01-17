@@ -5,19 +5,19 @@ import ArenaInformation from './arenaInformation.jsx';
 import TimerContainer from './timerContainer.jsx';
 import CodeContainer from './codeContainer.jsx';
 import { socketEmitProblem } from '../socketHandler.js';
+import { Link } from 'react-router';
 
 require ('../styles/arena.css');
 
 // ===============================================
 // CSS Stylying
-const titleStyle = {
+const popupStyle = {
   margin: '0px'
 };
 const spinnerDivStyle = {
   paddingTop: 100,
   width: '100%',
   position: 'absolute',
-  zIndex: 1
 };
 const spinnerImgStyle = {
   display: 'block',
@@ -31,8 +31,7 @@ const mapStateToProps = (state) => {
   return {
     room: state.room,
     problem: state.problem,
-    status: state.competition.status,
-    compUpdate: state.competition.compUpdate,
+    competition: state.competition
   }
 }
 
@@ -61,12 +60,10 @@ class Arena extends React.Component {
     // when problem is loaded, display arena container
     const container = this.props.problem.id ?
          <div className="container">
-          <h1 style={titleStyle}>{this.props.problem.title}</h1>
           <div className="row arenaRow">
             <div className="col-md-5 arenaInformation">
-              <ArenaInformation desc={this.props.problem.prompt}
-                                status={this.props.status}
-                                compUpdate={this.props.compUpdate}/>
+              <ArenaInformation problem={this.props.problem}
+                                competition={this.props.competition}/>
             </div>
             <div className="col-md-7 codeContainer">
               <TimerContainer />
@@ -77,10 +74,30 @@ class Arena extends React.Component {
         :
         <div></div>;
 
+    // when user has submitted correct solution, display options
+    const allPassingComp = this.props.competition.allPassing ?
+    // const allPassingComp = true ?
+        <div className="container">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h4 style={popupStyle}>You Completed the Problem</h4>
+              <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
+                Go To Previuos Page?
+              </Link>
+              <Link to='/signup' className='btn btn-info btn-primary btn-md'>
+                Go To Your Stats Page?
+              </Link>
+            </div>
+          </div>
+        </div>
+        :
+        <div></div>;
+
     return (
       <div>
-        {spinner}
+        {allPassingComp}
         {container}
+        {spinner}
       </div>
     );
   };

@@ -1,6 +1,6 @@
 var mochaChecker = require('../mochaChecker.js');
 var syntaxChecker = require('../syntaxChecker.js');
-var dbProblem = require('../db/db.js').Problem;
+var dbProblem = require('../db/problem.js');
 var Axios = require('axios');
 
 // create playerList (array) on the fly to avoid revealing socketID
@@ -80,7 +80,7 @@ exports.handleLeave = function(socket, playerListForRoom, nameSpace, resetNamesp
     socket.broadcast.emit('message', userLeaving + ' has left the room');
     socket.broadcast.emit("playerList", playerList);
 
-    // when all users have left, close socket and reset gameInSession
+    // when all users have left, close socket and reset game, player, and socket
     if (playerList.length === 0) {
       resetNamespace(nameSpace);
     }
@@ -121,7 +121,7 @@ exports.handleGetProblem = function(socket, gameInfoForRoom) {
           // emit 'sendProblem' to client with problem(type: object)
           setTimeout(function(){
             socket.emit('problem', gameInfoForRoom.problem);
-          }, 2000)
+          }, 1000)
 
         })
         .catch(function(err) {
@@ -136,7 +136,7 @@ exports.handleGetProblem = function(socket, gameInfoForRoom) {
       // if gameInfoForRoom exists, grab the probelm from memory
           setTimeout(function(){
             socket.emit('problem', gameInfoForRoom.problem);
-          }, 2000)
+          }, 1000)
     }
 
   });
@@ -175,8 +175,16 @@ exports.handleGetProblem = function(socket, gameInfoForRoom) {
 //
 // };
 
+var allPassing = function (str) {
+  // str = '0 out of 3 passing.';  // match = [ '0', '3' ];
+  var myReg = /\d/g;
+  var match = str.match(myReg);
+  if(match[0] === match[1]) { return true; }
+  return false;
+};
+
 //sends the code to a docker container to sandbox
-exports.handleSubmitSolution = function(socket) {
+exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
   // handle user's submitted solution
 
   var codecheckAPI = '162.243.153.240:8510';
@@ -191,9 +199,33 @@ exports.handleSubmitSolution = function(socket) {
     //send a post request to the port used by our docker container
     Axios.post(destination, {code: userSoln})
       .then(function(response){
+
         let result = response.data;
-        socket.emit('codeSubmission', result);
-        socket.broadcast.emit('compUpdate', username + ': ' + result);
+        var now = new Date();
+        var timeElapsed = (now - gameInfoForRoom.problem.dateStamp)/1000; //second
+        var timeLimit = gameInfoForRoom.problem.timelimit; //second
+        var inTime = (timeLimit-timeElapsed) > 0 ? true : false;
+
+        console.log('=======')
+        console.log(result);
+        console.log('=======')
+
+        if (inTime) {
+          socket.emit('codeSubmission', {
+            allPassing: allPassing(result),     //bolean
+            resultMsg: 'Your Result: '+result   //string
+          });
+          socket.broadcast.emit('compUpdate', username+': '+result);
+          // todo ****************************
+          // update user's wins and points
+          // todo ****************************
+
+        } else {
+          socket.emit('codeSubmission', {
+            allPassing: allPassing(result),     //bolean
+            resultMsg: 'Your Result: '+result   //string
+          });
+        }
       })
       .catch(function(error){
         console.log('error is ', error);

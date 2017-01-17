@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch) => {
     setProblem: function(problem) {
       dispatch(setProblem(problem));
     },
-    receiveCodeCheck: function(result) {
-      dispatch(receiveCodeCheck(result));
+    receiveCodeCheck: function(resultObj) {
+      dispatch(receiveCodeCheck(resultObj));
     },
     getCompUpdate: function(update) {
       dispatch(getCompUpdate(update));

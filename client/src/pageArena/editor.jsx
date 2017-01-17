@@ -90,6 +90,7 @@ class Editor extends React.Component {
         <div className="panel panel-default submissionResultsPanel"
               style={consoleStyle}>
           <div className="panel-heading">
+            Console
           </div>
           <div className="panel-body" style={panelStyle}>
             <iframe sandbox="allow-scripts"
