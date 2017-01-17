@@ -1,7 +1,9 @@
-var User = require('../db/db.js').User;
 var passport = require('passport');
-
-var UserStat = require('../db/db.js').UserStat;
+var User = require('../db/user.js');
+var UserCompetitions = require('../db/UserCompetitions.js');
+var Competition = require('../db/Competition.js');
+var Problem = require('../db/Problem.js');
+var UserStat = require('../db/userStat.js');
 
 
 module.exports.logout = function (req, res) {
@@ -12,10 +14,26 @@ module.exports.logout = function (req, res) {
 module.exports.getSession = function (req, res) {
   // only works if there's a user in passport
   if (req.user) {
+    let newUser = {};
+    statsArray = [];
     let id = { githubId: req.user.profile.id };
+    // finds user from database based on github ID
     User.find({ where: id })
     .then(user => {
-      return res.json(user.dataValues);
+      newUser = user.dataValues;
+      return UserCompetitions.findAll({ where: { userId: newUser.id } });
+    })
+    .then(array => {
+      let compArrayIds = [];
+      array.forEach(record => {
+        statsArray.push({ winner: record.dataValues.winner, compDate: record.dataValues.createdAt })
+        compArrayIds.push(record.dataValues.id);
+      });
+      newUser.userStats = statsArray;
+      return compArrayIds;
+    })
+    .then(idArray => {
+      res.json(newUser);
     })
     .catch(err => {
       console.log(err);

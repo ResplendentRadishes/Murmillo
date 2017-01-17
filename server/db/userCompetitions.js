@@ -19,6 +19,5 @@ Competition.hasMany(UserCompetitions, {
 
 UserCompetitions.belongsTo(User);
 UserCompetitions.belongsTo(Competition);
-UserCompetitions.sync();
 
 module.exports = UserCompetitions;

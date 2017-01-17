@@ -10,6 +10,4 @@ var Problem = db.define('problem', {
   template: Sequelize.STRING
 });
 
-Problem.sync();
-
 module.exports = Problem;
