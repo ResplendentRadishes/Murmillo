@@ -2,8 +2,8 @@ var Promise = require('bluebird');
 var passport = require('passport');
 var User = require('../db/user.js');
 var UserCompetitions = require('../db/userCompetitions.js');
-var Competition = require('../db/Competition.js');
-var Problem = require('../db/Problem.js');
+var Competition = require('../db/competition.js');
+var Problem = require('../db/problem.js');
 var UserStat = require('../db/userStat.js');
 
 const getUserStats = userId => {
