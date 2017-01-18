@@ -11,11 +11,11 @@ COPY package.json /usr/src/app
 
 RUN npm install
 
-#Copy the rest of the code
+# Copy the rest of the code
 COPY . /usr/src/app
 
 # Expose the port
 EXPOSE 3000
 
-# start the server
+# Start the server
 CMD ["npm", "start"]
