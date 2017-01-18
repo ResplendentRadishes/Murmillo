@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ArenaInformation from './arenaInformation.jsx';
 import TimerContainer from './timerContainer.jsx';
 import CodeContainer from './codeContainer.jsx';
+import { resetProblem, resetCompetition } from '../actions/actions.js';
 import { socketEmitProblem } from '../socketHandler.js';
 import { Link } from 'react-router';
 
@@ -34,13 +35,29 @@ const mapStateToProps = (state) => {
     competition: state.competition
   }
 }
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetProblem: function() {
+      dispatch(resetProblem());
+    },
+    resetCompetition: function() {
+      dispatch(resetCompetition());
+    }
+  }
+}
 // ===============================================
 // Use React component to emit'problem' once using componentDidMount
 class Arena extends React.Component {
   constructor(props) {
     super(props);
   };
+
+  componentWillMount() {
+    // reset problem state and competition state
+    this.props.resetProblem();
+    this.props.resetCompetition();
+
+  }
 
   // start counter when after component is mounted
   componentDidMount() {
@@ -75,8 +92,7 @@ class Arena extends React.Component {
         <div></div>;
 
     // when user has submitted correct solution, display options
-    const allPassingComp = this.props.competition.allPassing && !this.props.competition.allPassing ?
-    // const allPassingComp = true ?
+    const allPassingComp = this.props.competition.allPassing ?
         <div className="container">
           <div className="panel panel-default">
             <div className="panel-heading">
@@ -94,7 +110,7 @@ class Arena extends React.Component {
         <div></div>;
 
     // when user has run out of time solution, display options
-    const outOfTimeComp = this.props.competition.outOfTime ?
+    const outOfTimeComp = this.props.competition.outOfTime && !this.props.competition.allPassing?
     // const allPassingComp = true ?
         <div className="container">
           <div className="panel panel-default">
@@ -124,7 +140,8 @@ class Arena extends React.Component {
 
 };
 Arena = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Arena);
 
 export default Arena;

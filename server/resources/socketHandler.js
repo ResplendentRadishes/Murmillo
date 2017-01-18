@@ -206,19 +206,20 @@ exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
         var timeLimit = gameInfoForRoom.problem.timelimit; //second
         var inTime = (timeLimit-timeElapsed) > 0 ? true : false;
 
-        console.log('=======')
-        console.log(result);
-        console.log('=======')
-
         if (inTime) {
           socket.emit('codeSubmission', {
             allPassing: allPassing(result),     //bolean
             resultMsg: 'Your Result: '+result   //string
           });
           socket.broadcast.emit('compUpdate', username+': '+result);
-          // todo ****************************
-          // update user's wins and points
-          // todo ****************************
+
+          // if correct soln, update user's score
+          if ( allPassing(result) ) {
+            socket.emit('scoreUpdate', {
+              winner: true,                     //boolean
+              score: 5,                         //number
+            });
+          }
 
         } else {
           socket.emit('codeSubmission', {
