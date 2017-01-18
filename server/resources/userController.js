@@ -83,22 +83,30 @@ module.exports.updateUser = function (req, res) {
 }
 
 module.exports.updateScore = function (req, res) {
-  User.find({ where: { id: req.params.id } })
-  .then(user => {
-    wins = req.body.winner ? 1 : 0;
-    score = Number(req.body.score);
-    let stats = {
-      wins: user.dataValues.wins + wins,
-      games: user.dataValues.games + 1,
-      score: user.dataValues.score + score
-    };
-    return user.updateAttributes(stats)
-  })
-  .then(user => {
-    return res.json(user);
-  })
-  .catch(err => {
-    console.log(err);
+  Competition.create({ problemId: req.body.problemId })
+  .then ((competition) => {
+    UserCompetitions.create({ 
+      competitionId: competition.id,
+      userId: req.params.id,
+      winner: req.body.winner || false
+    })
+    User.find({ where: { id: req.params.id } })
+    .then(user => {
+      wins = req.body.winner ? 1 : 0;
+      score = Number(req.body.score);
+      let stats = {
+        wins: user.dataValues.wins + wins,
+        games: user.dataValues.games + 1,
+        score: user.dataValues.score + score
+      };
+      return user.updateAttributes(stats)
+    })
+    .then(user => {
+      return res.json(user);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   })
 }
 
