@@ -98,18 +98,22 @@ const defaultCompetition = {
   isFetching: false,
   allPassing:  false,
   resultMsg: 'In Progress',
-  compUpdate: 'No other users have submitted code yet'
+  compUpdate: 'No other users have submitted code yet',
+  outOfTime: false
 }
 function competition(state = defaultCompetition, action) {
   switch (action.type) {
     case 'REQUEST_CODE_CHECK':
       return {...state, isFetching: true};
     case 'RECEIVE_CODE_CHECK':
-      console.log(action.resultObj)
-      return {...state, isFetching: false,
-                allPassing: action.resultObj.allPassing, resultMsg: action.resultObj.resultMsg};
+      return {...state,
+                isFetching: false,
+                allPassing: action.resultObj.allPassing,
+                resultMsg: action.resultObj.resultMsg };
     case 'GET_COMP_UPDATE':
       return {...state, compUpdate: action.compUpdate};
+    case 'UPDATE_COMP_OUTOFTIME':
+      return {...state, outOfTime: action.outOfTime};
     default:
       return state;
   }

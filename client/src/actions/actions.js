@@ -11,6 +11,7 @@ export const SET_CODE = 'SET_CODE';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
 export const GET_COMP_UPDATE = 'GET_COMP_UPDATE';
+export const UPDATE_COMP_OUTOFTIME = 'UPDATE_COMP_OUTOFTIME';
 
 // =========================================
 //user actions
@@ -72,5 +73,9 @@ export function receiveCodeCheck(resultObj) {
 
 export function getCompUpdate(compUpdate) {
   return {type: GET_COMP_UPDATE, compUpdate}
+}
+
+export function updateCompOutOfTime(outOfTime) {
+  return {type: UPDATE_COMP_OUTOFTIME, outOfTime}
 }
 

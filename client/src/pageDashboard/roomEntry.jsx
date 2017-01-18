@@ -54,7 +54,7 @@ const RoomEntry = (props) => {
               type="button"
               className="btn btn-success btn-primary btn-md"
               onClick={joinClickHandler}
-            >JOIN ROOM
+            >Join Room
             </button>
           </div>
         </div>

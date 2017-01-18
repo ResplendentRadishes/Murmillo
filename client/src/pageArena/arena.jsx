@@ -75,7 +75,7 @@ class Arena extends React.Component {
         <div></div>;
 
     // when user has submitted correct solution, display options
-    const allPassingComp = this.props.competition.allPassing ?
+    const allPassingComp = this.props.competition.allPassing && !this.props.competition.allPassing ?
     // const allPassingComp = true ?
         <div className="container">
           <div className="panel panel-default">
@@ -93,9 +93,29 @@ class Arena extends React.Component {
         :
         <div></div>;
 
+    // when user has run out of time solution, display options
+    const outOfTimeComp = this.props.competition.outOfTime ?
+    // const allPassingComp = true ?
+        <div className="container">
+          <div className="panel panel-default">
+            <div className="panel-heading">
+              <h4 style={popupStyle}>Competition has ended. You can continue to work on the problem if you would like</h4>
+              <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
+                Go To Previuos Page?
+              </Link>
+              <Link to='/signup' className='btn btn-info btn-primary btn-md'>
+                Go To Your Stats Page?
+              </Link>
+            </div>
+          </div>
+        </div>
+        :
+        <div></div>;
+
     return (
       <div>
         {allPassingComp}
+        {outOfTimeComp}
         {container}
         {spinner}
       </div>
