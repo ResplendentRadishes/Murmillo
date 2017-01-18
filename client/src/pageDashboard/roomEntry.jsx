@@ -39,8 +39,9 @@ const RoomEntry = (props) => {
       });
       socketOnScoreUpdate(props.room.name, (scoreUpdate) => {
         // when we get scoreUpdate over socket, send updated score to server
+        // replace problemId with an actual ID afterwards
         Axios.patch('/user/stats/' + props.user.id, {
-          score: scoreUpdate.score, winner: scoreUpdate.winner
+          score: scoreUpdate.score, winner: scoreUpdate.winner, problemId: 1
         })
         .then((res) => {
           // udpate user in redux
