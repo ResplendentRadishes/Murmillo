@@ -10,8 +10,8 @@ var Sequelize = require('sequelize');
 
 // ==================================================
 // DB config setup
-// database = 'murmillo' | username = 'root' | password = ''
-var db = new Sequelize('murmillo', 'root', '', {
+// database = 'murmillo' | username = 'murmillo' | password = 'samnite'
+var db = new Sequelize('murmillo', 'murmillo', 'samnite', {
   host: 'localhost',
   dialetc: 'mysql'
 });
