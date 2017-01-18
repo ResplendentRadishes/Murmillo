@@ -1,0 +1,18 @@
+#ignore node modules
+/node_modules
+
+#ignore the codeCheck container
+/codeCheck
+
+#ignore the src folder
+*/src
+
+#ignore .md except for README
+*.md
+!README.md
+
+#ignore webpack file
+webpack.config.js
+
+#ignore anything related to git
+.git*
