@@ -4,7 +4,7 @@ import GraphContainer from './graphContainer.jsx';
 require('../styles/navbar.css');
 
 var graphTotalWins = function(el, data) {
-  
+   console.log(JSON.stringify(data));
   var newArray = [];
   var prevData = "";
   var newObj = {};

@@ -3,7 +3,7 @@ import GraphContainer from './graphContainer.jsx';
 require('../styles/navbar.css');
 // props = dataSet and problemNames
 var drawGraph = function(el, data, problemNames) {
-  console.log(JSON.stringify(data));
+ 
   /*
    [{"id":1,"problemLevel":"medium","winner":0,"compDate":"2016-12-24T14:00:00.000Z","createdAt":"2017-01-16T15:35:37.000Z","updatedAt":"2017-01-16T15:35:37.000Z"},
    {"id":2,"problemLevel":"medium","winner":0,"compDate":"2017-01-04T14:00:00.000Z","createdAt":"2017-01-16T15:35:37.000Z","updatedAt":"2017-01-16T15:35:37.000Z"}

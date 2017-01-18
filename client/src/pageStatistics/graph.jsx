@@ -70,14 +70,19 @@ var result_diff = moment(test1).diff(moment(test2), "days"); // 31
    }
   
    componentDidMount() {
-     let context = this;
+      let context = this;
      Axios.get('/user/stats/1')
      .then(res => {
        context.getDataSingleUser(res.data);
       var el = ReactDOM.findDOMNode(context);
-       console.log(context);
+       console.log(res.data);
       drawGraph(el, context.state.dataSet.slice() , context.props.problemNames.slice());
      });
+     //------------------------------------------------ use the below code later---------------------//
+     //let context = this;
+     // var el = ReactDOM.findDOMNode(context);
+     // drawGraph(el, this.props.dataSet.slice());
+
      
    }
    //--------------------------------------------------------------------------------------------------//
@@ -116,7 +121,7 @@ var result_diff = moment(test1).diff(moment(test2), "days"); // 31
       <button
        className="btn btn-info btn-md"
        type="button"
-       onClick={() => this.drawGraphTotalWins(this.state.dataSet)}> Show Total Number of wins</button>
+       onClick={() => this.drawGraphTotalWins(this.props.dataSet)}> Show Total Number of wins</button>
       <button
        className="btn btn-info btn-md"
        type="button"

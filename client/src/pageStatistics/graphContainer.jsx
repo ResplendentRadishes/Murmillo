@@ -11,30 +11,7 @@ var modifyDataSet = function(dataSet, problemNames) {
 }
 const mapStateToProps = (state) => {
   return {
-    problemNames: ['totalpbls', 'wins'], //state.problemNames,
-    dataSet: modifyDataSet([ 
-             {
-              "date" : "4/7/2016", //state
-              "totalpbls": 101, "wins": 100
-            },
-            {
-               "date" : "5/7/2016",
-               "totalpbls": 10, "wins": 6
-            },
-            {
-              "date" : "6/7/2016",
-              "totalpbls": 31, "wins": 30
-            },
-            {
-              "date" : "7/7/2016",
-              "totalpbls": 12, "wins": 3
-            },
-            {
-              "date" : "8/7/2016",
-              "totalpbls": 15, "wins": 8
-            }
-
-],['totalpbls', 'wins'] ) //                            //state.dataSet
+    dataSet: state.user.userStats                           //state.dataSet
   }
 }
 

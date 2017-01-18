@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory, hashHistory, IndexRoute} from 'react-router';
 import App from './pageShared/app.jsx';
 import DashboardContainer from './pageDashboard/dashboardContainer.jsx';
-import GraphContainer from './userStatistics/graphContainer.jsx';
+import GraphContainer from './pageStatistics/graphContainer.jsx';
 import Arena from './pageArena/arena.jsx';
 import SignUp from './pageSignup/signUp.jsx';
 import Home from './pageHome/home.jsx';
