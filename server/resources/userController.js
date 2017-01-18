@@ -34,10 +34,32 @@ module.exports.getSession = function (req, res) {
       return compArrayIds;
     })
     .then(idArray => {
-      problemIds = [];
-      idArray.forEach((id) => {
-        
+      return Promise.all(idArray.map((id) => {
+        return Competition.find({ where: { Id: id } })
+      }));
+    })
+    .then(competitions => {
+      let problemIds = [];
+      competitions.forEach(competition => {
+        problemIds.push(competition.dataValues.problemId);
+      })
+      return Promise.all(problemIds.map((id) => {
+        return Problem.find({ where: { Id: id } })
+      }));
+    })
+    .then(problems => {
+      var response;
+      problems.forEach((problem, index) => {
+        if (problem.dataValues.title === 'simple function 1') {
+          response = 'easy';
+        } else if (problem.dataValues.title === 'simple function 2') {
+          response = 'medium';
+        } else if (problem.dataValues.title === 'simple function 3') {
+          response = 'hard';
+        }
+        newUser.userStats[index].problemLevel = response;
       });
+      res.json(newUser);
     })
     .catch(err => {
       console.log(err);
