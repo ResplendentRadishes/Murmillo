@@ -7,10 +7,13 @@ export const SET_ROOMLIST = 'SET_ROOMLIST';
 export const UPDATE_MESSAGES = 'UPDATE_MESSAGES';
 export const UPDATE_PLAYERLIST = 'UPDATE_PLAYERLIST';
 export const SET_PROBLEM = 'SET_PROBLEM';
+export const RESET_PROBLEM = 'RESET_PROBLEM';
 export const SET_CODE = 'SET_CODE';
+export const RESET_COMP = 'RESET_COMP';
 export const REQUEST_CODE_CHECK = 'REQUEST_CODE_CHECK';
 export const RECEIVE_CODE_CHECK = 'RECEIVE_CODE_CHECK';
 export const GET_COMP_UPDATE = 'GET_COMP_UPDATE';
+export const UPDATE_COMP_OUTOFTIME = 'UPDATE_COMP_OUTOFTIME';
 
 // =========================================
 //user actions
@@ -56,10 +59,20 @@ export function setProblem(problem) {
   return {type: SET_PROBLEM, problem };
 }
 
+export function resetProblem() {
+  return {type: RESET_PROBLEM };
+}
+
 // =========================================
 //code actions
 export function setCode(code) {
   return { type: SET_CODE, code };
+}
+
+// =========================================
+//competition action
+export function resetCompetition() {
+  return {type: RESET_COMP};
 }
 
 export function requestCodeCheck() {
@@ -72,5 +85,9 @@ export function receiveCodeCheck(resultObj) {
 
 export function getCompUpdate(compUpdate) {
   return {type: GET_COMP_UPDATE, compUpdate}
+}
+
+export function updateCompOutOfTime(outOfTime) {
+  return {type: UPDATE_COMP_OUTOFTIME, outOfTime}
 }
 

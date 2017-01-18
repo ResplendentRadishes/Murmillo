@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import {
           socketClosePrevRoom,
           socketEmitJoin,
@@ -6,7 +7,8 @@ import {
           socketOnMsg,
           socketOnProblem,
           socketOnSubmission,
-          socketOnUpdate
+          socketOnUpdate,
+          socketOnScoreUpdate
         } from '../socketHandler.js';
 
 
@@ -18,6 +20,7 @@ const RoomEntry = (props) => {
       // emit join event
       socketEmitJoin(props.room.name, props.username);
 
+      // ---------------------------------------------
       // configure all clientSocketListeners to Redux through action function
       socketOnMsg(props.room.name, (serverMessage) => {
         props.updateMessages(serverMessage);  //action
@@ -34,6 +37,17 @@ const RoomEntry = (props) => {
       socketOnUpdate(props.room.name, (update) => {
         props.getCompUpdate(update);          //action
       });
+      socketOnScoreUpdate(props.room.name, (scoreUpdate) => {
+        // when we get scoreUpdate over socket, send updated score to server
+        Axios.patch('/user/stats/' + props.user.id, {
+          score: scoreUpdate.score, winner: scoreUpdate.winner
+        })
+        .then((res) => {
+          // udpate user in redux
+          props.setUser(res.data)
+        });
+      });
+      // ---------------------------------------------
 
       // update currtent room using redux
       props.setRoom(props.room);
@@ -54,7 +68,7 @@ const RoomEntry = (props) => {
               type="button"
               className="btn btn-success btn-primary btn-md"
               onClick={joinClickHandler}
-            >JOIN ROOM
+            >Join Room
             </button>
           </div>
         </div>

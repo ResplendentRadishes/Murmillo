@@ -145,6 +145,19 @@ const socketOnUpdate = function (roomID, callback) {
     callback(update);
   });
 };
+// =============================================================
+const socketOnScoreUpdate = function (roomID, callback) {
+  // grab the socket instance stored in object
+  var nameSpace = '/'+roomID;
+  var clientSocket =  socketInSession[nameSpace];
+
+  // listen for 'scoreUpdate' event and get newScore(obj) via callback
+  clientSocket.on('scoreUpdate', function(newScore) {
+    callback(newScore);
+  });
+};
+
+
 
 // =============================================================
 export {
@@ -158,7 +171,8 @@ export {
   socketEmitProblem,
   socketOnSubmission,
   socketEmitSubmission,
-  socketOnUpdate
+  socketOnUpdate,
+  socketOnScoreUpdate
 };
 
 

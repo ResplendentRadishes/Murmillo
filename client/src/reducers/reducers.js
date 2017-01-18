@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 //   user: {}
 // };
 
+// ==============================================
 function user(state = {}, action) {
   switch (action.type) {
 
@@ -24,6 +25,7 @@ function user(state = {}, action) {
   }
 };
 
+// ==============================================
 function room(state = {}, action) {
   switch (action.type) {
 
@@ -47,6 +49,7 @@ function room(state = {}, action) {
   }
 }
 
+// ==============================================
 function roomList(state = [], action) {
   switch (action.type) {
 
@@ -58,6 +61,7 @@ function roomList(state = [], action) {
   }
 }
 
+// ==============================================
 function messages(state = [], action) {
   switch (action.type) {
 
@@ -69,17 +73,27 @@ function messages(state = [], action) {
   }
 }
 
-function problem(state = {id: undefined}, action) {
+// ==============================================
+const defaultProblem = {
+  id:         undefined,
+  dateStamp:  undefined,
+  prompt:     undefined,
+  template:   undefined,
+  timelimit:  undefined,
+  title:      undefined
+};
+function problem(state = defaultProblem, action) {
   switch (action.type) {
-
+    case 'RESET_PROBLEM':
+      return { defaultProblem };
     case 'SET_PROBLEM':
       return { ...state, ...action.problem };
-
     default:
       return state;
   }
 }
 
+// ==============================================
 function code(state = null, action) {
   switch (action.type) {
 
@@ -94,22 +108,29 @@ function code(state = null, action) {
   }
 }
 
+// ==============================================
 const defaultCompetition = {
   isFetching: false,
-  allPassing:  false,
-  resultMsg: 'In Progress',
-  compUpdate: 'No other users have submitted code yet'
+  allPassing: false,
+  resultMsg:  'In Progress',
+  compUpdate: 'No other users have submitted code yet',
+  outOfTime:  false
 }
 function competition(state = defaultCompetition, action) {
   switch (action.type) {
+    case 'RESET_COMP':
+      return {defaultCompetition};
     case 'REQUEST_CODE_CHECK':
       return {...state, isFetching: true};
     case 'RECEIVE_CODE_CHECK':
-      console.log(action.resultObj)
-      return {...state, isFetching: false,
-                allPassing: action.resultObj.allPassing, resultMsg: action.resultObj.resultMsg};
+      return {...state,
+                isFetching: false,
+                allPassing: action.resultObj.allPassing,
+                resultMsg: action.resultObj.resultMsg };
     case 'GET_COMP_UPDATE':
       return {...state, compUpdate: action.compUpdate};
+    case 'UPDATE_COMP_OUTOFTIME':
+      return {...state, outOfTime: action.outOfTime};
     default:
       return state;
   }

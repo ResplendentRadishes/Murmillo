@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setRoom } from '../actions/actions.js'
+import { updateCompOutOfTime } from '../actions/actions.js'
 import Timer from './timer.jsx'
 
 // ===============================================
@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setRoom: function(roomObj) {
-      dispatch(setRoom(roomObj));
+    updateCompOutOfTime: function(outOfTime) {
+      dispatch(updateCompOutOfTime(outOfTime));
     }
   }
 }
