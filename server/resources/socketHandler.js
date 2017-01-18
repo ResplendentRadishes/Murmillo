@@ -1,5 +1,3 @@
-var mochaChecker = require('../mochaChecker.js');
-var syntaxChecker = require('../syntaxChecker.js');
 var dbProblem = require('../db/problem.js');
 var Axios = require('axios');
 
