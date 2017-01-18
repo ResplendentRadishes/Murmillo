@@ -138,6 +138,7 @@ module.exports.updateScore = function (req, res) {
 
 // serving fake compData ----------------------------------
 module.exports.getUserStats = function (req, res) {
+  console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
   UserStat.findAll({raw: true})
   .then(userStats => {
     return res.json(userStats);
