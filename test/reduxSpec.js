@@ -40,10 +40,18 @@ describe('actions', function() {
       expect(action.type).to.equal('RECEIVE_CODE_CHECK');
     })
     it('should give the action the correct result property', function() {
-      var action = receiveCodeCheck(true);
-      expect(action.result).to.equal(true);
-      action = receiveCodeCheck(false);
-      expect(action.result).to.equal(false)
+      var action = receiveCodeCheck({
+        isFetching: false,
+        allPassing: true,
+        resultMsg: 'some string'
+      });
+      expect(action.resultObj.allPassing).to.equal(true);
+      action = receiveCodeCheck({
+        isFetching: false,
+        allPassing: false,
+        resultMsg: 'some string'
+      });
+      expect(action.resultObj.allPassing).to.equal(false)
     })
   })
 })
