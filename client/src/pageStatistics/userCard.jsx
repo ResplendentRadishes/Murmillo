@@ -3,8 +3,8 @@ import React from 'react';
 const UserCard = (props) => {
   let user = props.user;
   return (
-    <div className="container">
-      <div className="col-lg-3 col-sm-6">
+   
+      
         <div className="card hovercard">
           <div className="cardheader">
 
@@ -26,8 +26,7 @@ const UserCard = (props) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      
   );
 }
 export default UserCard;

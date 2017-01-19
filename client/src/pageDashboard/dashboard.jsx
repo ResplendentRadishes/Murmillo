@@ -9,7 +9,7 @@ import ChatroomContainer from './chatroomContainer.jsx';
 // ===============================================
 
 const Dashboard = (props) => (
-  <div className="container-fluid">
+  <div className="container">
     <div className="row">
       <div className="col-md-5">
         <RoomListContainer />
