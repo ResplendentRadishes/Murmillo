@@ -4,7 +4,8 @@ var User = require('./user.js');
 var Competition = require('./competition.js');
 
 var UserCompetitions = db.define('userCompetitions', {
-  winner: Sequelize.BOOLEAN
+  winner: Sequelize.BOOLEAN,
+  compDate: Sequelize.DATE
 });
 
 User.hasMany(UserCompetitions, {

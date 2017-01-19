@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./test --compilers js:babel-core/register",
     "dbcreate": "mysql -u root < server/schema.sql",
-    "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetition.js",
+    "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetitions.js",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"

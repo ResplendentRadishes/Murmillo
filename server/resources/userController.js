@@ -63,6 +63,14 @@ module.exports.getSession = function (req, res) {
       });
     })
     .then(user => {
+      user.games = user.userStats.length;
+      var wins = 0;
+      user.userStats.forEach(game => {
+        if (game.winner) {
+          wins++;
+        }
+      })
+      user.wins = wins;
       return res.json(user);
     })
     .catch(err => {
@@ -97,11 +105,8 @@ module.exports.updateScore = function (req, res) {
     })
     User.find({ where: { id: req.params.id } })
     .then(user => {
-      wins = req.body.winner ? 1 : 0;
       score = Number(req.body.score);
       let stats = {
-        wins: user.dataValues.wins + wins,
-        games: user.dataValues.games + 1,
         score: user.dataValues.score + score
       };
       return user.updateAttributes(stats)
@@ -116,7 +121,15 @@ module.exports.updateScore = function (req, res) {
       });
     })
     .then(user => {
-      return res.json(newUser);
+      user.games = user.userStats.length;
+      var wins = 0;
+      user.userStats.forEach(game => {
+        if (game.winner) {
+          wins++;
+        }
+      })
+      user.wins = wins;
+      return res.json(user);
     })
     .catch(err => {
       console.log(err);

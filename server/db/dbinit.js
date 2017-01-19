@@ -19,4 +19,3 @@ Problem.sync()
   .catch(function(err) {
     console.log(err);
   });
-
