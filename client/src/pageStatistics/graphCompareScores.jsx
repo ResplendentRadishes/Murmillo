@@ -6,7 +6,7 @@ require('../styles/navbar.css');
 var graphCompareScores = function(el, data) {
   
   
-  data = [{"user":"user1", "score": 10}, {"user":"user2","score": 5}, {"user":"user3","score": 40 },  {"user":"user4","score": 100 }];
+  data = [{"user":"Yoshi", "score": 10}, {"user":"Nimmy","score": 5}, {"user":"Vernon","score": 100 },  {"user":"Robert","score": 40 }];
  
   var margin = {top: 40, right: 20, bottom: 30, left: 20},
       width = 560 - margin.left - margin.right,
@@ -74,7 +74,7 @@ state.selectAll("rect")
     .data(data)
     .enter()
     .append("text")
-    .attr("class", "textlabel")
+   // .attr("class", "textlabel")
     .attr("x", function(data){ return x0(data.user) + (x0.bandwidth()/2); })
     .attr("y", function(data){ return y(data.score) - 20; })
     .text(function(data){ console.log(data.score); return data.score; });

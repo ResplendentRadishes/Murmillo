@@ -9,55 +9,33 @@ var graphTotalWins = function(el, data) {
   var prevData = "";
   var newObj = {};
   //for this to work make sure that data is sorted by compDate
-  // data.forEach(function(element) {
-  //  var date = element.compDate;
+  data.forEach(function(element) {
+   var date = element.compDate;
    
-  //  if(newObj.date === date ) {
-  //     if(element.winner === 1){
-  //      element.problemLevel === "hard" ? (newObj.hard += 1, newObj.winshard += 1): element.problemLevel === "medium" ? (newObj.medium += 1, newObj.winsmedium += 1): (newObj.easy += 1, newObj.winseasy += 1);
-  //      newObj.totalpbls += 1;
-  //      newObj.winsTotal += 1;
-  //     }
-  //  }
-  //  else {// if data is already sorted, this will only happens when new problemLevel is encountered.
-  //    newObj = JSON.parse(JSON.stringify(newObj));
-  //    newObj.date = element.compDate;
-  //    if(element.winner === 1){
-  //      newObj.winsTotal = 1;
-  //      element.problemLevel === "hard" ? (newObj.hard = 1, newObj.winshard = 1,newObj.winsmedium =0, newObj.winseasy = 0, newObj.medium =0, newObj.easy =0): element.problemLevel === "medium" ? (newObj.medium = 1, newObj.winsmedium = 1, newObj.winshard = 0,newObj.winseasy =0, newObj.easy = 0, newObj.hard = 0): (newObj.easy = 1, newObj.winseasy= 1, newObj.winshard = 0,newObj.winsmedium =0, newObj.hard =0, newObj.medium = 0);
-  //    }else {
-  //      element.problemLevel === "hard" ? (newObj.hard = 1, newObj.winshard = 0,newObj.winsmedium =0, newObj.winseasy = 0, newObj.medium =0, newObj.easy =0): element.problemLevel === "medium" ? (newObj.medium = 0, newObj.winsmedium = 0, newObj.winshard = 0,newObj.winseasy =0, newObj.easy = 0, newObj.hard = 0): (newObj.easy = 1, newObj.winseasy= 0, newObj.winshard = 0,newObj.winsmedium =0, newObj.hard =0, newObj.medium = 0);
-  //      newObj.winsTotal = 0;
-  //    }
-  //    newObj.totalpbls = 1;
-  //    newArray.push(newObj);
-  //  }
+   if(newObj.date === date ) {
+      if(element.winner){
+       element.problemLevel === "hard" ? (newObj.hard += 1, newObj.winshard += 1): element.problemLevel === "medium" ? (newObj.medium += 1, newObj.winsmedium += 1): (newObj.easy += 1, newObj.winseasy += 1);
+       newObj.totalpbls += 1;
+       newObj.winsTotal += 1;
+      }
+   }
+   else {// if data is already sorted, this will only happens when new problemLevel is encountered.
+     newObj = JSON.parse(JSON.stringify(newObj));
+     newObj.date = element.compDate;
+     if(element.winner){
+       newObj.winsTotal = 1;
+       element.problemLevel === "hard" ? (newObj.hard = 1, newObj.winshard = 1,newObj.winsmedium =0, newObj.winseasy = 0, newObj.medium =0, newObj.easy =0): element.problemLevel === "medium" ? (newObj.medium = 1, newObj.winsmedium = 1, newObj.winshard = 0,newObj.winseasy =0, newObj.easy = 0, newObj.hard = 0): (newObj.easy = 1, newObj.winseasy= 1, newObj.winshard = 0,newObj.winsmedium =0, newObj.hard =0, newObj.medium = 0);
+     }else {
+       element.problemLevel === "hard" ? (newObj.hard = 1, newObj.winshard = 0,newObj.winsmedium =0, newObj.winseasy = 0, newObj.medium =0, newObj.easy =0): element.problemLevel === "medium" ? (newObj.medium = 0, newObj.winsmedium = 0, newObj.winshard = 0,newObj.winseasy =0, newObj.easy = 0, newObj.hard = 0): (newObj.easy = 1, newObj.winseasy= 0, newObj.winshard = 0,newObj.winsmedium =0, newObj.hard =0, newObj.medium = 0);
+       newObj.winsTotal = 0;
+     }
+     newObj.totalpbls = 1;
+     newArray.push(newObj);
+   }
    
-  // }); 
-  // data = newArray;
-  var data = [ 
-            {
-              "date" : "4/7/2016", //state
-              "totalpbls": 60, "medium": 10,  "easy" : 30,  "hard": 20, "winsTotal": 40, "winsmedium":9,"winseasy": 21,"winshard": 10
-            },
-            {
-               "date" : "5/7/2016",
-               "totalpbls": 10, "winsTotal": 6, "medium": 5, "easy" : 4, "hard": 1,"winsmedium" : 5,"winseasy": 1, "winshard": 0
-            },
-            {
-              "date" : "6/7/2016",
-              "totalpbls": 31, "winsTotal": 30, "medium": 10, "easy" : 20, "hard": 1,"winsmedium" : 10,"winseasy": 19, "winshard": 1
-            },
-            {
-              "date" : "7/7/2016",
-              "totalpbls": 12, "winsTotal": 3, "medium": 6, "easy" : 6, "hard": 0,"winsmedium" : 1,"winseasy": 1, "winshard": 1
-            },
-            {
-              "date" : "8/7/2016",
-              "totalpbls": 15, "winsTotal": 8, "medium": 5, "easy" : 10, "hard": 0,"winsmedium" : 5,"winseasy": 3, "winshard": 0
-            }
-
-];
+  }); 
+  data = newArray;
+  
   var margin = {top: 40, right: 20, bottom: 30, left: 20},
       width = 560 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;

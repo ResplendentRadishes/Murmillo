@@ -40,7 +40,6 @@ class NavBar extends React.Component {
               <h3 className="navbar-text">Murmillo</h3>
             </Link>
           </div>
-          <div><button  className="statistics"><Link to='/showGraphs' >Statistics</Link></button></div>
           <div className ="navbar-right" >
           
           {this.props.user.username ?

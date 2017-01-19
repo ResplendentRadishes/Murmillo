@@ -3,30 +3,22 @@ import GraphContainer from './graphContainer.jsx';
 require('../styles/navbar.css');
 
 var drawGraph = function(el, data, problemNames) {
-  
-  /*
-   [{"id":1,"problemLevel":"medium","winner":0,"compDate":"2016-12-24T14:00:00.000Z","createdAt":"2017-01-16T15:35:37.000Z","updatedAt":"2017-01-16T15:35:37.000Z"},
-   {"id":2,"problemLevel":"medium","winner":0,"compDate":"2017-01-04T14:00:00.000Z","createdAt":"2017-01-16T15:35:37.000Z","updatedAt":"2017-01-16T15:35:37.000Z"}
-  */
-   //console.log(JSON.stringify(data));
-   var newArray = [];
-   var prevData = "";
-   var newObj = {};
-   //for this to work make sure that data is sorted by compDate
-   data.forEach(function(element) {
-
-     var date = element.compDate;
-     if(newObj.date === date ) {
-
-        if(element.winner){
-         element.problemLevel === "hard" ? (newObj.hard += 1, newObj.winshard += 1): element.problemLevel === "medium" ? (newObj.medium += 1, newObj.winsmedium += 1): (newObj.easy += 1, newObj.winseasy += 1);
-         newObj.totalpbls += 1;
-         newObj.winsTotal += 1;
-        }
-     }
-     else {// if data is already sorted, this will only happens when new problemLevel is encountered.
-       newObj = JSON.parse(JSON.stringify(newObj));
-       newObj.date = element.compDate;
+  var newArray = [];
+  var prevData = "";
+  var newObj = {};
+  //---------------for this to work make sure that data is sorted by compDate------------------------//
+  data.forEach(function(element) {
+    var date = element.compDate;
+    if(newObj.date === date ) {
+      if(element.winner){
+        element.problemLevel === "hard" ? (newObj.hard += 1, newObj.winshard += 1): element.problemLevel === "medium" ? (newObj.medium += 1, newObj.winsmedium += 1): (newObj.easy += 1, newObj.winseasy += 1);
+        newObj.totalpbls += 1;
+        newObj.winsTotal += 1;
+      }
+    }
+    else {// ----- if data is already sorted, this will only happens when new problemLevel is encountered ----//
+      newObj = JSON.parse(JSON.stringify(newObj));
+      newObj.date = element.compDate;
        if(element.winner){
          newObj.winsTotal = 1;
          element.problemLevel === "hard" ? (newObj.hard = 1, newObj.winshard = 1,newObj.winsmedium =0, newObj.winseasy = 0, newObj.medium =0, newObj.easy =0): element.problemLevel === "medium" ? (newObj.medium = 1, newObj.winsmedium = 1, newObj.winshard = 0,newObj.winseasy =0, newObj.easy = 0, newObj.hard = 0): (newObj.easy = 1, newObj.winseasy= 1, newObj.winshard = 0,newObj.winsmedium =0, newObj.hard =0, newObj.medium = 0);
@@ -37,19 +29,16 @@ var drawGraph = function(el, data, problemNames) {
        newObj.totalpbls = 1;
        newArray.push(newObj);
      }
-     
-   }); //["medium","easy","hard","totalpbls","Wins"]
-   data = newArray;
-   //console.log(JSON.stringify(data));
+    }); 
 
-  
-  var margin = {top: 40, right: 20, bottom: 30, left: 40},
-      width = 800 - margin.left - margin.right,
-      height = 300 - margin.top - margin.bottom;
+  data = newArray;
+  var margin = {top: 40, right: 20, bottom: 30, left: 20},
+    width = 600 - margin.left - margin.right,
+    height =300 - margin.top - margin.bottom;
      
-  //for big grouping elements, dates
+  //----------for big grouping elements, dates --------------------//
   var x0 =  d3.scaleBand().rangeRound([0, width]).paddingInner(0.1);
-  //for the smalle elements in each date, problemNames and wins
+  //----------for the smalle elements in each date, problemNames and wins------//
   var x1 = d3.scaleBand();
   var y = d3.scaleLinear()
       .rangeRound([height, 0]);
@@ -58,7 +47,7 @@ var drawGraph = function(el, data, problemNames) {
   //Above are the column headers. last four headers will be having the same color(#9D8884)
   //------------------------------------------------------------------------------------------//
   var color = d3.scaleOrdinal()
-    .range([ "#FFC1C1", "#A74CAB", "#6b486b", '#BCED91', '#BCED91', '#BCED91']);//"#a05d56", 
+    .range([ "#5dc3da", "#b2ab2e", '#60BD68', '#5da5da', "#b2972e", "#608cbd"]);//"#a05d56", 
   var xAxis = d3.axisBottom(x0);
   var yAxis = d3.axisLeft(y);
 
@@ -70,15 +59,6 @@ var drawGraph = function(el, data, problemNames) {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// var aspect = width / height,
-//     chart = d3.select(".graphContainer");
-// d3.select(window)
-//   .on("resize", function() {
-//     console.log("resizing");
-//     var targetWidth = chart.node().getBoundingClientRect().width;
-//     chart.attr("width", targetWidth);
-//     chart.attr("height", targetWidth / aspect);
-//   });
 
 //-------------------------------------------------------------------------------//
  // Create groups for each series, rects for each segment 
@@ -91,56 +71,48 @@ var drawGraph = function(el, data, problemNames) {
 
 //--------------------------------------------------------------//
 
-
-  var yBegin;
- 
-  var innerColumns = {
-    //"column1" : ["totalpbls","winsTotal"],
+ var yBegin;
+ var innerColumns = {
     "column2" : ["easy","winseasy"],
     "column3" : ["medium","winsmedium"],
     "column4" : ["hard", "winshard"]
   }
 
   
-  var columnHeaders =d3.keys(data[0]).filter(function(key) {
+ var columnHeaders =d3.keys(data[0]).filter(function(key) {
    return (key !== "date" && key!=="totalpbls" && key!=="winsTotal");});
-  //------------------------Below is a temporary fix------------------------------------------//
-   columnHeaders = ["easy", "medium", "hard", "winseasy", "winsmedium", "winshard"];
-  //------------------------------------------------------------------------------------------//
-  console.log("column Headers ", JSON.stringify(columnHeaders));
-  color.domain(d3.keys(data[0]).filter(function(key) { return (key !== "date" && key!=="totalpbls" && key!=="winsTotal"); }));
-   //------------------------Below is a temporary fix------------------------------------------//
-  color.domain(["easy", "medium", "hard", "winseasy", "winsmedium", "winshard"]);
+//------------------------Below is a temporary fix------------------------------------------//
+ columnHeaders = ["easy", "medium", "hard", "winseasy", "winsmedium", "winshard"];
+//------------------------------------------------------------------------------------------//
+ color.domain(d3.keys(data[0]).filter(function(key) { return (key !== "date" && key!=="totalpbls" && key!=="winsTotal"); }));
+ //------------------------Below is a temporary fix------------------------------------------//
+ color.domain(["easy", "medium", "hard", "winseasy", "winsmedium", "winshard"]);
 
-   //------------------------------------------------------------------------------------------//
   
-  data.forEach(function(d) {
-    var yColumn = new Array();
-    d.columnDetails = columnHeaders.map(function(name) {
-      for (var ic in innerColumns) {
-        if(innerColumns[ic].indexOf(name) >= 0){
-          if (!yColumn[ic]){
-            yColumn[ic] = 0;
-          }
-          //yBegin = yColumn[ic];
-          yBegin = 0;
-          yColumn[ic] += +d[name];
-          //return {name: name, column: ic, yBegin: yBegin, yEnd: +d[name] + yBegin,};
-          return {name: name, column: ic, yBegin: 0, yEnd: +d[name] + yBegin};
+ data.forEach(function(d) {
+   var yColumn = new Array();
+   d.columnDetails = columnHeaders.map(function(name) {
+    for (var ic in innerColumns) {
+      if(innerColumns[ic].indexOf(name) >= 0){
+        if (!yColumn[ic]){
+          yColumn[ic] = 0;
         }
+        //yBegin = yColumn[ic];
+        yBegin = 0;
+        yColumn[ic] += +d[name];
+        return {name: name, column: ic, yBegin: 0, yEnd: +d[name] + yBegin};
       }
-    });
-    d.total = d3.max(d.columnDetails, function(d) { 
-      return d.yEnd; 
-    });
-    //console.log(JSON.stringify(d.columnDetails));
+    }
   });
+  d.total = d3.max(d.columnDetails, function(d) { 
+    return d.yEnd; 
+  });
+});
   
   x0.domain(data.map(function(d) { 
-            return d.date; }))//d.date; }));
+             return d.date; }))
   
   x1.domain(d3.keys(innerColumns)).rangeRound([0, x0.bandwidth()]);
-  //console.log(d3.max(dataSet, function(d) { return d3.max(d.problems, function(d) { return d.value; }); }))
   y.domain([0, d3.max(data, function(d) { 
     return d.total; 
   })]);  
@@ -151,10 +123,10 @@ var drawGraph = function(el, data, problemNames) {
       .selectAll("text")  
       .style("text-anchor", "end")
       .attr("dx", "2.0em")
-      .attr("dy", ".15em")
-      .attr("transform", function(d) {
-          return "rotate(-80)" 
-      });
+      .attr("dy", ".50em")
+      // .attr("transform", function(d) {
+      //     return "rotate(-80)" 
+      // });
 
   svg.append("g")
       .attr("class", "y axis")
@@ -166,7 +138,8 @@ var drawGraph = function(el, data, problemNames) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("problemNames");
-    //Add title
+
+  //-----------------------------Add title-----------------------------------------//
   svg.append("text")
         .attr("x", (width / 2))     
         .attr("y", 0 - (margin.top / 2))
@@ -175,7 +148,7 @@ var drawGraph = function(el, data, problemNames) {
         .style("text-decoration", "underline")
         .text("Performance Statistics");
   
- var project_stackedbar = svg.selectAll(".project_stackedbar")
+  var project_stackedbar = svg.selectAll(".project_stackedbar")
       .data(data)
       .enter().append("g")
       .attr("class", "g")
@@ -183,7 +156,7 @@ var drawGraph = function(el, data, problemNames) {
   
   
   project_stackedbar.selectAll("rect")
-      .data(function(d) {console.log("--------------------");console.log(JSON.stringify(d.columnDetails));return d.columnDetails; })
+      .data(function(d) {return d.columnDetails; })
       .enter()
       .append("rect")
       .attr("width", x1.bandwidth())
@@ -197,8 +170,8 @@ var drawGraph = function(el, data, problemNames) {
         return y(d.yBegin) - y(d.yEnd); 
       })
       .style("fill", function(d) { return color(d.name); })
-      .style("stroke", "black")
-      .style("stroke-width", 2)
+      //.style("stroke", "black")
+      //.style("stroke-width", 2)
       .on("mouseover", function() {
         tooltip.style("display", 'inline'); 
       })
@@ -207,55 +180,48 @@ var drawGraph = function(el, data, problemNames) {
         tooltip.style("display", "none"); 
       })
       .on("mousemove", function(d, i) {
-        console.log(d);
-        var xPosition  = (d3.mouse(this)[0]);//- 15;
-        var yPosition  = d3.mouse(this)[1] ;//- 25;
+        // var xPosition  = (d3.mouse(this)[0]);//- 15;
+        // var yPosition  = d3.mouse(this)[1] ;//- 25;
         tooltip.attr("transform", "translate(" + (width/2)+ "," + (height/8) + ")");
 
-        var getToolTipText = function(d) {
-          if(d.name === "hard") return ("Problem: Hard, Attempted: "+d.yEnd);
-          if(d.name === "medium") return ("Problem: Medium, Attempted: "+d.yEnd);
-          if(d.name === "easy") return ("Problem: Easy, Attempted: "+d.yEnd);
-          if(d.name === "winshard") return ("Problem: Hard, Won: "+d.yEnd);
-          if(d.name === "winsmedium") return ("Problem: Medium, Won: "+d.yEnd);
-          if(d.name === "winseasy") return ("Problem: Easy, Won: "+d.yEnd);
-        }
-
-       // tooltip.attr("transform", "translate(" + (event.pageX)+ "," + yPosition + ")");
-        //tooltip.select("text").text(d.yEnd.toString());
-         tooltip.select("text").text(getToolTipText(d));
+    var getToolTipText = function(d) {
+      if(d.name === "hard") return ("Problem: Hard, Attempted: "+d.yEnd);
+      if(d.name === "medium") return ("Problem: Medium, Attempted: "+d.yEnd);
+      if(d.name === "easy") return ("Problem: Easy, Attempted: "+d.yEnd);
+      if(d.name === "winshard") return ("Problem: Hard, Won: "+d.yEnd);
+      if(d.name === "winsmedium") return ("Problem: Medium, Won: "+d.yEnd);
+      if(d.name === "winseasy") return ("Problem: Easy, Won: "+d.yEnd);
+    }
+    tooltip.select("text").text(getToolTipText(d));
   });
- 
-
-  
-   columnHeaders = ["easy", "medium", "hard", "wins"];
+ columnHeaders = ["Easy", "Medium", "Hard", "WinsEasy", "WinsMedium", "WinsHard"];
    color.domain(columnHeaders);
-   var legend = svg.selectAll(".legend")
-      .data(columnHeaders.slice())//.reverse()
-      .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
- 
-   legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
- 
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
+ var legend = svg.selectAll(".legend")
+    .data(columnHeaders.slice())//.reverse()
+    .enter().append("g")
+    .attr("class", "legend")
+    .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; })
+   
+
+ legend.append("rect")
+    .attr("x", width - 19)
+    .attr("width", 10)
+    .attr("height", 10)
+    .style("fill", color);
+
+ legend.append("text")
+    .attr("x", width - 24)
+    .attr("y", 9)
+    .attr("dy", ".35em")
+    .style("text-anchor", "start")
+    .style("font-size", "12px")
+    .text(function(d) { return d; });
 
   var tooltip = svg.append("g")
     .attr("class", "tooltip1")
     .style("display", "none");
       
   tooltip.append("rect")
-  //  .attr("width", )
-   // .attr("height", 20)
     .attr("fill", "red")
     .style("opacity", 0.5);
 
@@ -265,9 +231,5 @@ var drawGraph = function(el, data, problemNames) {
     .style("text-anchor", "middle")
     .attr("font-size", "12px")
     .attr("font-weight", "bold")
-    
-
 };
-
-
 export default drawGraph;

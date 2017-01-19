@@ -3,16 +3,18 @@ var ReactDOM = require('react-dom');
 import drawGraph from './svg.jsx';
 import graphTotalWins from './graphtotalWins.jsx'
 import graphCompareScores from './graphCompareScores.jsx'
+import Axios from 'axios';
 var moment = require('moment');
 
 class Graph extends React.Component {
-  constructor(props) {
-   super(props);
-   this.state = {
-    dataSet : [],
-   };
-  }
-  getDataSingleUser(functionName,dataSet) {
+   constructor(props) {
+     super(props);
+     this.state = {
+      dataSet : [],
+     };
+   }
+ 
+  getDataSingleUser(dataSet) {
     // console.log((dataSet));
    var data = [];
    var currentTime =  moment(new Date());
@@ -25,31 +27,21 @@ class Graph extends React.Component {
    dataSet = dataSet.sort(function(a, b) {
      return b.compDate - a.compDate;
    });
-    
    dataSet.forEach(function(element) {
-    if(functionName === "previousWeek"){
-      if(currentTime.diff(moment(element.compDate),'days') < 7 ){
+     if(currentTime.diff(moment(element.compDate),'days') <= 7 ){
        element.compDate = moment(element.compDate).format('MM-DD-YYYY');
        data.push(element);
-      }
-    } else {
-      if(functionName === "totalWins") {
-        if(currentTime.diff(moment(element.compDate),'days') < 20 ){
-         element.compDate = moment(element.compDate).format('MM-DD-YYYY');
-         data.push(element);
-        }
-      }
-    }
-     
+     }
    });
-     return data;
+   return data;
    }
   
    componentDidMount() {
      var el = ReactDOM.findDOMNode(this);
-     var data = this.getDataSingleUser("previousWeek",this.props.dataSet.slice());
+     var data = context.getDataSingleUser(this.props.dataSet);
      drawGraph(el, data);
    }
+
    //--------------------------------------------------------------------------------------------------//
     /* Before appending new graph we have to remove the one which is already created */
    //--------------------------------------------------------------------------------------------------//
@@ -57,17 +49,17 @@ class Graph extends React.Component {
      var el = ReactDOM.findDOMNode(this);
      var elem = document.getElementsByTagName("svg")[0];
      elem.parentNode.removeChild(elem);
-     var data = this.getDataSingleUser("previousWeek", this.props.dataSet);
-     drawGraph(el, data);
+     this.getDataSingleUser(dataSet);
+     drawGraph(el, dataSet);
    }
 
    drawGraphTotalWins(dataSet) {
-    var data = this.getDataSingleUser("totalWins",this.props.dataSet.slice());
-    var el = ReactDOM.findDOMNode(this);
-    var elem = document.getElementsByTagName("svg")[0];
-    elem.parentNode.removeChild(elem);
-    graphTotalWins(el, data);
+     var el = ReactDOM.findDOMNode(this);
+     var elem = document.getElementsByTagName("svg")[0];
+     elem.parentNode.removeChild(elem);
+     graphTotalWins(el, dataSet);
    }
+  
   
   drawGraphCompareScores(dataSet) {
     var el = ReactDOM.findDOMNode(this);
@@ -76,6 +68,7 @@ class Graph extends React.Component {
     graphCompareScores(el,dataSet);
   }
    
+   
    render() {
     return (
      <div>
@@ -83,7 +76,7 @@ class Graph extends React.Component {
         <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphTotalWins("totalWins")}> Show Total Number of wins</button>
+         onClick={() => this.drawGraphTotalWins(this.props.dataSet)}> Show Total Number of wins</button>
         <button
          className="btn btn-info btn-md"
          type="button"
@@ -91,7 +84,7 @@ class Graph extends React.Component {
          <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphMain("previousWeek")}> Previous Week </button>
+         onClick={() => this.drawGraphMain(this.state.dataSet)}> Previous Week </button>
       </div>
      </div>
     )
