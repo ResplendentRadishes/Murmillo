@@ -186,7 +186,8 @@ var allPassing = function (str) {
 //sends the code to a docker container to sandbox
 exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
   // handle user's submitted solution
-
+  // AWS server:    '54.202.48.170:8510'
+  // Digital Ocean: '162.243.153.240:8510';
   var codecheckAPI = '162.243.153.240:8510';
 
   socket.on('codeSubmission', function (userSolnObj) {
