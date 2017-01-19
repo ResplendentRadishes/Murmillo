@@ -4,7 +4,7 @@ var UserCompetitions = require('./userCompetitions.js');
 const competitions = 100;
 const users = 4;
 const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds per day
-const referenceDate = new Date('January 12, 2017 6:0:00').getTime();
+const referenceDate = new Date('January 14, 2017 6:0:00').getTime();
 
 var userCompetitions = [];
 
