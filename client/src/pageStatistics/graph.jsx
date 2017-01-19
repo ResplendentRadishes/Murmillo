@@ -46,12 +46,14 @@ var test2 = new Date("12/12/2014");
 
 var result_diff = moment(test1).diff(moment(test2), "days"); // 31
   */
+
    getDataSingleUser(dataSet) {
+    // console.log((dataSet));
      var data = [];
      var currentTime =  moment(new Date());
      var timeStart = currentTime.subtract(7,'days');
      dataSet = dataSet.map(function(element) {
-       element.compDate =  new Date(element.compDate);
+       element.compDate =  moment(new Date(element.compDate));
        return element;
      });
      
@@ -59,30 +61,35 @@ var result_diff = moment(test1).diff(moment(test2), "days"); // 31
        return b.compDate - a.compDate;
      });
     
-    
+     
+    // console.log("currentTime");console.log(currentTime);
      dataSet.forEach(function(element) {
-       if(currentTime.diff(moment(element.compDate),'days') < 20){
+      //  console.log("compDate");
+       //console.log(element.compDate);
+       if(currentTime.diff(moment(element.compDate),'days') < 25){
         element.compDate = moment(element.compDate).format('MM-DD-YYYY');
         data.push(element);
        }
     });
-     this.setState({dataSet: data});
+     //this.setState({dataSet: data});
+     return data;
    }
   
    componentDidMount() {
-      let context = this;
-     Axios.get('/user/stats/1')
-     .then(res => {
-       context.getDataSingleUser(res.data);
-      var el = ReactDOM.findDOMNode(context);
+     //  let context = this;
+     // Axios.get('/user/stats/1')
+     // .then(res => {
+     //   context.getDataSingleUser(res.data);
+     //  var el = ReactDOM.findDOMNode(context);
        
-     // drawGraph(el, context.state.dataSet.slice() , context.props.problemNames.slice());
-     drawGraph(el);
-     });
+     // // drawGraph(el, context.state.dataSet.slice() , context.props.problemNames.slice());
+     // drawGraph(el);
+     // });
      //------------------------------------------------ use the below code later---------------------//
-     //let context = this;
-     // var el = ReactDOM.findDOMNode(context);
-     // drawGraph(el, this.props.dataSet.slice());
+     let context = this;
+     var el = ReactDOM.findDOMNode(context);
+     var data = context.getDataSingleUser(this.props.dataSet);
+     drawGraph(el, data);
 
      
    }
@@ -118,19 +125,20 @@ var result_diff = moment(test1).diff(moment(test2), "days"); // 31
    render() {
     return (
      <div>
-      
-      <button
-       className="btn btn-info btn-md"
-       type="button"
-       onClick={() => this.drawGraphTotalWins(this.props.dataSet)}> Show Total Number of wins</button>
-      <button
-       className="btn btn-info btn-md"
-       type="button"
-       onClick={() => this.drawGraphCompareScores(this.state.dataSet)}> Compare Scores </button>
-       <button
-       className="btn btn-info btn-md"
-       type="button"
-       onClick={() => this.drawGraphMain(this.state.dataSet)}> Previous Week </button>
+      <div className="buttons">
+        <button
+         className="btn btn-info btn-md"
+         type="button"
+         onClick={() => this.drawGraphTotalWins(this.props.dataSet)}> Show Total Number of wins</button>
+        <button
+         className="btn btn-info btn-md"
+         type="button"
+         onClick={() => this.drawGraphCompareScores(this.state.dataSet)}> Compare Scores </button>
+         <button
+         className="btn btn-info btn-md"
+         type="button"
+         onClick={() => this.drawGraphMain(this.state.dataSet)}> Previous Week </button>
+      </div>
      </div>
     )
   }

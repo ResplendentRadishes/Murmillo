@@ -4,10 +4,7 @@
    border: none;
 }
 
-.tooltip {
-    display: inline;
-    color: black;
-    background-color: yellow;
-    width: 100px;
-    height: 100px;
+
+.buttons {
+  padding-top: 20px;
 }
