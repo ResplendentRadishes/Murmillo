@@ -6,6 +6,40 @@ var Competition = require('../db/Competition.js');
 var Problem = require('../db/Problem.js');
 var UserStat = require('../db/userStat.js');
 
+const getUserStats = userId => {
+  let userStats = [];
+  return UserCompetitions.findAll({ where: { userId: userId } })
+  .then(userCompetitions => {
+    userCompetitions.forEach(userCompetition => {
+      userStats.push({ winner: userCompetition.dataValues.winner, compDate: userCompetition.dataValues.compDate || userCompetition.dataValues.createdAt })
+    });
+    return Promise.all(userCompetitions.map(userCompetition => {
+      return Competition.find({ where: { id: userCompetition.dataValues.competitionId } });
+    }));
+  })
+  .then(competitions => {
+    return Promise.all(competitions.map(competition => {
+      return Problem.find({ where: { id: competition.dataValues.problemId } });
+    }));
+  })
+  .then(problems => {
+    var response;
+    problems.forEach((problem, index) => {
+      if (problem.dataValues.title === 'simple function 1') {
+        response = 'easy';
+      } else if (problem.dataValues.title === 'simple function 2') {
+        response = 'medium';
+      } else if (problem.dataValues.title === 'simple function 3') {
+        response = 'hard';
+      }
+      userStats[index].problemLevel = response;
+    });
+    return userStats;
+  })
+  .catch(err => {
+    console.log(err);
+  });
+};
 
 module.exports.logout = function (req, res) {
   req.logout();
@@ -22,44 +56,14 @@ module.exports.getSession = function (req, res) {
     User.find({ where: id })
     .then(user => {
       newUser = user.dataValues;
-      return UserCompetitions.findAll({ where: { userId: newUser.id } });
-    })
-    .then(array => {
-      let compArrayIds = [];
-      array.forEach(record => {
-        statsArray.push({ winner: record.dataValues.winner, compDate: record.dataValues.createdAt })
-        compArrayIds.push(record.dataValues.id);
+      return getUserStats(newUser.id)
+      .then(userStats => {
+        newUser.userStats = userStats;
+        return newUser;
       });
-      newUser.userStats = statsArray;
-      return compArrayIds;
     })
-    .then(idArray => {
-      return Promise.all(idArray.map((id) => {
-        return Competition.find({ where: { Id: id } })
-      }));
-    })
-    .then(competitions => {
-      let problemIds = [];
-      competitions.forEach(competition => {
-        problemIds.push(competition.dataValues.problemId);
-      })
-      return Promise.all(problemIds.map((id) => {
-        return Problem.find({ where: { Id: id } })
-      }));
-    })
-    .then(problems => {
-      var response;
-      problems.forEach((problem, index) => {
-        if (problem.dataValues.title === 'simple function 1') {
-          response = 'easy';
-        } else if (problem.dataValues.title === 'simple function 2') {
-          response = 'medium';
-        } else if (problem.dataValues.title === 'simple function 3') {
-          response = 'hard';
-        }
-        newUser.userStats[index].problemLevel = response;
-      });
-      res.json(newUser);
+    .then(user => {
+      return res.json(user);
     })
     .catch(err => {
       console.log(err);
@@ -83,36 +87,42 @@ module.exports.updateUser = function (req, res) {
 }
 
 module.exports.updateScore = function (req, res) {
-  User.find({ where: { id: req.params.id } })
-  .then(user => {
-    wins = req.body.winner ? 1 : 0;
-    score = Number(req.body.score);
-    let stats = {
-      wins: user.dataValues.wins + wins,
-      games: user.dataValues.games + 1,
-      score: user.dataValues.score + score
-    };
-    return user.updateAttributes(stats)
-  })
-  .then(user => {
-    return res.json(user);
-  })
-  .catch(err => {
-    console.log(err);
+  var newUser = {};
+  Competition.create({ problemId: req.body.problemId })
+  .then ((competition) => {
+    UserCompetitions.create({ 
+      competitionId: competition.id,
+      userId: req.params.id,
+      winner: req.body.winner || false
+    })
+    User.find({ where: { id: req.params.id } })
+    .then(user => {
+      wins = req.body.winner ? 1 : 0;
+      score = Number(req.body.score);
+      let stats = {
+        wins: user.dataValues.wins + wins,
+        games: user.dataValues.games + 1,
+        score: user.dataValues.score + score
+      };
+      return user.updateAttributes(stats)
+    })
+    .then(user => {
+      newUser = user.dataValues;
+      return getUserStats(user.id)
+      .then(userStats => {
+        newUser.userStats = userStats;
+        console.log('newUser', newUser);
+        return newUser;
+      });
+    })
+    .then(user => {
+      return res.json(newUser);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   })
 }
-
-// deprecated
-module.exports.getUser = function (req, res) {
-  User.find({ where: { githubId: req.params.id } })
-  .then(user => {
-    return res.json(user.dataValues);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-}
-
 
 // serving fake compData ----------------------------------
 module.exports.getUserStats = function (req, res) {
