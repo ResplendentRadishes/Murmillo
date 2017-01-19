@@ -35,18 +35,13 @@ var nimmy = {
 var initialUsers = [vernon, yoshi, robert, nimmy];
 
 console.log('------------------- Populate User table ------------------- ');
+
 User.sync()
-  .then(() => {
-    return Promise.all(initialUsers.map(user => {
-      return User.create({
-        githubId: user.githubId,
-        email: user.email,
-        githubUrl: user.githubUrl,
-        username: user.username,
-        avatarUrl: user.avatarUrl
-      })
-    }));
-  })
-  .catch(function(err) {
-    console.error(err);
-  });
+.then(() => {
+  return Promise.all(initialUsers.map(user => {
+    return User.create(user)
+  }));
+})
+.catch(function(err) {
+  console.error(err);
+});

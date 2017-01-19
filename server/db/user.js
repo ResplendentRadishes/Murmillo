@@ -7,9 +7,7 @@ var User = db.define('user', {
   githubUrl: Sequelize.STRING,
   username: Sequelize.STRING,
   avatarUrl: Sequelize.STRING,
-  score: { type: Sequelize.INTEGER, defaultValue: 0 },
-  games: { type: Sequelize.INTEGER, defaultValue: 0 },
-  wins: { type: Sequelize.INTEGER, defaultValue: 0 }
+  score: { type: Sequelize.INTEGER, defaultValue: 0 }
 });
 
 module.exports = User;
