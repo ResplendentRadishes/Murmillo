@@ -31,9 +31,10 @@ var initialProblems = [data1, data2, data3];
 
 // ===============================================
 // This block of codes will initailizes the database with the data above
-// force:true will drop table first before creating them
 
-Problem.sync({ force: true })
+console.log('------------------- Populate Problem tables ------------------- ');
+
+Problem.sync()
   // 1) create tables using initial problems above
   // (use Promise.all for an array of problems)
   .then(function() {

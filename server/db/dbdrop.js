@@ -4,19 +4,17 @@ var Competition = require('./competition.js');
 var UserCompetitions = require('./userCompetitions.js');
 // ==================================================
 
-console.log('------------------- Define all tables ------------------- ');
-// define all tables
-Problem.sync()
-  .then(function(problem){
-    return User.sync();
-  })
-  .then(function(user){
-    return Competition.sync();
+console.log('------------------- Drop all tables ------------------- ');
+UserCompetitions.drop()
+  .then(function(){
+    return Competition.drop();
   })
   .then(function(){
-    return UserCompetitions.sync();
+    return User.drop();
+  })
+  .then(function(){
+    return Problem.drop();
   })
   .catch(function(err) {
     console.log(err);
   });
-
