@@ -12,7 +12,8 @@ var Sequelize = require('sequelize');
 // DB config setup
 // database = 'murmillo' | username = 'root' | password = 'samnite'
 var db = new Sequelize('murmillo', 'root', 'samnite', {
-  host: 'mysql',
+  //change password to '' when running outside of docker
+  host: 'mysql', //change host to 'localhost' to run outside of docker
   dialetc: 'mysql'
 });
 

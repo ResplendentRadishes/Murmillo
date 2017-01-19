@@ -24,10 +24,25 @@
 - Node 6.9.1
 - NPM 3.10.8
 - Docker 1.12.5
-- MySQL 
+- MySQL
 - See Package.json for other frameworks and libraries used
 
 ## Development
+
+To set up the composed Docker containers
+
+for murmillo-main:
+npm run build
+npm run build-image
+
+for murmillo-code:
+cd server/docker/codeCheck
+npm run build-image
+
+for composed containers:
+docker-compose up
+docker exec murmillo_db_1 npm run dbinit
+
 ### Installing Dependencies
 From within the root directory:
 ```sh
@@ -38,7 +53,7 @@ From within the root directory:
 ```sh
 npm run dbinit
 ```
-### Start a Main Server 
+### Start a Main Server
 From within the root directory:
 ```sh
 node server/index.js
@@ -57,5 +72,3 @@ View the project roadmap [here](https://github.com/ResplendentRadishes/Murmillo/
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-
-
