@@ -5,18 +5,8 @@
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
     "test": "mocha ./test --compilers js:babel-core/register",
-<<<<<<< afe2e0ed1e12c60cf909b27bb91fc68d1bf9af26
     "dbcreate": "mysql -u root < server/schema.sql",
-    "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetition.js",
-=======
-    "dbinit": "npm run drop && npm run competition && npm run user-competitions",
-    "drop": "node server/db/dbinit.js",
-    "user": "node server/db/db_populateUser.js",
-    "problem": "node server/db/db_problemGenerator.js",
-    "competition": "node server/db/db_populateCompetition.js",
-    "user-competitions": "node server/db/db_populateUserCompetitions.js",
-    "dbinit2": "node server/db/db_userStatsGenerator.js",
->>>>>>> (feat) read games and wins from records
+    "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetitions.js",
     "start": "nodemon ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p"
