@@ -208,7 +208,7 @@ exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
 
         if (inTime) {
           socket.emit('codeSubmission', {
-            allPassing: allPassing(result),     //bolean
+            allPassing: allPassing(result),     //boolean
             resultMsg: 'Your Result: '+result   //string
           });
           socket.broadcast.emit('compUpdate', username+': '+result);
@@ -216,14 +216,15 @@ exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
           // if correct soln, update user's score
           if ( allPassing(result) ) {
             socket.emit('scoreUpdate', {
-              winner: true,                     //boolean
-              score: 5,                         //number
+              winner: true,                          //boolean
+              score: 5,                              //number
+              problemId: gameInfoForRoom.problem.id, //number
             });
           }
 
         } else {
           socket.emit('codeSubmission', {
-            allPassing: allPassing(result),     //bolean
+            allPassing: allPassing(result),     //boolean
             resultMsg: 'Your Result: '+result   //string
           });
         }

@@ -100,7 +100,7 @@ class Arena extends React.Component {
               <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
                 Go To Previuos Page?
               </Link>
-              <Link to='/signup' className='btn btn-info btn-primary btn-md'>
+              <Link to='/stats' className='btn btn-info btn-primary btn-md'>
                 Go To Your Stats Page?
               </Link>
             </div>
