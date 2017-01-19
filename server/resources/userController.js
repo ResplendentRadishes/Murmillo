@@ -113,10 +113,9 @@ module.exports.updateScore = function (req, res) {
     })
     .then(user => {
       newUser = user.dataValues;
-      return getUserStats(user.id)
+      return getUserStats(newUser.id)
       .then(userStats => {
         newUser.userStats = userStats;
-        console.log('newUser', newUser);
         return newUser;
       });
     })
