@@ -98,7 +98,7 @@ class Arena extends React.Component {
             <div className="panel-heading">
               <h4 style={popupStyle}>You Completed the Problem</h4>
               <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
-                Go To Previuos Page?
+                Go To Previous Page?
               </Link>
               <Link to='/stats' className='btn btn-info btn-primary btn-md'>
                 Go To Your Stats Page?
@@ -117,9 +117,9 @@ class Arena extends React.Component {
             <div className="panel-heading">
               <h4 style={popupStyle}>Competition has ended. You can continue to work on the problem if you would like</h4>
               <Link to='/dashboard' className='btn btn-success btn-primary btn-md'>
-                Go To Previuos Page?
+                Go To Previous Page?
               </Link>
-              <Link to='/signup' className='btn btn-info btn-primary btn-md'>
+              <Link to='/stats' className='btn btn-info btn-primary btn-md'>
                 Go To Your Stats Page?
               </Link>
             </div>
