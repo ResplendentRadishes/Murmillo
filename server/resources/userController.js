@@ -105,7 +105,7 @@ module.exports.updateScore = function (req, res) {
     })
     User.find({ where: { id: req.params.id } })
     .then(user => {
-      score = Number(req.body.score);
+      score = req.body.score ? Number(req.body.score) : 0;
       let stats = {
         score: user.dataValues.score + score
       };
