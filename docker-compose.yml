@@ -15,7 +15,7 @@ services:
     links:
       - mysql
   mysql: # name of the third service
-    image: rmaierlit/murmillo-db:latest
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: samnite
       MYSQL_DATABASE: murmillo
