@@ -4,12 +4,12 @@ var UserCompetitions = require('./userCompetitions.js');
 const competitions = 100;
 const users = 4;
 const msPerDay = 24 * 60 * 60 * 1000; // Number of milliseconds per day
-const referenceDate = new Date('December 6, 2016 6:0:00').getTime();
+const referenceDate = new Date('January 12, 2017 6:0:00').getTime();
 
 var userCompetitions = [];
 
 for (var i = 0; i < competitions; i++) {
-  var randTime = Math.floor(Math.random()*30);
+  var randTime = Math.floor(Math.random()*7);
   var randDate = referenceDate + randTime * msPerDay;
   var winner = Math.floor(Math.random() * 4);
   for (var j = 0; j < users; j++) {
