@@ -3,5 +3,11 @@
 .statistics {
    border: none;
 }
-svg{
-  }
+
+.tooltip {
+    display: inline;
+    color: black;
+    background-color: yellow;
+    width: 100px;
+    height: 100px;
+}

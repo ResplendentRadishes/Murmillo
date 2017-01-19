@@ -75,8 +75,9 @@ var result_diff = moment(test1).diff(moment(test2), "days"); // 31
      .then(res => {
        context.getDataSingleUser(res.data);
       var el = ReactDOM.findDOMNode(context);
-       console.log(res.data);
-      drawGraph(el, context.state.dataSet.slice() , context.props.problemNames.slice());
+       
+     // drawGraph(el, context.state.dataSet.slice() , context.props.problemNames.slice());
+     drawGraph(el);
      });
      //------------------------------------------------ use the below code later---------------------//
      //let context = this;
