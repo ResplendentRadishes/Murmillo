@@ -31,7 +31,6 @@ var initialProblems = [data1, data2, data3];
 
 // ===============================================
 // This block of codes will initailizes the database with the data above
-
 console.log('------------------- Populate Problem tables ------------------- ');
 
 Problem.sync()
