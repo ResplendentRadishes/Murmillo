@@ -16,29 +16,33 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
+ 
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
+  > Murmillo is a real-time competition-based programming platform where users can compete with one another on various coding challenges. Using Murmillo makes learning more collaborative, competitive, and fun!
+ 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
-
+  > Murmillo is for programmers for all levels. Users can select problem types, difficulty levels, and number of players in coding challenges.
+ 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
+  > Learning programming is an arduous task, especially if you are doing it by yourself.  Murmillo brings excitement and collaboration to the learning experience by creating a space where programmers can compete and learn from one another.
+ 
 ## Problem ##
-  > Describe the problem your product solves.
-
+  > On many coding challenge platforms, users are simply given problems to solve with little guidance and support from the community. These sites often do not provide users any insights on their performance.
+ 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
-
+  > Murmillo facilitates collaborative learning by providing a space where users can compete on coding challenges and learn from one another.  Users can communicate with other users in chat rooms before and after coding competitions, and we encourage sharing of knowledge and technique. Murmillo also keeps a track of all competitions, and users can visualize their performance metrics.
+ 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
-
+  > We believe that learning is ineffective unless it's exciting and fun.  Murmillo is a collaborative space where users can improve their technical skills and learn how to solve problems quickly.  
+ 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
-
+  > Getting started is super easy.  All you need is a GitHub account to register for our services. You can start competing in minutes.
+ 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-
+  > From User A: "Solving coding challenges under pressure was exactly the preparation I needed for my programming job interview. Murmillo will not only improve your programming skills, but also your ability to solve problems quickly!"
+ 
+  > From User B: " Murmillo enabled me to see how I stack against other coders, a metric many other sites are missing. Plus it's super fun working on competitive coding challenges with other people."
+ 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Vist www.murmillo-hr51.com (we actually don't have a domain name yet).  Registering for our service is quick and easy. Bring your A-game to the Murmillo competitions!
+
