@@ -18,7 +18,7 @@
 1. [Contributing](#contributing)
 
 ## ArchitectureDiagram
-![murmillo_architecture](https://cloud.githubusercontent.com/assets/20877349/22123477/979e9578-de40-11e6-8190-d7ce8ab57cea.jpg)
+![screen shot 2017-01-20 at 9 08 30 am](https://cloud.githubusercontent.com/assets/20877349/22158223/17b1e1de-def0-11e6-9c82-ef0110362211.png)
 
 ## Requirements
 - Node 6.9.1
