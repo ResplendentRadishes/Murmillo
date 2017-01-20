@@ -5,6 +5,7 @@
   "main": "\u001b[D\u001b[D\u001b[C\u001b[C\u001b[C\u001b[Dindex.jsx",
   "scripts": {
     "test": "mocha ./test --compilers js:babel-core/register",
+    "test-tests": "mocha ./test/mochaCheckerTest/mochaCheckerSpec.js",
     "dbcreate": "mysql -u root < server/schema.sql",
     "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetitions.js",
     "start": "node ./server/index.js",
