@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server/server.js",
     "make-image": "docker build -t code-check:dev .",
-    "container": "docker run -d --name code-check -p 8510:8510 code-check:dev"
+    "container": "docker run -d --name code-check -p 8510:8510 rmaierlit/murmillo"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
