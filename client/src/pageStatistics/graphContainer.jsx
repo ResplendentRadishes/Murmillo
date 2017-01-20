@@ -9,9 +9,11 @@ var modifyDataSet = function(dataSet, problemNames) {
    });
    return dataSet;
 }
+
 const mapStateToProps = (state) => {
   return {
-    dataSet: state.user.userStats                           //state.dataSet
+    username: state.user.username,
+    dataSet: state.user.userStats
   }
 }
 
@@ -22,13 +24,13 @@ const GraphContainer = connect(
 export default GraphContainer;
 //should be passing ageNames and modified data as props to graph;
 /*
- 
+
 var ageNames(here problemNames) = ['totalpbls', 'wins'];
 //i =0
 // d = [States,    totalProblems ,   totalWins]
    // d.ages =  [{name: "totalProblems", value: 101}]
 
-var data = [ 
+var data = [
              {
               "date" : "4/7/2016", //state
               "totalpbls": 101, "wins": 100

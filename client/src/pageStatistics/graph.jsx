@@ -12,6 +12,7 @@ class Graph extends React.Component {
     dataSet : [],
    };
   }
+
   getDataSingleUser(functionName,dataSet) {
     // console.log((dataSet));
    var data = [];
@@ -21,11 +22,11 @@ class Graph extends React.Component {
      element.compDate =  moment(new Date(element.compDate));
      return element;
    });
-   
+
    dataSet = dataSet.sort(function(a, b) {
      return b.compDate - a.compDate;
    });
-    
+
    dataSet.forEach(function(element) {
     if(functionName === "previousWeek"){
       if(currentTime.diff(moment(element.compDate),'days') < 7 ){
@@ -40,11 +41,11 @@ class Graph extends React.Component {
         }
       }
     }
-     
+
    });
      return data;
    }
-  
+
    componentDidMount() {
      var el = ReactDOM.findDOMNode(this);
      var data = this.getDataSingleUser("previousWeek",this.props.dataSet.slice());
@@ -68,14 +69,14 @@ class Graph extends React.Component {
     elem.parentNode.removeChild(elem);
     graphTotalWins(el, data);
    }
-  
-  drawGraphCompareScores(dataSet) {
+
+  drawGraphCompareScores(dataSet, username) {
     var el = ReactDOM.findDOMNode(this);
     var elem = document.getElementsByTagName("svg")[0];
     elem.parentNode.removeChild(elem);
-    graphCompareScores(el,dataSet);
+    graphCompareScores(el, dataSet, username);
   }
-   
+
    render() {
     return (
      <div>
@@ -83,15 +84,21 @@ class Graph extends React.Component {
         <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphTotalWins("totalWins")}> Show Total Number of wins</button>
+         onClick={() => this.drawGraphTotalWins("totalWins")}>
+            Show Total Number of Wins
+        </button>
         <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphCompareScores(this.state.dataSet)}> Compare Scores </button>
-         <button
+         onClick={() => this.drawGraphCompareScores(this.props.dataSet.slice(), this.props.username)}>
+            Compare Scores
+        </button>
+        <button
          className="btn btn-info btn-md"
          type="button"
-         onClick={() => this.drawGraphMain("previousWeek")}> Previous Week </button>
+         onClick={() => this.drawGraphMain("previousWeek")}>
+            Previous Week
+        </button>
       </div>
      </div>
     )

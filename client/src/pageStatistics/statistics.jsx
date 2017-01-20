@@ -11,7 +11,7 @@ const Statistics = (props) => (
       <div className="col-md-9">
         <GraphContainer />
       </div>
-    
+
     </div>
   </div>
 );

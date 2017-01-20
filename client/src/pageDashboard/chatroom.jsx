@@ -86,7 +86,7 @@ class Chatroom extends React.Component {
           {/* ------ ChatRoomHeading ------ */}
           <div className="panel-heading">
             <div className="row">
-              <div className="col-md-9">
+              <div className="col-md-8">
                 <div> { 'You are currently in room: '
                         + this.props.room.name.toUpperCase() } </div>
                 <div style={pStyle}>
@@ -101,7 +101,7 @@ class Chatroom extends React.Component {
                   </div> }
 
               </div>
-              <div className="col-md-3">
+              <div className="col-md-4">
                 <button
                   className="btn btn-success btn-md"
                   onClick={this.handleReadyButton}
