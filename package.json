@@ -11,7 +11,7 @@
     "start": "node ./server/index.js",
     "dev": "webpack -d --watch",
     "build": "webpack -p",
-    "build-image": "docker build -t rmaierlit/murmillo-main ."
+    "make-image": "docker build -t rmaierlit/murmillo-main ."
   },
   "repository": {
     "type": "git",

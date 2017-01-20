@@ -19,6 +19,7 @@ describe('mochaChecker', function() {
       );
     }
     catch(error) {
+      console.log('there is an error');
       cb(error);
     }
   };
@@ -58,5 +59,12 @@ describe('mochaChecker', function() {
     };
 
     mochaCheckTest('var solution = function(a,b){return b + a}', expectation);
+  })
+  xit('should abort infinite loops', function(done){
+    var expectation = function() {
+      done();
+    }
+
+    mochaCheckTest('var solution = function(a,b){while(true);}', expectation);
   })
 })

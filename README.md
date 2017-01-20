@@ -49,7 +49,7 @@ npm run build-image
 
 for murmillo-code:
 cd server/docker/codeCheck
-npm run build-image
+npm run make-image
 
 for composed containers:
 docker-compose up
