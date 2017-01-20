@@ -16,7 +16,7 @@ var drawGraph = function(el, data, problemNames) {
         newObj.winsTotal += 1;
       }
     }
-    else {// ----- if data is already sorted, this will only happens when new problemLevel is encountered ----//
+    else {// ----- if data is already sorted, this will only executed when new problemLevel is encountered ----//
       newObj = JSON.parse(JSON.stringify(newObj));
       newObj.date = element.compDate;
        if(element.winner){
@@ -42,12 +42,9 @@ var drawGraph = function(el, data, problemNames) {
   var x1 = d3.scaleBand();
   var y = d3.scaleLinear()
       .rangeRound([height, 0]);
-  //------------------------------------------------------------------------------------------//
-  //"totalpbls","medium","easy" ,"hard","winsTotal","winsmedium","winseasy","winshard"
-  //Above are the column headers. last four headers will be having the same color(#9D8884)
-  //------------------------------------------------------------------------------------------//
+  
   var color = d3.scaleOrdinal()
-    .range([ "#5dc3da", "#b2ab2e", '#60BD68', '#5da5da', "#b2972e", "#608cbd"]);//"#a05d56", 
+    .range([ "#5dc3da", "#b2ab2e", '#60BD68', '#6a71c4', "#b2972e", "#608cbd"]);//"#a05d56", 
   var xAxis = d3.axisBottom(x0);
   var yAxis = d3.axisLeft(y);
 
@@ -58,18 +55,6 @@ var drawGraph = function(el, data, problemNames) {
       .attr("class", "graphContainer")
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-//-------------------------------------------------------------------------------//
- // Create groups for each series, rects for each segment 
-// var groups = svg.selectAll("g.cost")
-//   .data(data)
-//   .enter().append("g")
-//   .attr("class", "cost")
-//   .style("fill", function(d, i) { return "yellow"; });
-
-
-//--------------------------------------------------------------//
 
  var yBegin;
  var innerColumns = {
@@ -142,7 +127,7 @@ var drawGraph = function(el, data, problemNames) {
   //-----------------------------Add title-----------------------------------------//
   svg.append("text")
         .attr("x", (width / 2))     
-        .attr("y", 0 - (margin.top / 2))
+        .attr("y", 0-(margin.top / 2))
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .style("text-decoration", "underline")
@@ -165,13 +150,13 @@ var drawGraph = function(el, data, problemNames) {
       })
       .attr("y", function(d) { 
         return y(d.yEnd); 
+        //return (y(d.yEnd) - 0.5);
       })
+      
       .attr("height", function(d) { 
         return y(d.yBegin) - y(d.yEnd); 
       })
       .style("fill", function(d) { return color(d.name); })
-      //.style("stroke", "black")
-      //.style("stroke-width", 2)
       .on("mouseover", function() {
         tooltip.style("display", 'inline'); 
       })
@@ -180,22 +165,27 @@ var drawGraph = function(el, data, problemNames) {
         tooltip.style("display", "none"); 
       })
       .on("mousemove", function(d, i) {
-        // var xPosition  = (d3.mouse(this)[0]);//- 15;
-        // var yPosition  = d3.mouse(this)[1] ;//- 25;
         tooltip.attr("transform", "translate(" + (width/2)+ "," + (height/8) + ")");
+        tooltip.style("font-size", "15px")
+      .transition().delay(function (d,i){ return i * 50;})
+      .duration(50);
 
     var getToolTipText = function(d) {
+      console.log(d.name);
       if(d.name === "hard") return ("Problem: Hard, Attempted: "+d.yEnd);
       if(d.name === "medium") return ("Problem: Medium, Attempted: "+d.yEnd);
       if(d.name === "easy") return ("Problem: Easy, Attempted: "+d.yEnd);
       if(d.name === "winshard") return ("Problem: Hard, Won: "+d.yEnd);
       if(d.name === "winsmedium") return ("Problem: Medium, Won: "+d.yEnd);
       if(d.name === "winseasy") return ("Problem: Easy, Won: "+d.yEnd);
+
     }
     tooltip.select("text").text(getToolTipText(d));
   });
+ 
  columnHeaders = ["Easy", "Medium", "Hard", "WinsEasy", "WinsMedium", "WinsHard"];
-   color.domain(columnHeaders);
+ color.domain(columnHeaders);
+
  var legend = svg.selectAll(".legend")
     .data(columnHeaders.slice())//.reverse()
     .enter().append("g")
@@ -204,16 +194,16 @@ var drawGraph = function(el, data, problemNames) {
    
 
  legend.append("rect")
-    .attr("x", width - 19)
+    .attr("x", width )
     .attr("width", 10)
     .attr("height", 10)
     .style("fill", color);
 
  legend.append("text")
-    .attr("x", width - 24)
+    .attr("x", width - 2)
     .attr("y", 9)
-    .attr("dy", ".35em")
-    .style("text-anchor", "start")
+    //.attr("dy", ".3em")
+    .style("text-anchor", "end")
     .style("font-size", "12px")
     .text(function(d) { return d; });
 
@@ -229,7 +219,7 @@ var drawGraph = function(el, data, problemNames) {
     .attr("x", 15)
     .attr("dy", "1.2em")
     .style("text-anchor", "middle")
-    .attr("font-size", "12px")
+    .style("font-size", "18px")
     .attr("font-weight", "bold")
 };
 export default drawGraph;
