@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 passport.use(new GithubStrategy({
   clientID: 'd8bdf2c7dfe8d2f386df',
   clientSecret: '453a911dc3499b393cfae15c5b6983887e653c2d',
-  callbackURL: 'http://localhost:3000/auth/github/callback'
+  callbackURL: 'http://54.202.48.170:3000/auth/github/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     return done(null, {

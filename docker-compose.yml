@@ -12,8 +12,6 @@ services:
     image: rmaierlit/murmillo-code:latest
     ports:
       - "8510:8510" # specify port forewarding
-    links:
-      - mysql
   mysql: # name of the third service
     image: mysql:5.7
     environment:

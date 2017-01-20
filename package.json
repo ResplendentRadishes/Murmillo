@@ -9,7 +9,8 @@
     "dbinit": "node server/db/dbdrop.js && node server/db/dbinit.js && node server/db/db_problemGenerator && node server/db/db_populateUser.js && node server/db/db_populateCompetition.js && node server/db/db_populateUserCompetitions.js",
     "start": "node ./server/index.js",
     "dev": "webpack -d --watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "build-image": "docker build -t rmaierlit/murmillo-main ."
   },
   "repository": {
     "type": "git",

@@ -177,16 +177,18 @@ var allPassing = function (str) {
   // str = '0 out of 3 passing.';  // match = [ '0', '3' ];
   var myReg = /\d/g;
   var match = str.match(myReg);
-  if(match[0] === match[1]) { return true; }
+  if(match !== null && match[0] === match[1]) { return true; }
   return false;
 };
 
 //sends the code to a docker container to sandbox
 exports.handleSubmitSolution = function(socket, gameInfoForRoom) {
   // handle user's submitted solution
+
   // AWS server:    '54.202.48.170:8510'
   // Digital Ocean: '162.243.153.240:8510';
-  var codecheckAPI = '162.243.153.240:8510';
+  // docker-compose container: 'codeserver:8510'
+  var codecheckAPI = 'codeserver:8510';
 
   socket.on('codeSubmission', function (userSolnObj) {
     var userSoln = userSolnObj.userSoln;
