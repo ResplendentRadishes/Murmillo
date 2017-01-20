@@ -11,7 +11,7 @@ var userRouter = require('./resources/userRouter.js');
 var userController = require('./resources/userController.js');
 var app = express();
 
-var ip = process.env.ip || 'localhost';
+var ip = process.env.IP || '54.213.53.218';
 
 app.use(cors());
 // ===============================================
