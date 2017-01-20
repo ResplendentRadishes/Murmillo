@@ -17,6 +17,18 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
+
+## Usage
+> hit that start button!!!
+> log in with github
+> click on a room
+> you can send messages and see who else is in the room
+> click ready if you are ready to start
+> when all users in the room have clicked ready, the match will begin
+> type code that meets the listed requirements
+> if you pass the test within the time limit, you get points
+> the first one to get passing code will get more points
+
 ## ArchitectureDiagram
 ![screen shot 2017-01-20 at 9 08 30 am](https://cloud.githubusercontent.com/assets/20877349/22158223/17b1e1de-def0-11e6-9c82-ef0110362211.png)
 
@@ -41,7 +53,7 @@ npm run build-image
 
 for composed containers:
 docker-compose up
-docker exec murmillo_db_1 npm run dbinit
+docker exec [name of mainserver container] run dbinit
 
 ### Installing Dependencies
 From within the root directory:
